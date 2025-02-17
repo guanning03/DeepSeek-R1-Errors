@@ -1,0 +1,2489 @@
+Tokens: 25665.333333333332
+
+Question:
+Let $T$ be the set of all triples $(a,b,c)$ of positive integers for which there exist triangles with side lengths $a,$ $b,$ $c.$  Compute
+\[\sum_{(a,b,c) \in T} \frac{2^a}{3^b 5^c}.\]
+
+Correct Answer:
+For a triangle with side lengths $a,$ $b,$ $c,$ let $s = \frac{a + b + c}{2},$ and let
+\begin{align*}
+x &= s - a = \frac{-a + b + c}{2}, \\
+y &= s - b = \frac{a - b + c}{2}, \\
+z &= s - c = \frac{a + b - c}{2}.
+\end{align*}By the Triangle Inequality, $x,$ $y,$ and $z$ are all positive.  (This technique is often referred to as the Ravi Substitution.)  Note that
+\begin{align*}
+a &= y + z, \\
+b &= x + z, \\
+c &= x + y.
+\end{align*}If $s$ is even, then $x,$ $y,$ and $z$ are all positive integers.  So, we can set $x = i,$ $y = j,$ and $z = k,$ which gives us the parameterization $(a,b,c) = (j + k, i + k, i + j).$
+
+If $s$ is odd, then $x,$ $y,$ and $z$ are all of the form $n - \frac{1}{2},$ where $n$ is a positive integer.  So, we can set $x = i - \frac{1}{2},$ $y = j - \frac{1}{2},$ and $z = k - \frac{1}{2}.$  This gives us the parameterization $(a,b,c) = (j + k - 1, i + k - 1, i + j - 1).$
+
+Thus, our sum is
+\begin{align*}
+\sum_{(a,b,c) \in T} \frac{2^a}{3^b 5^c} &= \sum_{i = 1}^\infty \sum_{j = 1}^\infty \sum_{k = 1}^\infty \left( \frac{2^{j + k}}{3^{i + k} 5^{i + j}} + \frac{2^{j + k - 1}}{3^{i + k - 1} 5^{i + j - 1}} \right) \\
+&= \sum_{i = 1}^\infty \sum_{j = 1}^\infty \sum_{k = 1}^\infty \left( \frac{2^{j + k}}{3^{i + k} 5^{i + j}} + \frac{15}{2} \cdot \frac{2^{j + k}}{3^{i + k} 5^{i + j}} \right) \\
+&= \frac{17}{2} \sum_{i = 1}^\infty \sum_{j = 1}^\infty \sum_{k = 1}^\infty \frac{2^{j + k}}{3^{i + k} 5^{i + j}} \\
+&= \frac{17}{2} \sum_{i = 1}^\infty \frac{1}{15^i} \sum_{j = 1}^\infty \left( \frac{2}{5} \right)^j \sum_{k = 1}^\infty \left( \frac{2}{3} \right)^k \\
+&= \frac{17}{2} \cdot \frac{1/15}{1 - 1/15} \cdot \frac{2/5}{1 - 2/5} \cdot \frac{2/3}{1 - 2/3} \\
+&= \boxed{\frac{17}{21}}.
+\end{align*}
+
+Wrong Answer:
+Okay, so I have this problem where I need to compute the sum over all triples (a, b, c) of positive integers such that there exists a triangle with side lengths a, b, c. The sum itself is \(\sum_{(a,b,c) \in T} \frac{2^a}{3^b 5^c}\). Hmm, that sounds a bit complicated, but let me try to break it down step by step.
+
+First, I know that for three lengths to form a triangle, they must satisfy the triangle inequality. That is, each side must be less than the sum of the other two. So, for a, b, c to form a triangle, they must satisfy:
+
+1. \(a + b > c\)
+2. \(a + c > b\)
+3. \(b + c > a\)
+
+Since a, b, c are positive integers, these inequalities will impose certain restrictions on the possible values of a, b, c. Now, the sum is over all such triples (a, b, c), so I need to find a way to express this sum in terms of known series or something that can be evaluated.
+
+Let me think about how to approach this. Maybe I can fix one variable and express the others in terms of it? Or perhaps use generating functions? I remember that generating functions are often useful in problems involving sums over multiple variables with constraints.
+
+So, let me consider the sum over all valid triples (a, b, c). Each term in the sum is \(\frac{2^a}{3^b 5^c}\). So, it's like a product of three separate sums, each corresponding to one of the variables a, b, c. But wait, the constraints are interdependent, so I can't just factor it like that. Hmm, that complicates things.
+
+Wait, maybe I can rewrite the condition for the triangle inequalities in terms of exponents. Let me think about how a, b, c relate. For each inequality:
+
+1. \(a + b > c\)
+2. \(a + c > b\)
+3. \(b + c > a\)
+
+If I add these three inequalities together, I get:
+
+\(2(a + b + c) > a + b + c\), which simplifies to \(a + b + c > 0\). Which is always true since a, b, c are positive integers. So, that doesn't really help.
+
+Alternatively, maybe I can express the constraints in terms of the ratios of a, b, c. If I let x = a, y = b, z = c, then the triangle inequalities become:
+
+1. x + y > z
+2. x + z > y
+3. y + z > x
+
+But that still seems too vague. Maybe I need to bound each variable.
+
+Suppose I fix c, then a and b have to satisfy a + b > c. Similarly, for fixed a and c, b has to be greater than |a - c|. Since a, b, c are positive integers, that translates to b > |a - c|.
+
+But this seems messy. Maybe I can model this as a generating function where each variable is treated independently, but with constraints.
+
+Alternatively, I recall that for problems involving sums over lattice points in regions defined by inequalities, generating functions can be a powerful tool. Maybe I can construct a generating function where each variable is included or excluded based on the triangle inequalities.
+
+Let me try to formalize this. Let me denote the generating function as:
+
+\(G(x, y, z) = \sum_{a, b, c} \frac{2^a}{3^b 5^c} \cdot \chi(a, b, c)\),
+
+where \(\chi(a, b, c)\) is 1 if a, b, c satisfy the triangle inequalities and 0 otherwise.
+
+So, my goal is to compute \(G(2, 1/3, 1/5)\). But this seems abstract. Maybe I can find a way to express G as a product of simpler generating functions.
+
+Looking at the generating function, it's a triple sum, so perhaps I can factor it into separate sums for a, b, c, but I need to account for the triangle inequalities. Hmm.
+
+Wait, triangle inequalities are symmetric in a, b, c, so maybe I can find a way to write the generating function as a product of terms that enforce the triangle inequalities.
+
+Let me think about each inequality:
+
+1. \(a + b > c\)
+2. \(a + c > b\)
+3. \(b + c > a\)
+
+Each of these inequalities can be rewritten as:
+
+1. \(a + b - c > 0\)
+2. \(a + c - b > 0\)
+3. \(b + c - a > 0\)
+
+So, perhaps I can model each inequality as a separate condition on the variables.
+
+Alternatively, maybe I can make a substitution to represent the triangle inequalities. Suppose I let:
+
+\(a' = a\),
+\(b' = b\),
+\(c' = c\).
+
+But that doesn't change much. Maybe I can shift variables.
+
+Alternatively, perhaps I can think in terms of positive integers with certain differences.
+
+Wait, another approach is to note that if a, b, c are positive integers, then for them to form a triangle, each side must be less than the sum of the other two. So, for each pair, the sum is greater than the third.
+
+But how does that help me?
+
+Alternatively, maybe I can express the generating function as a product of three separate generating functions, each for a, b, c, but with the understanding that they are not independent because of the triangle inequalities.
+
+Wait, perhaps I can use the principle of inclusion-exclusion. Since the triangle inequalities are three separate conditions, perhaps I can compute the sum over all a, b, c, and then subtract the cases where one of the inequalities is violated.
+
+But that might be complicated because subtracting those cases would require considering overlaps where two inequalities are violated, and so on.
+
+Hmm, inclusion-exclusion might get too messy here.
+
+Alternatively, maybe I can write the generating function as the product of three separate generating functions, each corresponding to one variable, but with constraints on the others. Let me try that.
+
+So, for a fixed c, the variables a and b must satisfy a + b > c. Similarly, for fixed a, b and c must satisfy b + c > a, and for fixed b, a and c must satisfy a + c > b.
+
+Wait, but a, b, c are all variables here, so perhaps it's tricky to factor them.
+
+Wait, another thought: maybe I can model this as a three-dimensional grid where each point (a, b, c) is included if it satisfies the triangle inequalities. Then, the generating function is the sum over all such points of \(\frac{2^a}{3^b 5^c}\). Hmm, perhaps I can model this as a product of generating functions for each variable, but constrained by the triangle inequalities.
+
+But I'm not sure how to represent the triangle inequalities as such.
+
+Alternatively, perhaps I can use generating functions with variables x, y, z, where x corresponds to a, y to b, and z to c, but with certain constraints on their exponents.
+
+Wait, maybe I can consider that the condition a + b > c can be written as a + b - c > 0. Similarly, a + c - b > 0, and b + c - a > 0.
+
+So, perhaps I can write each term as 2^a / (3^b 5^c) times some indicator function that a + b > c, etc.
+
+But to turn this into a generating function, maybe I can express the constraints as exponents.
+
+Wait, another idea: Since 2^a / 3^b / 5^c can be thought of as (2/3)^a * (1/3)^b * (1/5)^c. Hmm, so each term is a product of three geometric terms.
+
+Therefore, if I can separate the variables, perhaps I can write the generating function as the product of three separate generating functions.
+
+But the triangle inequalities are not independent; they are all interrelated. So, I can't just factor them like that.
+
+Wait, maybe I can model the problem by considering each variable's exponent as independent but with constraints.
+
+So, for example, for variable a: it must be at least 1, and for variables b and c: they must be at least 1.
+
+But the triangle inequalities tie a, b, c together.
+
+Wait, perhaps I can fix one variable and then express the others in terms of it.
+
+Let me try fixing c. For each c, a and b must satisfy a + b > c.
+
+So, for a fixed c, a and b can range over positive integers such that a + b > c.
+
+Similarly, for a fixed a, b and c must satisfy b + c > a.
+
+And for a fixed b, a and c must satisfy a + c > b.
+
+But this seems quite complex.
+
+Wait, perhaps I can model this as a three-dimensional grid where each point (a, b, c) is included if a + b > c, a + c > b, and b + c > a. Then, the generating function is the sum over all such points of \(\frac{2^a}{3^b 5^c}\).
+
+But how do I compute this sum?
+
+Alternatively, maybe I can use generating functions with exponents that satisfy the triangle inequalities.
+
+Wait, perhaps I can consider the generating function as a triple sum:
+
+\(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \chi(a, b, c)\),
+
+where \(\chi(a, b, c)\) is 1 if a, b, c satisfy the triangle inequalities and 0 otherwise.
+
+So, perhaps I can rewrite this as:
+
+\(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot [\text{a, b, c form a triangle}]\),
+
+where [condition] is 1 if the condition is true and 0 otherwise.
+
+But how do I compute this?
+
+Alternatively, perhaps I can model this problem as a 3-variable generating function where each variable is exponentiated with a coefficient depending on the other variables.
+
+Wait, maybe I need to consider the generating function for each variable in a way that incorporates the triangle inequalities.
+
+Wait, perhaps I can use the concept of generating functions with constraints.
+
+For each variable, I can write a generating function where the exponents are dependent on the other variables.
+
+Wait, let me think about the generating function for each variable.
+
+For variable a: The possible values of a depend on b and c. Since a must be less than b + c. So, for each b and c, a can be from 1 to b + c - 1.
+
+Similarly, for variable b: b must be less than a + c. So, for each a and c, b can be from 1 to a + c - 1.
+
+And for variable c: c must be less than a + b. So, for each a and b, c can be from 1 to a + b - 1.
+
+But this seems too involved because it's a three-dimensional problem.
+
+Wait, maybe I can use the concept of a generating function with inclusion-exclusion.
+
+Wait, let me try to compute the sum:
+
+\(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot [\text{a, b, c form a triangle}]\).
+
+So, perhaps I can write this as:
+
+\(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot [\text{a < b + c, b < a + c, c < a + b}]\).
+
+Hmm. Alternatively, maybe I can use the fact that the generating function can be expressed as the product of generating functions for each variable, but with the triangle inequalities considered.
+
+Wait, perhaps I can model each variable with their possible exponents, considering the constraints. Let me think about how.
+
+For each a, b, c, the exponents are 2^a / 3^b / 5^c. So, each term is the product of three independent terms: (2/3)^a, (1/3)^b, and (1/5)^c.
+
+So, perhaps, the generating function can be written as:
+
+\(\left(\sum_{a=1}^\infty \left(\frac{2}{3}\right)^a (1 + \frac{1}{5} + \frac{1}{5^2} + \cdots)\right) \cdot \left(\sum_{b=1}^\infty \left(\frac{2}{3}\right)^a (1 + \frac{1}{5} + \frac{1}{5^2} + \cdots)\right) \cdot \left(\sum_{c=1}^\infty \left(\frac{2}{3}\right)^a (1 + \frac{1}{5} + \frac{1}{5^2} + \cdots)\right)\).
+
+Wait, no, that seems incorrect because the constraints are interdependent. So, each term in the product would include the triangle inequalities, but I can't just multiply the generating functions because the triangle inequalities link a, b, c together.
+
+Wait, perhaps I can model this as a three-dimensional grid and express the generating function as a product of generating functions where each dimension is weighted by the constraints.
+
+Alternatively, maybe I can use the concept of generating functions with constraints. For example, for each variable, the generating function would be a product of the variables with their exponents adjusted for the constraints.
+
+Wait, let me think about how to handle the triangle inequalities. For each inequality, a + b > c, which can be rewritten as c < a + b. Similarly, a + c > b is b < a + c, and b + c > a is a < b + c.
+
+So, the constraints are that each variable is less than the sum of the other two.
+
+So, perhaps I can model this as:
+
+For each a, b, c, the term is \(\frac{2^a}{3^b 5^c}\) if a < b + c, b < a + c, and c < a + b.
+
+So, the generating function is:
+
+\(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{a < b + c, b < a + c, c < a + b\}}\).
+
+Hmm, maybe I can find a way to write this as a product of generating functions.
+
+Wait, perhaps I can split the problem into two parts: one for each variable, considering the constraints from the other variables.
+
+Wait, for example, for a fixed b and c, a must be less than b + c. So, for each b and c, a can range from 1 to b + c - 1.
+
+Similarly, for fixed a and c, b can range from 1 to a + c - 1.
+
+And for fixed a and b, c can range from 1 to a + b - 1.
+
+But this seems a bit complicated because the variables are intertwined.
+
+Wait, maybe I can use the fact that the generating function can be expressed as:
+
+\(G(x, y, z) = \sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{a < b + c, b < a + c, c < a + b\}}\).
+
+But how do I compute this?
+
+Wait, another idea: Let's consider that for each term, the condition a < b + c is equivalent to a + b + c > 2a. Similarly, a + c > b is equivalent to a + c + b > 2b, and b + c > a is equivalent to a + b + c > 2c. So, each of these inequalities implies that a + b + c > 2a, a + b + c > 2b, and a + b + c > 2c. Therefore, a + b + c > 2 max(a, b, c).
+
+Hmm, interesting. So, the sum is over all triples where the sum of the three numbers is greater than twice the largest one.
+
+So, perhaps we can model this as:
+
+\(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{a + b + c > 2 \max(a, b, c)\}}\).
+
+Hmm, maybe I can break this into cases depending on which of a, b, c is the maximum.
+
+Case 1: a is the maximum.
+
+Case 2: b is the maximum.
+
+Case 3: c is the maximum.
+
+Let me try that.
+
+Case 1: a is the maximum.
+
+So, a ≥ b and a ≥ c.
+
+Then, the condition a + b + c > 2a becomes b + c > a.
+
+But since a ≥ b and a ≥ c, then b + c ≤ 2a.
+
+Wait, but the condition is b + c > a.
+
+So, in this case, b + c > a and a is the maximum.
+
+So, for each a, b, c with a ≥ b and a ≥ c, and b + c > a.
+
+Similarly, in Case 2 and Case 3, we can have similar constraints.
+
+But this seems a bit involved, as I have to handle each case separately.
+
+Wait, but maybe I can compute the sum over all triples where a is the maximum, then do the same for b and c, and then add them up.
+
+So, let's try that.
+
+First, compute the sum over all triples where a is the maximum.
+
+So, for a given a, with a ≥ b and a ≥ c, and b + c > a.
+
+So, for each a, b, c where 1 ≤ b, c ≤ a, and b + c > a.
+
+Similarly, in Case 2: b is the maximum.
+
+So, for each b, with b ≥ a and b ≥ c, and a + c > b.
+
+And in Case 3: c is the maximum.
+
+For each c, with c ≥ a and c ≥ b, and a + b > c.
+
+So, all these cases are symmetric, so each case contributes the same amount.
+
+Therefore, the total sum is 3 times the sum over Case 1.
+
+So, let me compute the sum over Case 1: a is the maximum, and b + c > a.
+
+So, for each a, the number of pairs (b, c) where b, c ≤ a and b + c > a.
+
+So, for each a, the number of such (b, c) is equal to the number of integer pairs with b, c ≥ 1, b ≤ a, c ≤ a, and b + c > a.
+
+Hmm, so for each a, the number of (b, c) is equal to the number of pairs where b + c > a, b ≤ a, c ≤ a.
+
+So, the number of pairs is equal to the number of integer solutions to b + c > a with 1 ≤ b, c ≤ a.
+
+This is equal to the total number of pairs minus the number of pairs where b + c ≤ a.
+
+The total number of pairs where 1 ≤ b, c ≤ a is a^2.
+
+The number of pairs where b + c ≤ a is equal to the number of integer solutions (b, c) with 1 ≤ b, c ≤ a and b + c ≤ a.
+
+This is equal to the sum from k=2 to a of the number of pairs (b, c) with b + c = k.
+
+For each k from 2 to a, the number of pairs is (k - 1), since b can be from 1 to k - 1, and c = k - b.
+
+But wait, since b and c are both at least 1, so for k from 2 to a, number of pairs is k - 1.
+
+So, the total number is sum_{k=2}^a (k - 1) = sum_{m=1}^{a - 1} m = (a - 1)a / 2.
+
+Therefore, the number of pairs where b + c ≤ a is (a - 1)a / 2.
+
+Therefore, the number of pairs where b + c > a is total pairs a^2 minus (a - 1)a / 2.
+
+So, a^2 - (a^2 - a)/2 = (2a^2 - a^2 + a)/2 = (a^2 + a)/2.
+
+So, for each a, the number of (b, c) pairs is (a^2 + a)/2.
+
+But wait, that seems off because for a = 1, it would be (1 + 1)/2 = 1, which is correct because b + c has to be >1, so only (1,1). For a=2, (4 + 2)/2 = 3. Let's check: b and c can be (1,1), (1,2), (2,1). So, 3 pairs, correct. For a=3, (9 + 3)/2 = 6. Let's see: b + c can be 4,5,6. So, the pairs are (1,3), (2,2), (3,1), (2,3), (3,2), (3,3). Wait, but b and c are both ≤3, so b + c can be from 2 to 6.
+
+Wait, for b + c = 4: (1,3), (2,2), (3,1). 3 pairs.
+
+For b + c = 5: (2,3), (3,2). 2 pairs.
+
+For b + c = 6: (3,3). 1 pair.
+
+Total: 3 + 2 + 1 = 6 pairs. Correct.
+
+So, that formula works.
+
+Therefore, for each a, the number of (b, c) is (a^2 + a)/2.
+
+Therefore, the sum over Case 1 is:
+
+\(\sum_{a=1}^\infty \frac{a^2 + a}{2} \cdot \frac{2^a}{3^b 5^c}\).
+
+But wait, no, because for each a, we have b and c varying, but the term is \(\frac{2^a}{3^b 5^c}\). So, for each a, we have:
+
+\(\sum_{b=1}^a \sum_{c=1}^a \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{b + c > a\}}\).
+
+Wait, no, that's not quite right. For each a, the term is \(\sum_{b=1}^a \sum_{c=1}^a \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{b + c > a\}}\).
+
+But since for each a, b and c are independent variables, we can factor the sum over b and c.
+
+So, for each a, the sum is:
+
+\(\frac{2^a}{3^b 5^c} \cdot \prod_{b=1}^a \sum_{c=1}^a \mathbf{1}_{\{b + c > a\}}\).
+
+Wait, no, that's not the right way to think about it either. Because for each a, b and c are independent, so we can write the sum as:
+
+\(\sum_{b=1}^a \sum_{c=1}^a \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{b + c > a\}} = 2^a \left( \sum_{b=1}^a \frac{1}{3^b} \left( \sum_{c=1}^a \frac{1}{5^c} \cdot \mathbf{1}_{\{b + c > a\}} \right) \right)\).
+
+So, the sum over c for each b is:
+
+\(\sum_{c=1}^a \frac{1}{5^c} \cdot \mathbf{1}_{\{b + c > a\}} = \sum_{c = \max(1, a - b + 1)}^a \frac{1}{5^c}\).
+
+So, the lower bound for c is c > a - b, so c ≥ a - b + 1.
+
+But c must be at least 1, so if a - b + 1 ≤ 1, then c starts at 1; otherwise, it starts at a - b + 1.
+
+Therefore, we can write:
+
+\(\sum_{c = \max(1, a - b + 1)}^a \frac{1}{5^c} = \sum_{c = 1}^a \frac{1}{5^c} - \sum_{c = 1}^{\min(a - b, 0)} \frac{1}{5^c}\).
+
+Wait, that might complicate things. Alternatively, perhaps it's better to split the sum into two cases:
+
+If a - b + 1 ≤ 1, which is when a - b ≤ 0, i.e., b ≥ a.
+
+In this case, c starts at 1.
+
+Else, c starts at a - b + 1.
+
+So, for each b, if b ≥ a, then the sum over c is \(\sum_{c=1}^a \frac{1}{5^c}\).
+
+If b < a, then the sum over c is \(\sum_{c = a - b + 1}^a \frac{1}{5^c}\).
+
+So, let's compute these two cases.
+
+First, if b ≥ a:
+
+Then, \(\sum_{c=1}^a \frac{1}{5^c} = \frac{1/5 (1 - (1/5)^a)}{1 - 1/5} = \frac{1 - (1/5)^a}{4}\).
+
+Second, if b < a:
+
+Then, \(\sum_{c = a - b + 1}^a \frac{1}{5^c} = \frac{(1/5)^{a - b + 1} - (1/5)^{a + 1}}{1 - 1/5}\).
+
+Simplify that:
+
+\(\frac{(1/5)^{a - b + 1} - (1/5)^{a + 1}}{4/5} = \frac{5}{4} \left( (1/5)^{a - b + 1} - (1/5)^{a + 1} \right) = \frac{5}{4} \cdot \frac{(1/5)^{a - b + 1} - (1/5)^{a + 1}}{1}\).
+
+Simplify further:
+
+Multiply numerator and denominator:
+
+= \(\frac{5}{4} \cdot \frac{(1/5)^{a - b + 1} - (1/5)^{a + 1}}{1}\) = \(\frac{5}{4} \cdot \frac{(1/5)^{a - b + 1} - (1/5)^{a + 1}}{1}\) = \(\frac{5}{4} \cdot \left( (1/5)^{a - b + 1} - (1/5)^{a + 1} \right)\).
+
+Factor out (1/5)^{a + 1}:
+
+= \(\frac{5}{4} \cdot (1/5)^{a + 1} \left( (1/5)^{-b} - 1 \right)\) = \(\frac{5}{4} \cdot (1/5)^{a + 1} \left( 5^b - 1 \right)\).
+
+Simplify:
+
+= \(\frac{5}{4} \cdot \frac{5^b - 1}{5^{a + 1}} = \frac{5^b - 1}{4 \cdot 5^{a}}\).
+
+Therefore, the sum over c is:
+
+\(\sum_{c = a - b + 1}^a \frac{1}{5^c} = \frac{5^b - 1}{4 \cdot 5^{a}}\).
+
+So, now, going back to the original expression.
+
+For a fixed a, the sum over b is:
+
+If b ≥ a: \(\frac{1 - (1/5)^a}{4} \cdot 2^a\)
+
+If b < a: \(\frac{5^b - 1}{4 \cdot 5^{a}} \cdot 2^a\)
+
+So, let's write the sum over Case 1 as:
+
+\(\sum_{a=1}^\infty 2^a \left( \sum_{b=1}^a \sum_{c=1}^a \frac{1}{3^b 5^c} \cdot \mathbf{1}_{\{b + c > a\}} \right) = \sum_{a=1}^\infty 2^a \left( \sum_{b=1}^a \left( \frac{1 - (1/5)^a}{4} + \frac{5^b - 1}{4 \cdot 5^{a}} \right) \cdot \frac{1}{3^b} \right) \right)\).
+
+Wait, no, actually, the sum over c is broken into two parts based on whether b ≥ a or b < a.
+
+So, perhaps it's better to split the sum into two parts: b ≥ a and b < a.
+
+So, for each a, the sum is:
+
+\(\sum_{b=1}^a \left( \text{if } b \geq a: \frac{1 - (1/5)^a}{4} \cdot \frac{1}{3^b} \right) + \sum_{b=1}^{a - 1} \left( \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1}{3^b} \right) \).
+
+Therefore, the sum over Case 1 is:
+
+\(\sum_{a=1}^\infty 2^a \left[ \sum_{b=1}^a \left( \frac{1 - (1/5)^a}{4} \cdot \frac{1}{3^b} \right) + \sum_{b=1}^{a - 1} \left( \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1}{3^b} \right) \right] \).
+
+Let me compute each part separately.
+
+First, compute the sum over b for b ≥ a:
+
+\(\sum_{a=1}^\infty 2^a \cdot \frac{1 - (1/5)^a}{4} \cdot \sum_{b=1}^a \frac{1}{3^b}\).
+
+Similarly, the sum over b for b < a:
+
+\(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \sum_{b=1}^{a - 1} \frac{1}{3^b}\).
+
+Let me compute these two sums.
+
+First, compute the sum over b=1 to a of 1/3^b.
+
+This is a finite geometric series:
+
+\(\sum_{b=1}^a \frac{1}{3^b} = \frac{1/3 (1 - (1/3)^a)}{1 - 1/3} = \frac{1 - (1/3)^a}{2}\).
+
+Similarly, the sum over b=1 to a - 1 of 1/3^b is:
+
+\(\frac{1 - (1/3)^{a - 1}}{2}\).
+
+Wait, because it's a finite geometric series with a - 1 terms.
+
+Similarly, the sum over b=1 to a - 1 of 1/3^b is \(\frac{1 - (1/3)^{a - 1}}{2}\).
+
+Wait, let me confirm:
+
+The sum from b=1 to n of (1/3)^b is (1/3)(1 - (1/3)^n)/(1 - 1/3)) = (1 - (1/3)^n)/2.
+
+Yes, that's correct.
+
+Similarly, the sum over b=1 to m of (1/3)^b is (1 - (1/3)^m)/2.
+
+Therefore, let's substitute these into the expressions.
+
+So, the first term is:
+
+\(\sum_{a=1}^\infty 2^a \cdot \frac{1 - (1/5)^a}{4} \cdot \frac{1 - (1/3)^a}{2}\).
+
+Similarly, the second term is:
+
+\(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1 - (1/3)^{a - 1}}{2}\).
+
+Wait, no, let me correct that.
+
+In the second term, it's \(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1 - (1/3)^{a - 1}}{2}\).
+
+Wait, but in the second term, the sum is over b from 1 to a - 1, so it's a bit different.
+
+Wait, actually, in the second term, it's:
+
+\(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \sum_{b=1}^{a - 1} \frac{1}{3^b}\).
+
+Which is:
+
+\(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1 - (1/3)^{a - 1}}{2}\).
+
+So, putting it all together, the total sum is:
+
+First term + Second term = [Sum1] + [Sum2].
+
+Where:
+
+Sum1 = \(\sum_{a=1}^\infty 2^a \cdot \frac{1 - (1/5)^a}{4} \cdot \frac{1 - (1/3)^a}{2}\).
+
+Sum2 = \(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1 - (1/3)^{a - 1}}{2}\).
+
+Simplify Sum1:
+
+Factor out constants: (1/4)(1/2) = 1/8.
+
+So, Sum1 = (1/8) \(\sum_{a=1}^\infty 2^a (1 - (1/5)^a)(1 - (1/3)^a)\).
+
+Similarly, let's compute Sum2:
+
+Factor out constants: (1/4)(1/2) = 1/8.
+
+So, Sum2 = (1/8) \(\sum_{a=1}^\infty 2^a (5^b - 1)(1 - (1/3)^{a - 1}) / 5^a\).
+
+Wait, no, hold on.
+
+Wait, in Sum2, we have:
+
+Sum2 = \(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1 - (1/3)^{a - 1}}{2}\).
+
+Which is equal to:
+
+= \(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{8 \cdot 5^a} \cdot (1 - (1/3)^{a - 1})\).
+
+Wait, no, let's do it step by step.
+
+In Sum2:
+
+= \(\sum_{a=1}^\infty 2^a \cdot \frac{5^b - 1}{4 \cdot 5^{a}} \cdot \frac{1 - (1/3)^{a - 1}}{2}\).
+
+So, 4 * 2 = 8, so it's 1/8 times:
+
+= \(\sum_{a=1}^\infty 2^a (5^b - 1) \cdot \frac{1 - (1/3)^{a - 1}}{5^a} \cdot \frac{1}{2}\).
+
+Wait, no, perhaps it's better to just factor the 1/8.
+
+But regardless, both Sum1 and Sum2 are complicated infinite series. Let's see if we can compute them.
+
+First, let's compute Sum1:
+
+Sum1 = (1/8) \(\sum_{a=1}^\infty 2^a (1 - (1/5)^a)(1 - (1/3)^a)\).
+
+Let me expand the product:
+
+(1 - (1/5)^a)(1 - (1/3)^a) = 1 - (1/5)^a - (1/3)^a + (1/15)^a.
+
+Therefore,
+
+Sum1 = (1/8) \(\sum_{a=1}^\infty 2^a [1 - (1/5)^a - (1/3)^a + (1/15)^a]\).
+
+Which can be separated into four sums:
+
+= (1/8) [ \(\sum_{a=1}^\infty 2^a \cdot 1 - \sum_{a=1}^\infty 2^a (1/5)^a - \sum_{a=1}^\infty 2^a (1/3)^a + \sum_{a=1}^\infty 2^a (1/15)^a \) ].
+
+Each of these sums is a geometric series.
+
+Let me compute each term:
+
+First term: \(\sum_{a=1}^\infty 2^a = 2 + 2^2 + 2^3 + \cdots = 2 / (1 - 2) = -2\). Wait, but 2 > 1, so it diverges. Hmm, that's a problem. But wait, in our earlier steps, we had expressions that summed to something finite because of the constraints.
+
+But in reality, Sum1 is the sum over a of 2^a times (1 - (1/5)^a)(1 - (1/3)^a). Wait, but if I compute this, each term is 2^a - 2^a (1/5)^a - 2^a (1/3)^a + 2^a (1/15)^a.
+
+But as a goes to infinity, 2^a (1/5)^a = (2/5)^a, which tends to 0. Similarly, (2/3)^a tends to 0, and (2/15)^a tends to 0. So, each individual term tends to 2^a, but since Sum1 is the sum of 2^a - (2/5)^a - (2/3)^a + (2/15)^a, which diverges as a sum of 2^a. But that's conflicting because earlier we thought Sum1 is finite.
+
+Wait, perhaps my initial approach is wrong. Maybe I shouldn't have broken it down into cases but instead tried to model it differently.
+
+Wait, let's step back. Maybe instead of splitting into cases, I can model the generating functions in a different way.
+
+Let me consider that for each a, b, c, the term \(\frac{2^a}{3^b 5^c}\) is to be summed over all triples where a, b, c form a triangle.
+
+Alternatively, maybe I can model this as a generating function where each term is a product over a, b, c with constraints, and then compute it as a product of generating functions.
+
+Wait, another idea: maybe consider the generating function for each variable.
+
+Let me define:
+
+G(x, y, z) = \(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b} \cdot \frac{1}{5^c} \cdot \chi(a, b, c)\),
+
+where \(\chi(a, b, c)\) is 1 if a, b, c form a triangle, else 0.
+
+But how to compute G(x, y, z)?
+
+Alternatively, perhaps I can use the principle of inclusion-exclusion to compute G(x, y, z) by considering all triples and subtracting those that don't form a triangle.
+
+But inclusion-exclusion can get complicated here because there are multiple overlapping conditions.
+
+Alternatively, maybe I can model the problem using generating functions with constraints.
+
+Wait, perhaps I can consider the generating function for a, b, c as follows.
+
+Let me denote:
+
+For a fixed a, the generating function for b is:
+
+\(\sum_{b=1}^\infty \frac{2^a}{3^b} \cdot \chi(b, c)\),
+
+where \(\chi(b, c)\) is 1 if b + c > a, else 0.
+
+Similarly, for each a, the inner generating function is:
+
+\(\sum_{b=1}^\infty \frac{2^a}{3^b} \cdot \sum_{c= \max(1, a - b + 1)}^\infty \frac{1}{5^c}\).
+
+Which we had earlier as:
+
+\(\sum_{b=1}^\infty \frac{2^a}{3^b} \cdot \frac{5^b - 1}{4 \cdot 5^{a}}\).
+
+But this seems messy.
+
+Wait, so for each a, the generating function is:
+
+\(\sum_{b=1}^\infty \frac{2^a}{3^b} \cdot \frac{5^b - 1}{4 \cdot 5^{a}}\).
+
+Simplify that:
+
+= \(\frac{1}{4 \cdot 5^{a}} \sum_{b=1}^\infty \frac{2^a (5^b - 1)}{3^b}\).
+
+= \(\frac{1}{4 \cdot 5^{a}} \cdot 2^a \sum_{b=1}^\infty \left( \left( \frac{5}{3} \right)^b - \frac{1}{3^b} \right)\).
+
+Now, the sum \(\sum_{b=1}^\infty \left( \left( \frac{5}{3} \right)^b - \frac{1}{3^b} \right)\).
+
+But note that \(\left( \frac{5}{3} \right)^b\) diverges as b increases because it's greater than 1. Similarly, \(\frac{1}{3^b}\) converges, so the entire sum diverges.
+
+Wait, that can't be right because our original sum is finite.
+
+Wait, so perhaps my earlier approach is flawed because I'm not correctly handling the constraints.
+
+Wait, maybe I need to consider that for each a, b, c, the term \(\frac{2^a}{3^b} \cdot \frac{1}{5^c}\) is only added if a, b, c satisfy the triangle inequalities.
+
+But perhaps instead of trying to model it as a generating function, I can use a smarter approach.
+
+Let me consider a substitution. Let me set x = 2/3 and y = 1/5, so the term becomes x^a * y^b * z^c, but I need to account for the constraints a < b + c, b < a + c, c < a + b.
+
+Alternatively, maybe I can use generating functions with variables for each variable, and then multiply them with the constraints.
+
+Wait, let me try another approach. For a fixed a, b, c, the term is positive if a, b, c form a triangle. So, perhaps I can think of the generating function as:
+
+G = \(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot [a < b + c, b < a + c, c < a + b]\).
+
+But how to compute this.
+
+Wait, perhaps we can express the constraints as 2a > b + c, 2b > a + c, 2c > a + b.
+
+So, each of these inequalities must hold.
+
+Therefore, the generating function G can be written as:
+
+G = \(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{2a > b + c, 2b > a + c, 2c > a + b\}}\).
+
+Hmm, perhaps we can use the principle of inclusion-exclusion here.
+
+Inclusion-exclusion tells us that the number of solutions to the inequalities is equal to the sum over all subsets of the negated inequalities, alternating signs.
+
+So, perhaps we can write:
+
+G = \(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \sum_{k=0}^3 (-1)^k \sum_{S \subseteq \{a, b, c\}} \mathbf{1}_{\{2 \cdot \text{max}(S) \geq \sum_{c \in S} \text{variables}\}}}\).
+
+But I'm not sure if that's the right approach.
+
+Wait, perhaps it's better to model this using the generating function as a product of geometric series with constraints.
+
+So, let me consider that for each variable, the generating function is:
+
+For a: \(\sum_{a=1}^\infty \frac{2^a}{5^c}\) with c constrained by the inequalities.
+
+Wait, but that's not straightforward.
+
+Wait, perhaps another idea: Let me consider the generating function for a, b, c as follows:
+
+G = \(\sum_{a=1}^\infty \sum_{b=1}^\infty \sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \mathbf{1}_{\{a < b + c, b < a + c, c < a + b\}}\).
+
+We can rewrite each inequality as:
+
+a < b + c, b < a + c, c < a + b.
+
+Let me consider that each of these inequalities can be rewritten as:
+
+a - b < c, a - c < b, b - c < a.
+
+Wait, so for each variable, it's less than the sum of the other two.
+
+So, perhaps I can perform a substitution.
+
+Let me set x = a - b, y = a - c, z = b - c.
+
+But this might complicate the generating function.
+
+Alternatively, perhaps we can use the substitution u = a - b, v = a - c, w = b - c.
+
+Wait, but this might not lead anywhere.
+
+Wait, maybe a better substitution is to let x = a, y = b, z = c, but I don't think that helps.
+
+Wait, another idea: Perhaps we can model the problem in terms of the exponents.
+
+Let me take the logarithm of the generating function, but I don't think that helps because it complicates the summation.
+
+Wait, perhaps instead of handling all three variables at once, handle two variables at a time.
+
+Wait, for example, fix b and c, and find the sum over a.
+
+But in our case, the constraints involve a, so it's not straightforward.
+
+Wait, let's think differently. Let me consider that for each triangle, the exponents are related to the sides.
+
+Let me think about the generating function as a product of terms, each corresponding to a variable.
+
+Wait, perhaps I can write G as:
+
+G = \(\left( \sum_{a=1}^\infty \frac{2^a}{5^c} \right) \cdot \left( \sum_{b=1}^\infty \frac{1}{3^b} \right) \cdot \left( \sum_{c=1}^\infty \frac{1}{5^c} \right)\), but with constraints.
+
+But this would be incorrect because the constraints complicate the independence.
+
+Wait, another approach: Maybe express G as a product of generating functions where each variable is weighted, but with constraints.
+
+Wait, let me consider that for each variable, the generating function is:
+
+For a: \(\sum_{a=1}^\infty \frac{2^a}{5^c} \cdot \mathbf{1}_{\{a < b + c\}}\), but this is still not independent.
+
+I think I might need to give up on the generating functions and try to compute the sum directly.
+
+Wait, perhaps I can notice that the sum over a, b, c is equal to:
+
+Sum_{a, b, c} [2^a 3^{-b} 5^{-c}] * indicator(a < b + c, b < a + c, c < a + b).
+
+But perhaps we can write this indicator function as 1 - [indicator(a >= b + c, or b >= a + c, or c >= a + b)}.
+
+So, G = Sum_{a, b, c} [2^a / (3^b 5^c)] - Sum_{a, b, c} [2^a / (3^b 5^c)] * [indicator(a >= b + c, or b >= a + c, or c >= a + b)}.
+
+But that might not help because we still have the indicators inside the second sum.
+
+Wait, perhaps it's better to compute the entire sum and then subtract the cases where a >= b + c, etc.
+
+But I'm not sure.
+
+Wait, another idea: Perhaps use the principle of inclusion-exclusion on the three constraints.
+
+Define:
+
+A = sum_{a, b, c: a >= b + c} [2^a / (3^b 5^c)].
+
+Similarly, B = sum_{a, b, c: b >= a + c} [2^a / (3^b 5^c)].
+
+C = sum_{a, b, c: c >= a + b} [2^a / (3^b 5^c)].
+
+Then, G = total_sum - A - B - C + (sum of overlaps where two constraints are satisfied) - (sum of overlaps where all three constraints are satisfied).
+
+But computing this might be complicated.
+
+First, compute the total_sum:
+
+Total_sum = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)].
+
+This is equal to:
+
+Sum_{a=1}^\infty [2^a / 5^c] * Sum_{b=1}^\infty [1 / 3^b] * Sum_{c=1}^\infty 1.
+
+But wait, no, that's not correct because the variables are interdependent.
+
+Wait, actually, the total_sum is:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] = Sum_{a=1}^\infty (2^a) * Sum_{b=1}^\infty (1/3^b) * Sum_{c=1}^\infty (1/5^c).
+
+Each of these sums is a geometric series:
+
+Sum_{a=1}^\infty 2^a = 2 / (1 - 2) = -2. Wait, but that diverges.
+
+Wait, no, actually, the total_sum is divergent because 2^a grows exponentially without bound. So, perhaps that approach is not helpful.
+
+Wait, maybe I made a mistake in interpreting the total_sum. Let me actually compute it correctly.
+
+Wait, no, the total_sum is Sum_{a, b, c} [2^a / (3^b 5^c)].
+
+But since a, b, c are independent variables, this is equal to:
+
+Sum_{a=1}^\infty [2^a / 5^c] * Sum_{b=1}^\infty [1 / 3^b] * Sum_{c=1}^\infty 1.
+
+But that's not correct because the Sum_{c=1}^\infty 1 diverges. So, actually, the total_sum is divergent.
+
+Therefore, my initial idea is flawed because the total_sum is divergent. So, that approach won't help me find the finite G.
+
+Wait, perhaps instead of trying to compute G directly, I can consider the probability generating function.
+
+Alternatively, perhaps I can use generating functions with variables x, y, z representing the exponents, but this might complicate things.
+
+Wait, another idea: Maybe I can use the fact that for a triangle, a < b + c, b < a + c, c < a + b.
+
+So, perhaps I can model the exponents as a, b, c, and use generating functions with constraints.
+
+Wait, perhaps I can use the substitution x = 2/3 and y = 1/5, but not sure.
+
+Wait, perhaps I can use the following identity:
+
+For each variable, the generating function is:
+
+Sum_{a=1}^\infty x^a = x / (1 - x).
+
+Similarly, for b, it's 1/3, and for c, it's 1/5.
+
+But again, without constraints, the generating function is divergent.
+
+Wait, perhaps instead of treating each variable independently, I can find a generating function that accounts for all possible triples and subtract those that don't form a triangle.
+
+But how?
+
+Wait, another approach: Maybe I can use generating functions with the constraints. For each triple (a, b, c), the term is 2^a / (3^b 5^c) if and only if a, b, c satisfy the triangle inequalities. So, perhaps I can write the generating function as:
+
+G = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty \frac{2^a}{3^b 5^c} \cdot \prod_{c=1}^3 \mathbf{1}_{\{a < b + c, b < a + c, c < a + b\}}.
+
+But this is essentially back to our original problem.
+
+Wait, perhaps I can consider this as a product of generating functions, each for a, b, c, with constraints.
+
+Let me think: For a, the generating function is Sum_{a=1}^\infty 2^a x^a = 2x / (1 - 2x).
+
+For b, the generating function is Sum_{b=1}^\infty x^b = x / (1 - x).
+
+For c, the generating function is Sum_{c=1}^\infty x^c = x / (1 - x).
+
+But the problem is that the constraints involve a, b, c in a non-linear way.
+
+Wait, perhaps I can express the constraints as:
+
+a < b + c,
+
+b < a + c,
+
+c < a + b.
+
+Which is equivalent to:
+
+a < b + c,
+
+b < a + c,
+
+c < a + b.
+
+Which is a standard triangle inequality.
+
+Wait, perhaps I can use generating functions with these constraints.
+
+Let me consider the generating function for a, b, c as follows.
+
+Let me define a generating function F(x, y, z) = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty \frac{2^a}{3^b 5^c} x^a y^b z^c.
+
+But with the constraints a < b + c, b < a + c, c < a + b.
+
+Thus, F(x, y, z) = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty \frac{2^a}{3^b 5^c} x^a y^b z^c \cdot \mathbf{1}_{\{a < b + c, b < a + c, c < a + b\}}.
+
+But how to compute this.
+
+Alternatively, perhaps I can write F(x, y, z) = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty \frac{2^a}{3^b 5^c} x^a y^b z^c \cdot (\mathbf{1}_{\{a < b + c\}} + \mathbf{1}_{\{b < a + c\}} + \mathbf{1}_{\{c < a + b\}} - 2 \cdot \mathbf{1}_{\{a < b + c, b < a + c\}} - \mathbf{1}_{\{a < b + c, c < a + b\}} - \mathbf{1}_{\{b < a + c, c < a + b\}} + \mathbf{1}_{\{a < b + c, b < a + c, c < a + b\}})}.
+
+But that seems too complicated.
+
+Wait, another idea: Perhaps I can use the principle of inclusion-exclusion on the three constraints.
+
+Define:
+
+A = Sum_{a, b, c: a >= b + c} [2^a / (3^b 5^c)].
+
+Similarly, B = Sum_{a, b, c: b >= a + c} [2^a / (3^b 5^c)].
+
+C = Sum_{a, b, c: c >= a + b} [2^a / (3^b 5^c)].
+
+Then,
+
+G = Total_sum - A - B - C + (A∩B + A∩C + B∩C) - (A∩B∩C)).
+
+But to compute this, I need to compute the overlaps.
+
+But I realize that computing these sums is quite involved.
+
+Wait, perhaps I can compute each of these sums separately.
+
+Starting with A: Sum_{a, b, c: a >= b + c} [2^a / (3^b 5^c)].
+
+Let me fix b and c, then a must be >= b + c.
+
+So, A = Sum_{b=1}^\infty Sum_{c=1}^\infty Sum_{a = b + c}^\infty [2^a / (3^b 5^c)].
+
+= Sum_{b=1}^\infty Sum_{c=1}^\infty [1/(3^b 5^c)] * Sum_{a = b + c}^\infty 2^a.
+
+But Sum_{a = b + c}^\infty 2^a = 2^{b + c} / (1 - 2) = -2^{b + c}, which diverges.
+
+Wait, this is problematic because A is divergent.
+
+Similarly, B and C are also divergent.
+
+So, maybe this approach isn't helpful.
+
+Wait, perhaps I need to consider generating functions with constraints.
+
+Wait, perhaps I can use the fact that for each variable, the generating function is a geometric series, and then multiply them together, but subtract the cases where the constraints are violated.
+
+But since the constraints are interdependent, it's tricky.
+
+Wait, another idea: Maybe I can model the problem as a linear Diophantine equation.
+
+But since we're dealing with generating functions, perhaps not.
+
+Wait, maybe I can see if the problem is related to probability.
+
+Wait, let me see. If I think of the exponents as weights, perhaps the sum can be expressed in terms of generating functions where each term is weighted by 2^a / 3^b 5^c, and then we can use generating functions to compute the number of such triples.
+
+But again, without constraints, the generating function is divergent.
+
+Wait, maybe this is a dead end.
+
+Wait, another idea: Let me think about the problem probabilistically. The term 2^a / 3^b 5^c is like a weight assigned to the triple (a, b, c). If I can compute the expectation of this weight over all triples, that might give me the sum.
+
+But the sum is over all triples, so the expectation would be something else.
+
+Wait, perhaps it's better to think about probability generating functions where each variable is weighted.
+
+Wait, but I'm not sure.
+
+Wait, let me try to compute the generating function step by step for two variables and then try to extend to three.
+
+Let me define G(x, y) = Sum_{a=1}^\infty Sum_{b=1}^\infty [2^a / 3^b] x^a y^b.
+
+Compute G(x, y):
+
+= Sum_{a=1}^\infty Sum_{b=1}^\infty [2^a / 3^b] x^a y^b
+
+= Sum_{a=1}^\infty (2x)^a * Sum_{b=1}^\infty (y/3)^b
+
+= [ (2x) / (1 - 2x) ] * [ (y/3) / (1 - y/3) ]
+
+= [ 2x / (1 - 2x) ] * [ y / (3(1 - y/3)) ]
+
+= [ 2x / (1 - 2x) ] * [ y / (3 - y) ]
+
+So, G(x, y) = (2x y) / [ (1 - 2x)(3 - y) ].
+
+Now, what does this represent? It's the generating function for the sum over a, b of 2^a / 3^b x^a y^b.
+
+But we need to account for the constraint c < a + b, which complicates things.
+
+Wait, perhaps I can modify this generating function to include the constraint on c.
+
+Wait, but I'm not sure.
+
+Alternatively, maybe I can consider a triple variable generating function.
+
+Wait, perhaps if I fix a and b, then c must be less than a + b.
+
+But in the generating function, c is a separate variable, so maybe I can write something like:
+
+G(x, y, z) = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / 3^b 5^c] x^a y^b z^c \cdot \mathbf{1}_{\{c < a + b\}}.
+
+But how to compute this.
+
+Alternatively, perhaps I can use the principle of inclusion-exclusion on the generating function.
+
+Wait, another idea: Perhaps the sum can be expressed as a product of individual generating functions, each accounting for one variable, but with constraints.
+
+Wait, let me consider that for each variable, the generating function is:
+
+For a: Sum_{a=1}^\infty (2/5)^a x^a = (2x)/(1 - 2x).
+
+For b: Sum_{b=1}^\infty (1/3)^b x^b = x/(1 - x/3).
+
+For c: Sum_{c=1}^\infty (1/5)^c x^c = x/(1 - x/5).
+
+But with the constraints, it's unclear.
+
+Wait, perhaps I can use the generating function for each variable with their constraints.
+
+For example, for a, the generating function is Sum_{a=1}^\infty (2/5)^a x^a = (2x)/(1 - 2x).
+
+For b, with the constraint b < a + c, the generating function might be Sum_{b=1}^\infty (1/3)^b x^b = x/(1 - x/3).
+
+But I'm not sure how to combine these.
+
+Alternatively, perhaps I can model the problem as a system of inequalities and use generating functions with these constraints.
+
+Wait, another idea: Since the constraints are a < b + c, b < a + c, c < a + b, perhaps I can perform a substitution where I express a, b, c in terms of new variables that represent the differences.
+
+Let me define:
+
+Let u = b + c - a,
+
+v = a + c - b,
+
+w = a + b - c.
+
+Since a, b, c are positive integers, u, v, w must also be positive integers.
+
+So, we have:
+
+u = b + c - a,
+
+v = a + c - b,
+
+w = a + b - c.
+
+Then, we can express a, b, c in terms of u, v, w.
+
+From the definitions:
+
+Adding all three equations:
+
+u + v + w = 2(a + b + c) - (a + b + c) = a + b + c.
+
+Thus, a + b + c = u + v + w.
+
+Also, solving for a:
+
+a = (b + c) - u = (v + w - a) + c - u.
+
+Wait, maybe another approach.
+
+Wait, let me solve the system:
+
+From u = b + c - a,
+
+From v = a + c - b,
+
+From w = a + b - c,
+
+We can write:
+
+a = (v + w - u)/2,
+
+b = (u + w - v)/2,
+
+c = (u + v - w)/2.
+
+Yes, that's correct.
+
+So, since a, b, c must be positive integers, the expressions (v + w - u)/2, (u + w - v)/2, (u + v - w)/2 must all be positive integers.
+
+Thus, u, v, w must satisfy that u + v > w, u + w > v, v + w > u, and that u, v, w are such that (v + w - u), (u + w - v), (u + v - w) are even and positive.
+
+Therefore, u, v, w must form a triangle inequality in a certain way.
+
+So, perhaps, the sum we're seeking is equal to the number of positive integer triples (u, v, w) such that u, v, w satisfy the triangle inequalities, multiplied by something.
+
+Wait, but in our case, it's not just any triple, but the sum over a, b, c of 2^a / (3^b 5^c) where a, b, c satisfy the triangle inequalities.
+
+So, in terms of u, v, w, this would be:
+
+Sum_{u, v, w} [2^{(v + w - u)/2} / (3^{(u + w - v)/2} 5^{(u + v - w)/2}) ].
+
+But this seems complicated.
+
+Wait, perhaps we can rewrite this term:
+
+2^{(v + w - u)/2} / (3^{(u + w - v)/2} 5^{(u + v - w)/2}) = [2^{v + w - u} / (3^{u + w - v} 5^{u + v - w})]^{1/2}.
+
+But that doesn't seem helpful.
+
+Wait, perhaps we can factor out 2^{v + w}/(3^u 5^v 5^w) or something like that.
+
+Wait, it's getting too convoluted.
+
+Wait, another idea: Given that u, v, w must satisfy the triangle inequalities, perhaps we can express the sum in terms of u, v, w variables, and then compute the sum over u, v, w.
+
+But this seems difficult.
+
+Wait, perhaps I can change variables to x = u + v + w, y = u + v - w, z = u + w - v, t = v + w - u.
+
+But I'm not sure.
+
+Alternatively, perhaps I can consider that u, v, w must form a triangle, so we can parameterize them as u = a + b, v = a + c, w = b + c, but that may not help.
+
+Wait, perhaps it's better to consider that the sum is equal to:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / 3^b 5^c] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But I don't know a way to compute this.
+
+Wait, let me try to write the sum as:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / 3^b 5^c] * [indicator(a >= b + c, or b >= a + c, or c >= a + b)}.
+
+But again, this is the same as before.
+
+Wait, perhaps I can consider that the sum is equal to:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, or b < a + c, or c < a + b)}.
+
+But I don't know how to compute that.
+
+Wait, perhaps I can use the fact that the sum is equal to:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, or b < a + c, or c < a + b)}.
+
+But without knowing the exact expression, I can't compute it.
+
+Wait, perhaps I can consider the sum as:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a >= b + c, or b >= a + c, or c >= a + b)}.
+
+But then, perhaps I can compute the sum as:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a >= b + c, or b >= a + c, or c >= a + b)}.
+
+But I don't think that's helpful.
+
+Wait, another idea: Maybe I can find a generating function that includes the constraints.
+
+Wait, perhaps I can model the problem with the generating function:
+
+G(x, y, z) = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / 3^b 5^c] x^a y^b z^c * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But I don't know how to compute this.
+
+Wait, perhaps I can consider that each constraint a < b + c, b < a + c, c < a + b can be written as:
+
+b > a - c,
+
+c > a - b,
+
+a > b - c.
+
+But I don't know.
+
+Wait, perhaps I can use the fact that for positive integers a, b, c, the sum is symmetric in a, b, c, so perhaps the generating function can be expressed in terms of symmetric polynomials.
+
+But I'm not sure.
+
+Wait, perhaps I can consider a change of variables: Let x = a - b, y = b - c, z = c - a, but this might not help.
+
+Alternatively, perhaps I can consider using generating functions with the constraints.
+
+Wait, perhaps I can use the principle of inclusion-exclusion to compute the sum.
+
+Let me try again.
+
+Let me define:
+
+A = Sum_{a, b, c: a >= b + c} [2^a / (3^b 5^c)].
+
+Similarly, B = Sum_{a, b, c: b >= a + c} [2^a / (3^b 5^c)}.
+
+C = Sum_{a, b, c: c >= a + b} [2^a / (3^b 5^c)}.
+
+Then, G = Total_sum - A - B - C + (A∩B + A∩C + B∩C) - (A∩B∩C)).
+
+But I need to compute A, B, C, A∩B, etc.
+
+First, let's compute A.
+
+A = Sum_{a, b, c: a >= b + c} [2^a / (3^b 5^c)].
+
+Let me fix b and c, then a must be >= b + c.
+
+So, A = Sum_{b=1}^\infty Sum_{c=1}^\infty Sum_{a = b + c}^\infty [2^a / (3^b 5^c)].
+
+= Sum_{b=1}^\infty Sum_{c=1}^\infty [1/(3^b 5^c)] * Sum_{a = b + c}^\infty 2^a.
+
+But Sum_{a = b + c}^\infty 2^a = 2^{b + c} / (1 - 2) = -2^{b + c}, which is divergent.
+
+Wait, that's a problem.
+
+Similarly, B and C would also have divergent sums.
+
+So, perhaps this approach is not helpful.
+
+Wait, perhaps I can consider that the sum is equal to the expectation of something.
+
+Wait, perhaps the problem is related to the probability that three randomly chosen integers form a triangle, with weights 2^a, 1/3^b, 1/5^c.
+
+But I don't know.
+
+Wait, another idea: Let me consider that the generating function for a, b, c is G(x, y, z) = Sum_{a, b, c} [2^a / (3^b 5^c)] x^a y^b z^c.
+
+If I can compute this generating function, then perhaps I can find the sum by evaluating it at certain points.
+
+But without constraints, G(x, y, z) = Sum_{a=1}^\infty (2x)^a * Sum_{b=1}^\infty (y/3)^b * Sum_{c=1}^\infty (z/5)^c.
+
+Which is equal to [ (2x)/(1 - 2x) ] * [ (y/3)/(1 - y/3) ] * [ (z/5)/(1 - z/5) ].
+
+But with constraints, how to model that.
+
+Wait, perhaps I can consider that G(x, y, z) = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] x^a y^b z^c.
+
+Then, the sum we need is G(2, 1/3, 1/5) minus the sum over triples where a >= b + c, etc.
+
+But without knowing how to compute that, I'm stuck.
+
+Wait, perhaps I can compute the total sum without constraints and then subtract the cases where a >= b + c, b >= a + c, c >= a + b.
+
+But the total sum is divergent, so that approach isn't helpful.
+
+Wait, perhaps the sum is finite because the constraints are satisfied for all triples except a few.
+
+Wait, for example, for small a, b, c, the constraints are satisfied, but as a, b, c grow, maybe the constraints fail.
+
+Wait, let me test with small values.
+
+For a = 1, b = 1, c = 1: 2^1 / (3^1 5^1) = 2/15. This term is valid.
+
+For a = 1, b = 1, c = 2: 2^1 / (3^1 5^2) = 2/(3*25) = 2/75 < 1/15, so it's valid.
+
+Wait, but a = 2, b = 1, c = 1: 2^2 / (3^1 5^1) = 4/(3*5) = 4/15.
+
+But a = 2, b = 1, c = 1: a = 2, b + c = 1 + 1 = 2, so a = b + c, which is not less than, so this term is invalid.
+
+Similarly, a = 2, b = 1, c = 2: a = 2, b + c = 1 + 2 = 3, so 2 < 3, valid.
+
+a = 2, b = 2, c = 1: a = 2, b + c = 2 + 1 = 3, so 2 < 3, valid.
+
+a = 3, b = 1, c = 1: 8 / (3*5) = 8/15.
+
+a = 3, b + c = 1 + 1 = 2, 3 >= 2, invalid.
+
+a = 3, b = 1, c = 2: 3^3 / (3^1 5^2) = 27/(3*25) = 27/75 = 9/25.
+
+a = 3, b + c = 1 + 2 = 3, so 3 >= 3, invalid.
+
+a = 3, b = 2, c = 1: 3^3 / (3^2 5^1) = 27/(9*5) = 27/45 = 3/5.
+
+a = 3, b + c = 2 + 1 = 3, invalid.
+
+a = 3, b = 2, c = 2: 3^3 / (3^2 5^2) = 27/(9*25) = 27/225 = 3/25.
+
+a = 3, b + c = 2 + 2 = 4, 3 < 4, valid.
+
+Similarly, a = 4, b = 1, c = 1: 16/(3*5) = 16/15 > 1, invalid.
+
+a = 4, b = 1, c = 2: 16/(3*25) = 16/75 < 1, valid.
+
+a = 4, b = 2, c = 1: 16/(9*5) = 16/45 < 1, valid.
+
+a = 4, b = 2, c = 2: 16/(9*25) = 16/225 < 1, valid.
+
+a = 4, b = 3, c = 1: 16/(27*5) = 16/135 < 1, valid.
+
+a = 4, b = 3, c = 2: 16/(27*25) = 16/675 < 1, valid.
+
+a = 4, b = 4, c = 1: 16/(81*5) = 16/405 < 1, valid.
+
+a = 4, b = 4, c = 2: 16/(81*25) = 16/2025 < 1, valid.
+
+And so on.
+
+So, it seems that for a >= 2, there exist triples (a, b, c) where a >= b + c, making the term invalid. Similarly for b >= a + c and c >= a + b.
+
+So, the sum is finite because only a few triples are invalid.
+
+Therefore, perhaps the sum converges.
+
+Wait, but earlier when I tried to compute it directly, it diverged, but perhaps the sum converges because the invalid terms are rare.
+
+So, perhaps I can compute the sum by considering only the valid triples.
+
+But how?
+
+Wait, perhaps I can think about the sum as:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b}.
+
+But I still don't know how to compute that.
+
+Wait, another idea: Let me consider that for each a, b, c, the term is valid if and only if a < b + c, b < a + c, c < a + b.
+
+So, for each a, b, c, we can define a, b, c such that a < b + c, b < a + c, c < a + b.
+
+Let me assume that a, b, c are positive integers.
+
+Let me fix a, then for each a, we can compute the number of (b, c) such that b < a + c, c < a + b.
+
+Wait, but it's still complicated.
+
+Wait, perhaps I can think in terms of generating functions.
+
+Let me consider the sum S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+Let me factor this as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+Let me consider the term inside the sum as:
+
+[2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But perhaps I can represent this as a product of three indicator functions.
+
+Wait, perhaps I can use the principle of inclusion-exclusion on the three constraints.
+
+But I don't know.
+
+Wait, perhaps I can consider that:
+
+a < b + c,
+
+b < a + c,
+
+c < a + b.
+
+Let me rewrite these inequalities as:
+
+1. a - b - c < 0,
+
+2. -a + b + c < 0,
+
+3. -a - b + c < 0.
+
+So, the system is:
+
+a - b - c < 0,
+
+-a + b + c < 0,
+
+-a - b + c < 0.
+
+Adding all three inequalities:
+
+(-a - b - c) + ( -a + b + c) + (-a - b + c) < 0 + 0 + 0,
+
+Which simplifies to:
+
+-3a < 0,
+
+Which is always true since a > 0.
+
+Hmm, not helpful.
+
+Wait, maybe I can solve the system.
+
+From 1: a < b + c,
+
+From 2: b < a + c,
+
+From 3: c < a + b.
+
+Let me consider that a, b, c are positive integers.
+
+Let me consider possible cases.
+
+Case 1: a = 1.
+
+Then, from 1: 1 < b + c,
+
+From 2: b < 1 + c,
+
+From 3: c < 1 + b.
+
+So, from 2: b < 1 + c,
+
+From 3: c < 1 + b.
+
+So, substituting c < 1 + b into b < 1 + c,
+
+We get b < 1 + c < 1 + (1 + b) = 2 + b,
+
+Which simplifies to b < 2 + b,
+
+Which is always true for positive b.
+
+Similarly, from 1: 1 < b + c.
+
+So, for a = 1, the condition is 1 < b + c.
+
+But b and c are positive integers.
+
+So, b + c >= 2.
+
+So, for a = 1, b and c can be any positive integers such that b + c >= 2.
+
+So, the number of (b, c) for a = 1 is Sum_{b=1}^\infty Sum_{c=1}^\infty [b + c >= 2].
+
+But b and c are at least 1, so b + c >= 2.
+
+Which is all possible (b, c) except when b = c = 1.
+
+So, the number of (b, c) for a = 1 is infinity.
+
+But wait, for a = 1, b and c are positive integers, so the sum is:
+
+Sum_{b=1}^\infty Sum_{c=1}^\infty [2^1 / (3^b 5^c)] * [1 < b + c].
+
+But wait, 1 < b + c is always true for b >= 1, c >= 1.
+
+So, the sum for a = 1 is Sum_{b=1}^\infty Sum_{c=1}^\infty [2 / (3^b 5^c)].
+
+Which is 2 * [Sum_{b=1}^\infty 2^{-b} ] * [Sum_{c=1}^\infty 2^{-c} ] = 2 * (1) * (1) = 2.
+
+Wait, because Sum_{n=1}^\infty (1/2)^n = 1.
+
+So, 2 * 1 * 1 = 2.
+
+Wait, but actually, the sum is 2 * (1/3) + 2 * (1/3)^2 + 2 * (1/3)^3 + ... = 2 * ( (1/3)/(1 - 1/3)) ) = 2 * (1/2) = 1.
+
+So, the sum for a = 1 is 1.
+
+Similarly, for a = 2, the conditions are:
+
+a = 2 < b + c,
+
+b < 2 + c,
+
+c < 2 + b.
+
+So, let me solve for a = 2.
+
+Then, we have:
+
+From 1: 2 < b + c,
+
+From 2: b < 2 + c,
+
+From 3: c < 2 + b.
+
+Let me consider possible values of b and c.
+
+Let me fix c and solve for b.
+
+From 3: c < 2 + b => b > c - 2.
+
+But b >= 1, so if c - 2 <= 1, then b > 1 - 2 = -1, which is always true.
+
+But c >= 1, so c - 2 can be -1, 0, or 1.
+
+So, for c = 1:
+
+From 3: b > 1 - 2 = -1 => b >= 1, which is always true.
+
+From 2: b < 2 + 1 = 3.
+
+So, for c = 1, b can be 1, 2.
+
+From 1: 2 < b + 1 => b > 1.
+
+So, for c = 1, b must be 2.
+
+Thus, for c = 1, b = 2.
+
+So, (a, b, c) = (2, 2, 1).
+
+Similarly, for c = 2:
+
+From 3: b > 2 - 2 = 0, so b >= 1.
+
+From 2: b < 2 + 2 = 4.
+
+So, b can be 1, 2, 3.
+
+From 1: 2 < b + 2 => b > 0, which is always true.
+
+So, for c = 2, b can be 1, 2, 3.
+
+So, (a, b, c) = (2, 1, 2), (2, 2, 2), (2, 3, 2).
+
+Similarly, for c = 3:
+
+From 3: b > 3 - 2 = 1, so b >= 2.
+
+From 2: b < 2 + 3 = 5.
+
+So, b can be 2, 3, 4.
+
+From 1: 2 < b + 3 => b > -1, always true.
+
+Thus, (a, b, c) = (2, 2, 3), (2, 3, 3), (2, 4, 3).
+
+Similarly, for c = 4:
+
+From 3: b > 4 - 2 = 2, so b >= 3.
+
+From 2: b < 2 + 4 = 6.
+
+So, b can be 3, 4, 5.
+
+From 1: 2 < b + 4 => b > -2, always true.
+
+Thus, (a, b, c) = (2, 3, 4), (2, 4, 4), (2, 5, 4).
+
+And so on.
+
+So, for a = 2, we have the following triples:
+
+(2, 2, 1), (2, 1, 2), (2, 2, 2), (2, 3, 2), (2, 2, 3), (2, 3, 3), (2, 4, 3), (2, 3, 4), (2, 4, 4), (2, 5, 4), etc.
+
+Each of these triples contributes 2^2 / (3^b 5^c).
+
+So, let's compute the sum for a = 2.
+
+First, (2, 2, 1):
+
+2^2 / (3^2 5^1) = 4 / (9 * 5) = 4/45.
+
+(2, 1, 2):
+
+2^2 / (3^1 5^2) = 4 / (3 * 25) = 4/75.
+
+(2, 2, 2):
+
+2^2 / (3^2 5^2) = 4 / (9 * 25) = 4/225.
+
+(2, 3, 2):
+
+2^2 / (3^3 5^2) = 4 / (27 * 25) = 4/675.
+
+(2, 2, 3):
+
+2^2 / (3^2 5^3) = 4 / (9 * 125) = 4/1125.
+
+(2, 3, 3):
+
+2^2 / (3^3 5^3) = 4 / (27 * 125) = 4/3375.
+
+(2, 4, 3):
+
+2^2 / (3^4 5^3) = 4 / (81 * 125) = 4/10125.
+
+(2, 3, 4):
+
+2^2 / (3^3 5^4) = 4 / (27 * 625) = 4/16875.
+
+(2, 4, 4):
+
+2^2 / (3^4 5^4) = 4 / (81 * 625) = 4/50625.
+
+And so on.
+
+So, the sum for a = 2 is:
+
+4/45 + 4/75 + 4/225 + 4/675 + 4/1125 + 4/3375 + 4/10125 + 4/16875 + 4/50625 + ... .
+
+Let me compute this:
+
+Convert all to a common denominator, but it's tedious. Alternatively, notice that each term is (4/45) * (1/5)^{b - 2} * (1/3)^{c - 2}.
+
+Wait, maybe not.
+
+Wait, each term for a = 2 is of the form 4/(3^b 5^c).
+
+But for (2, 2, 1), b = 2, c = 1.
+
+So, 4/(3^2 5^1) = 4/(9 * 5) = 4/45.
+
+Similarly, (2, 1, 2): 4/(3^1 5^2) = 4/(3 * 25) = 4/75.
+
+So, the terms can be grouped as:
+
+For b = 2, c varies:
+
+(2, 2, 1): 4/45,
+
+(2, 3, 2): 4/675,
+
+(2, 4, 3): 4/10125,
+
+(2, 5, 4): 4/16875,
+
+...
+
+Similarly, for b = 3, c varies:
+
+(2, 1, 3): 4/(3^3 5^3) = 4/(27 * 125) = 4/3375,
+
+(2, 2, 4): 4/(3^2 5^4) = 4/(9 * 625) = 4/5625,
+
+And so on.
+
+So, the sum for a = 2 is:
+
+Sum_{b=2}^\infty Sum_{c=1}^{b + 1} 4/(3^b 5^c).
+
+Wait, because for each b, c can be from 1 to b + 1.
+
+Wait, let me test for b = 2:
+
+c can be 1, 2, 3.
+
+Because 2 < b + c => c > 0, and b < a + c => c < b + 2.
+
+Wait, for a = 2, b = 2:
+
+c > 0, c < 2 + 2 = 4. So c = 1, 2, 3.
+
+So, c = 1: 4/(3^2 5^1) = 4/45,
+
+c = 2: 4/(3^2 5^2) = 4/75,
+
+c = 3: 4/(3^2 5^3) = 4/3375.
+
+Similarly, for b = 3:
+
+c can be 1, 2, 3, 4.
+
+Because 2 < 3 + c => c > -1, always true,
+
+and 3 < 2 + c => c > 1.
+
+So, c = 2, 3, 4.
+
+So, c = 2: 4/(3^3 5^2) = 4/(27 * 25) = 4/675,
+
+c = 3: 4/(3^3 5^3) = 4/10125,
+
+c = 4: 4/(3^3 5^4) = 4/16875.
+
+So, the pattern seems to be for each b >= 2, sum over c from 1 to b + 1.
+
+Thus, the sum for a = 2 is:
+
+Sum_{b=2}^\infty Sum_{c=1}^{b + 1} 4/(3^b 5^c).
+
+Let me compute this as:
+
+4 * Sum_{b=2}^\infty 1/(3^b) * Sum_{c=1}^{b + 1} (1/5)^c.
+
+Compute Sum_{c=1}^{b + 1} (1/5)^c.
+
+This is a geometric series with first term (1/5) and ratio 1/5, summed from c=1 to c = b + 1.
+
+Sum = (1/5) * [1 - (1/5)^{b + 2} ] / (1 - 1/5) ) = (1/5) * [1 - (1/5)^{b + 2} ] / (4/5) ) = [1 - (1/5)^{b + 2} ] / 4.
+
+So, Sum_{c=1}^{b + 1} (1/5)^c = [1 - (1/5)^{b + 2} ] / 4.
+
+Thus, the sum for a = 2 is:
+
+4 * Sum_{b=2}^\infty [1/(3^b)] * [1 - (1/5)^{b + 2} ] / 4 = Sum_{b=2}^\infty [1/(3^b)] * [1 - (1/5)^{b + 2} ].
+
+Simplify:
+
+Sum_{b=2}^\infty [1/(3^b) - (1/3^b)(1/5)^{b + 2} ].
+
+= Sum_{b=2}^\infty 1/(3^b) - Sum_{b=2}^\infty (1/(3^b 5^2 5^b)).
+
+= Sum_{b=2}^\infty 1/(3^b) - (1/25) Sum_{b=2}^\infty (1/(3 * 5)^b ).
+
+Compute each sum:
+
+Sum_{b=2}^\infty 1/(3^b) = (1/3^2)/(1 - 1/3)) = (1/9)/(2/3) = 1/6.
+
+Sum_{b=2}^\infty (1/(15)^b) = (1/15^2)/(1 - 1/15)) = (1/225)/(14/15)) = 1/(225 * 14/15) = 1/(210).
+
+Thus, the sum for a = 2 is 1/6 - (1/25)(1/210) = 1/6 - 1/(5250).
+
+Compute:
+
+1/6 = 875/5250,
+
+1/5250 = 1/5250,
+
+So, 875/5250 - 1/5250 = 874/5250.
+
+Simplify:
+
+Divide numerator and denominator by 2: 437/2625.
+
+So, the sum for a = 2 is 437/2625.
+
+Similarly, for a = 3, let's see:
+
+a = 3.
+
+Conditions:
+
+3 < b + c,
+
+b < 3 + c,
+
+c < 3 + b.
+
+So, solving these inequalities.
+
+Let me fix c and solve for b.
+
+From 1: 3 < b + c.
+
+From 2: b < 3 + c.
+
+From 3: c < 3 + b.
+
+Let me consider c = 1:
+
+From 3: b > c - 3 = -2, always true.
+
+From 2: b < 3 + 1 = 4.
+
+So, b can be 1, 2, 3.
+
+From 1: 3 < b + 1 => b > 2.
+
+So, b = 3.
+
+Thus, (a, b, c) = (3, 3, 1).
+
+Similarly, c = 2:
+
+From 3: b > c - 3 = -1, always true.
+
+From 2: b < 3 + 2 = 5.
+
+So, b can be 1, 2, 3, 4.
+
+From 1: 3 < b + 2 => b > 1.
+
+So, b = 2, 3, 4.
+
+From 3: c < 3 + b => 2 < 3 + b => b > -1, always true.
+
+Thus, (a, b, c) = (3, 2, 2), (3, 3, 2), (3, 4, 2).
+
+Similarly, c = 3:
+
+From 3: b > 0, always true.
+
+From 2: b < 3 + 3 = 6.
+
+So, b can be 1, 2, 3, 4, 5.
+
+From 1: 3 < b + 3 => b > 0, always true.
+
+Thus, (a, b, c) = (3, 1, 3), (3, 2, 3), (3, 3, 3), (3, 4, 3), (3, 5, 3).
+
+And so on.
+
+So, for a = 3, the triples are:
+
+(3, 3, 1), (3, 2, 2), (3, 3, 2), (3, 4, 2), (3, 1, 3), (3, 2, 3), (3, 3, 3), (3, 4, 3), (3, 5, 3), etc.
+
+Each term is 3^3 / (3^b 5^c) = 27/(3^b 5^c).
+
+So, the sum for a = 3 is:
+
+Sum_{b=1}^\infty Sum_{c=1}^{b + 1} 27/(3^b 5^c).
+
+Wait, similar to a = 2, perhaps.
+
+Let me compute the sum for a = 3.
+
+First, for each b >= 1, c ranges from 1 to b + 1.
+
+So, Sum_{b=1}^\infty Sum_{c=1}^{b + 1} 27/(3^b 5^c).
+
+= 27 * Sum_{b=1}^\infty [1/(3^b)] * Sum_{c=1}^{b + 1} (1/5)^c.
+
+Compute Sum_{c=1}^{b + 1} (1/5)^c = [1 - (1/5)^{b + 2}]/4.
+
+Thus, the sum for a = 3 is:
+
+27 * Sum_{b=1}^\infty [1/(3^b)] * [1 - (1/5)^{b + 2}]/4.
+
+= (27/4) * Sum_{b=1}^\infty [1/(3^b) - (1/3^b)(1/5)^{b + 2} ].
+
+= (27/4) * [Sum_{b=1}^\infty 1/(3^b) - Sum_{b=1}^\infty (1/(3 * 5))^b * (1/25) ].
+
+Compute each sum:
+
+Sum_{b=1}^\infty 1/(3^b) = (1/3)/(1 - 1/3)) = 1/2.
+
+Sum_{b=1}^\infty (1/(15))^b = (1/15)/(1 - 1/15)) = 1/14.
+
+Thus, the sum for a = 3 is:
+
+(27/4) * [1/2 - (1/14)(1/25)] = (27/4) * [1/2 - 1/(350)].
+
+Compute:
+
+1/2 = 175/350,
+
+1/(350) = 1/350.
+
+So, 175/350 - 1/350 = 174/350 = 87/175.
+
+Thus, the sum for a = 3 is:
+
+(27/4) * (87/175) = (27 * 87)/(4 * 175).
+
+Compute 27 * 87:
+
+27 * 80 = 2160,
+
+27 * 7 = 189,
+
+Total = 2160 + 189 = 2349.
+
+Denominator: 4 * 175 = 700.
+
+So, 2349/700.
+
+Simplify:
+
+Divide numerator and denominator by GCD(2349, 700).
+
+GCD(2349, 700): 2349 ÷ 700 = 3, remainder 249.
+
+GCD(700, 249). 700 ÷ 249 = 2, remainder 202.
+
+GCD(249, 202). 249 ÷ 202 = 1, remainder 47.
+
+GCD(202, 47). 202 ÷ 47 = 4, remainder 10.
+
+GCD(47, 10). 47 ÷ 10 = 4, remainder 7.
+
+GCD(10, 7). 10 ÷ 7 = 1, remainder 3.
+
+GCD(7, 3). 7 ÷ 3 = 2, remainder 1.
+
+GCD(3, 1) = 1.
+
+Thus, 2349/700 cannot be simplified further.
+
+So, the sum for a = 3 is 2349/700.
+
+Similarly, for a = 4, I can try to compute it, but it's getting tedious.
+
+But, for the sake of time, let me note that each a >= 2 contributes a positive term, but the sum converges because the terms decay exponentially.
+
+So, the total sum is S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+We have:
+
+- For a = 1, the sum is 1.
+
+- For a = 2, the sum is 437/2625.
+
+- For a = 3, the sum is 2349/700.
+
+Similarly, for a >= 4, the sums would be smaller.
+
+But to get an exact value, I can note that for a >= 2, each a has a finite sum.
+
+But since each a contributes a finite amount, and the sum over a is convergent, perhaps the total sum is 1 + 437/2625 + 2349/700 + ... .
+
+But this is getting too involved.
+
+Alternatively, perhaps I can note that the sum is equal to the product of the generating functions for each variable, minus the invalid terms.
+
+But in this case, it's complicated.
+
+Wait, perhaps I can model this sum as a triple integral.
+
+Let me define:
+
+S = ∫_{1}^\infty ∫_{1}^\infty ∫_{1}^\infty 2^x / (3^y 5^z) dx dy dz,
+
+with the conditions:
+
+x < y + z,
+
+y < x + z,
+
+z < x + y.
+
+But I'm not sure if this is helpful.
+
+Alternatively, consider that the conditions can be written as x < y + z, and similarly for y and z. So, perhaps the sum is equal to the integral over x, y, z from 1 to infinity of 2^x / (3^y 5^z) times the indicator function of x < y + z, y < x + z, z < x + y.
+
+But I don't know how to compute that integral.
+
+Alternatively, perhaps I can use the principle of inclusion-exclusion.
+
+The total sum is equal to:
+
+Sum_{a,b,c} 2^a / (3^b 5^c) - Sum_{a,b,c} [indicator(a >= b + c, b >= a + c, c >= a + b) * 2^a / (3^b 5^c)}.
+
+But as we saw earlier, the invalid terms are rare and can be ignored for the sum converging.
+
+But in practice, the sum is finite, so the invalid terms are just a small part.
+
+But the problem is that I need to compute the sum, and it's challenging without a computational tool.
+
+But wait, let me think about how each term contributes.
+
+Each term is 2^a / (3^b 5^c), and the conditions are that a < b + c, b < a + c, c < a + b.
+
+So, let me think of all triples (a, b, c) where a, b, c are positive integers, and each variable is less than the sum of the other two.
+
+This is similar to the conditions of a triangle, but in integers.
+
+Wait, actually, in the real numbers, for three positive numbers, the condition a < b + c is equivalent to them being the sides of a triangle.
+
+But in integers, the condition a < b + c is necessary for the existence of a triangle with sides a, b, c.
+
+So, perhaps the sum is counting something like the number of triangles with integer sides weighted by 2^a / (3^b 5^c).
+
+But the problem is that the invalid terms (where a >= b + c, etc.) are not triangles, but just sets of triples where one side is greater than the sum of the other two.
+
+But the sum over all such triples would be the total number of triples minus the sum over valid triangles.
+
+But as we saw before, the sum over all triples is divergent, but the sum over valid triangles is finite.
+
+Wait, but the problem is to compute the sum over all ordered triples (a, b, c) of positive integers with the three conditions, which is finite.
+
+Wait, perhaps we can model this as a generating function.
+
+Let me define the generating function for a, b, c:
+
+G(a, b, c) = sum_{a=1}^\infty 2^a x^{a} y^{b} z^{c}.
+
+But we need to incorporate the conditions.
+
+Alternatively, perhaps we can model this as a product of generating functions.
+
+But it's getting too vague.
+
+Alternatively, perhaps I can note that:
+
+The sum S can be written as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But each condition is a separate constraint.
+
+Wait, let me think about the probability that a < b + c, b < a + c, c < a + b for random positive integers a, b, c.
+
+But in our case, the weights are 2^a / (3^b 5^c).
+
+Wait, perhaps I can consider the probability that a < b + c given that a, b, c are positive integers.
+
+But in probability terms, for continuous variables, the probability that a < b + c is 1/2, as a, b, c are symmetric.
+
+But here, we have weighted variables.
+
+Wait, but in our case, the weights are 2^a / (3^b 5^c), so perhaps the problem is to compute the expected value of 2^a / (3^b 5^c) over the probability space where a < b + c, b < a + c, c < a + b.
+
+Alternatively, perhaps it's better to model the problem as follows:
+
+Let me consider the generating function:
+
+G(x, y, z) = Sum_{a=1}^\infty 2^a x^a Sum_{b=1}^\infty (1/3)^b y^b Sum_{c=1}^\infty (1/5)^c z^c.
+
+But we need to consider only the terms where a < b + c, b < a + c, c < a + b.
+
+So, the generating function is:
+
+G(x, y, z) = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But how to compute this?
+
+Alternatively, perhaps consider that each variable a, b, c can be treated independently, and the conditions a < b + c, etc., are symmetric.
+
+So, perhaps the sum S is equal to (Sum_{a=1}^\infty 2^a) * (Sum_{b=1}^\infty (1/3)^b) * (Sum_{c=1}^\infty (1/5)^c) multiplied by the probability that a < b + c, etc.
+
+But since the variables are dependent, it's not straightforward.
+
+Wait, perhaps the generating function can be written as:
+
+G(x, y, z) = (Sum_{a=1}^\infty 2^a x^a) * (Sum_{b=1}^\infty (1/3)^b y^b) * (Sum_{c=1}^\infty (1/5)^c z^c) * indicator(a < b + c, b < a + c, c < a + b)}.
+
+But this doesn't directly help.
+
+Wait, perhaps use the principle of inclusion-exclusion.
+
+Let me denote:
+
+A = set of triples where a >= b + c,
+
+B = set where b >= a + c,
+
+C = set where c >= a + b.
+
+We need to compute S = Sum_{(a, b, c)} [2^a / (3^b 5^c)] * I_{A ∪ B ∪ C}.
+
+But computing this is difficult.
+
+However, perhaps since the events A, B, C are symmetric and mutually exclusive, except for the overlaps, we can compute S as:
+
+S = Sum_{(a, b, c)} [2^a / (3^b 5^c)] - Sum_{(a, b, c)} [2^a / (3^b 5^c)] * [indicator(a >= b + c) + indicator(b >= a + c) + indicator(c >= a + b)}] + Sum_{(a, b, c)} [2^a / (3^b 5^c)] * [indicator(a >= b + c, b >= a + c, c >= a + b)}.
+
+But this seems too involved.
+
+Alternatively, perhaps use the fact that each term is positive and the sum converges.
+
+But given the time I've spent on this, I think I need to look for another approach.
+
+Wait, perhaps considering that the sum is equal to the product of three geometric series, but adjusted for the inequalities. But I don't see a straightforward way.
+
+Alternatively, perhaps I can think of the sum as a triple integral with conditions.
+
+But since the conditions are a < b + c, b < a + c, c < a + b, which are the same as:
+
+a < b + c,
+
+b < a + c,
+
+c < a + b,
+
+which is equivalent to saying that none of a, b, c is greater than the sum of the other two.
+
+Which is the condition for a triangle, but in integers.
+
+But in the context of generating functions, perhaps we can model this.
+
+Let me consider that the generating function for a, b, c is:
+
+G(x, y, z) = Sum_{a=1}^\infty 2^a x^a Sum_{b=1}^\infty (1/3)^b y^b Sum_{c=1}^\infty (1/5)^c z^c.
+
+But we need to exclude the cases where one of a, b, c is greater than the sum of the other two.
+
+But this seems too complicated.
+
+Alternatively, perhaps I can model the sum as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But, to compute this, I can use the fact that the sum is equal to the sum over all triples minus the sum over triples where one variable is >= the sum of the other two.
+
+But since it's a symmetric condition, perhaps:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)] * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But integrating over the conditions is difficult.
+
+Alternatively, perhaps I can use the principle of inclusion-exclusion.
+
+Let me denote:
+
+A = set of triples where a >= b + c,
+
+B = set where b >= a + c,
+
+C = set where c >= a + b.
+
+We need to compute |A ∪ B ∪ C|.
+
+By inclusion-exclusion:
+
+|A ∪ B ∪ C| = |A| + |B| + |C| - |A ∩ B| - |A ∩ C| - |B ∩ C| + |A ∩ B ∩ C}|.
+
+But in this case, since |A ∩ B ∩ C}| is the set of triples where a >= b + c, b >= a + c, c >= a + b, which only includes the zero triple, but since a, b, c are positive integers, this is empty.
+
+Thus, |A ∪ B ∪ C}| = |A| + |B| + |C|.
+
+Now, compute |A| = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [indicator(a >= b + c, b >= a + c, c >= a + b)}.
+
+But in this case, we have a >= b + c, b >= a + c, c >= a + b.
+
+Which implies:
+
+a >= b + c,
+
+b >= a + c,
+
+c >= a + b.
+
+But adding these inequalities, we get:
+
+a >= b + c,
+
+b >= a + c,
+
+c >= a + b.
+
+Adding all three inequalities: a + b + c >= a + b + c, which is always true.
+
+But more importantly, adding them:
+
+a + b + c >= a + b + c,
+
+but individually, each variable is >= the sum of the other two.
+
+Which is only possible if a = b = c = 0, but since a, b, c are positive integers, this is impossible.
+
+Thus, |A ∩ B ∩ C}| = 0.
+
+Thus, |A ∪ B ∪ C}| = |A| + |B| + |C|.
+
+But |A| is the sum over all triples where a >= b + c, etc.
+
+Similarly for |B| and |C|.
+
+But due to symmetry, |A| = |B| = |C|.
+
+Let me compute |A|.
+
+|A| = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [indicator(a >= b + c)}.
+
+Which is the number of triples where a >= b + c, with a, b, c >=1.
+
+Similarly, |A| = Sum_{a=1}^\infty Sum_{b=1}^{a - 1} Sum_{c=1}^{a - b} 1.
+
+Which is equal to Sum_{a=1}^\infty Sum_{b=1}^{a - 1} (a - b).
+
+Because for each a, b can range from 1 to a - 1, and for each b, c ranges from 1 to a - b.
+
+Thus, |A| = Sum_{a=1}^\infty Sum_{b=1}^{a - 1} (a - b)}.
+
+Compute this:
+
+= Sum_{a=1}^\infty [Sum_{b=1}^{a - 1} (a - b)}.
+
+= Sum_{a=1}^\infty [Sum_{k=1}^{a - 1} k}.
+
+Because let k = a - b.
+
+Then,
+
+= Sum_{a=1}^\infty [Sum_{k=1}^{a - 1} k}.
+
+= Sum_{a=1}^\infty [Sum_{k=1}^{a - 1} k}.
+
+= Sum_{a=1}^\infty [ (a - 1) a / 2 }.
+
+= (1/2) Sum_{a=1}^\infty (a^2 - a).
+
+But this diverges as a^2 - a is divergent.
+
+Wait, that can't be, because |A| is the number of triples where a >= b + c, which is finite.
+
+Wait, no, because for each a, b can be up to a -1, and c can be up to a - b, which increases as b decreases.
+
+But for each a, the number of (b, c) pairs is finite, hence |A| is finite.
+
+Wait, but the sum as a increases diverges, which is impossible.
+
+Wait, no, wait, for each a, the number of (b, c) where a >= b + c is actually finite.
+
+Specifically, for a fixed a, the number of (b, c) is sum_{b=1}^{a - 1} (a - b) = Sum_{k=1}^{a - 1} k = (a - 1)a / 2.
+
+Thus, |A| = Sum_{a=1}^\infty [ (a - 1)a / 2 }.
+
+But this is a divergent series.
+
+But that can't be, since |A| is the number of triples (a, b, c) with a >= b + c, which is finite.
+
+Wait, no, because for each a, the number of (b, c) is finite, but the total |A| would be Sum_{a=1}^\infty (a^2 - a)/2.
+
+Which is Sum_{a=1}^\infty (a^2 - a)/2.
+
+Which diverges, but for a, b, c positive integers, the number of such triples is finite.
+
+Wait, actually, no. For example, a=2, b=1, c=1: a=2 >= b + c =2, so it's valid.
+
+Similarly, a=3, b=1, c=1: 3 >=2,
+
+a=3, b=2, c=1: 3 >=3.
+
+Wait, so for each a, the number of (b, c) is finite.
+
+But Sum_{a=1}^\infty (a^2 - a)/2 is the total number of such triples, which is finite.
+
+Wait, what is the total number of triples where a >= b + c, b >= a + c, c >= a + b.
+
+But in reality, the only such triple is (1,1,1).
+
+Because for a >= b + c, b >= a + c, c >= a + b.
+
+But if a >= b + c, and b >= a + c, then a >= b + c >= (a + c) + c = a + 2c, so a >= a + 2c => 0 >= 2c, which is impossible unless c=0, but c >=1.
+
+Similarly, the only triple where a >= b + c, b >= a + c, c >= a + b is (0, 0, 0), but since a, b, c >=1, there are no such triples.
+
+Therefore, |A| = 0.
+
+Similarly, |B| and |C| are 0.
+
+Therefore, |A ∪ B ∪ C}| = 0.
+
+Hence, S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)}.
+
+Which is a divergent series.
+
+But this can't be, as the original sum is finite.
+
+But how?
+
+Wait, perhaps I made a miscalculation.
+
+Wait, in reality, when a, b, c are positive integers, the conditions a >= b + c, b >= a + c, c >= a + b can only be satisfied if one of the variables is greater than the sum of the other two, but for positive integers, the only way this can happen is if a = b = c = 0, which is not positive.
+
+Thus, |A ∪ B ∪ C}| = 0.
+
+Hence, S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)}.
+
+But this sum is equal to:
+
+Sum_{a=1}^\infty 2^a Sum_{b=1}^\infty (1/3)^b Sum_{c=1}^\infty (1/5)^c.
+
+Compute each sum:
+
+Sum_{a=1}^\infty 2^a = 2 + 4 + 8 + ... = 2 / (1 - 2) = -2, but that's a problem.
+
+Wait, no, wait, Sum_{a=1}^\infty 2^a = 2 + 4 + 8 + ... = divergent.
+
+Similarly, Sum_{b=1}^\infty (1/3)^b = (1/3)/(1 - 1/3)) = 3/2.
+
+Sum_{c=1}^\infty (1/5)^c = (1/5)/(1 - 1/5)) = 5/4.
+
+Thus, S = (-2) * (3/2) * (5/4) = (-2) * (15/8) = -30/8 = -15/4.
+
+But that can't be, as all terms are positive.
+
+Therefore, this suggests that the initial assumption is wrong.
+
+But since the sum is divergent, but the problem statement is to compute it, which suggests that perhaps the sum converges.
+
+Wait, perhaps I made a mistake in interpreting the sum.
+
+Wait, the problem is to compute the sum over all ordered triples (a, b, c) of positive integers, such that a < b + c, b < a + c, c < a + b.
+
+But, in reality, such triples are limited.
+
+Wait, for example, a=1, b=1, c=1: 1 < 2, 1 < 2, 1 < 2. True.
+
+a=1, b=1, c=2: 1 < 3, 1 < 3, 2 < 3. True.
+
+a=1, b=2, c=2: 1 < 4, 2 < 3, 2 < 3. True.
+
+a=2, b=2, c=2: 2 < 4, 2 < 4, 2 < 4. True.
+
+a=2, b=1, c=2: 2 < 3, 1 < 4, 2 < 4. True.
+
+a=2, b=2, c=1: 2 < 3, 2 < 3, 1 < 3. True.
+
+a=2, b=3, c=2: 2 < 5, 3 < 4, 2 < 5. True.
+
+a=3, b=2, c=2: 3 < 4, 2 < 5, 2 < 5. True.
+
+So, in fact, the sum is convergent, but the individual terms are positive, so the sum should be positive.
+
+Wait, perhaps the generating function approach is the way to go.
+
+Wait, but as we saw, the inclusion-exclusion approach leads to a divergence, which can't be.
+
+Alternatively, perhaps I can model the sum as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * I_{a < b + c, b < a + c, c < a + b}.
+
+But given the conditions, we can represent this as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * I_{a < b + c, b < a + c, c < a + b}}.
+
+But to compute this, we can use the fact that the sum is equal to:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But, to compute this, perhaps we can write it as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But as before, this seems complicated.
+
+Alternatively, perhaps I can note that the conditions are equivalent to the triangle inequalities, so perhaps use the fact that the probability that a < b + c, b < a + c, c < a + b is 1/2 for each pair, but they are independent, so the joint probability is 1/8.
+
+But in reality, it's more complex.
+
+Wait, let me think:
+
+For each triple (a, b, c), the conditions a < b + c, b < a + c, c < a + b.
+
+These are the conditions for a, b, c being the sides of a triangle.
+
+In probability terms, for random integers a, b, c, what's the probability that they satisfy the triangle inequalities?
+
+But in our case, a, b, c are positive integers, so the probability is zero because for two integers, the probability that a < b + c is 1/2, but the events are not independent.
+
+Wait, no, for two integers, the probability that a < b + c is 1/2, but for three integers, it's 1/4.
+
+Wait, but perhaps not.
+
+Wait, in general, for three random variables, the probability that a < b + c, b < a + c, c < a + b is 1/4.
+
+Thus, if we consider a, b, c as independent random variables over positive integers, the probability that they satisfy the triangle inequalities is 1/4.
+
+But in our case, a, b, c are dependent because the sum conditions are a < b + c, etc., which are dependent constraints.
+
+But for integers, the probability that such conditions hold is zero, because for any fixed a, b, c, either a < b + c, etc., is true or false.
+
+But in the case of integers, the variables are discrete, so the probability is zero that a < b + c, b < a + c, c < a + b for all a, b, c.
+
+But in our case, we are considering the sum over only those triples, so it's a conditional probability.
+
+Alternatively, maybe the sum S can be written as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But to compute this, we can note that:
+
+For a fixed a, the sum over b and c is:
+
+Sum_{b=1}^{a - 1} Sum_{c=1}^{a - b} [2^a / (3^b 5^c)}.
+
+Which is 2^a * Sum_{b=1}^{a - 1} (1/3)^b Sum_{c=1}^{a - b} (1/5)^c.
+
+As we computed earlier, the inner sum is Sum_{c=1}^{a - b} (1/5)^c = (1 - (a - b)^{-1}) / 4.
+
+Wait, no, in the earlier computation, for fixed a, b, the sum over c is Sum_{c=1}^{a - b} (1/5)^c = [(1/5) (1 - (1/5)^{a - b})] / (1 - 1/5) = (1/4)(1 - (1/5)^{a - b}).
+
+Thus, the inner sum becomes:
+
+2^a * Sum_{b=1}^{a - 1} (1/3)^b * (1/4)(1 - (1/5)^{a - b})).
+
+= (2^a / 4) Sum_{b=1}^{a - 1} (1/3)^b (1 - (1/5)^{a - b}).
+
+Split into two sums:
+
+= (2^a / 4) [Sum_{b=1}^{a - 1} (1/3)^b - Sum_{b=1}^{a - 1} (1/3)^b (1/5)^{a - b} }.
+
+Let me compute these sums.
+
+First sum: Sum_{b=1}^{a - 1} (1/3)^b = (1/3)(1 - (1/3)^{a - 1}) / (1 - 1/3)} = (1/3)(1 - (1/3)^{a - 1}) / (2/3)} = (1/2)(1 - (1/3)^{a - 1}).
+
+Second sum: Sum_{b=1}^{a - 1} (1/3)^b (1/5)^{a - b} = Sum_{b=1}^{a - 1} (1/3)^b (1/5)^{a - b} = (1/5)^a Sum_{b=1}^{a - 1} (1/3)^b (1/5)^{-b} }.
+
+Wait, (1/3)^b (1/5)^{-b} = (1/3)^b (5)^b = (5/3)^b.
+
+Thus, the second sum is:
+
+(1/5)^a Sum_{b=1}^{a - 1} (5/3)^b }.
+
+Compute this sum:
+
+Sum_{b=1}^{a - 1} (5/3)^b = (5/3)(1 - (5/3)^{a - 1}) / (1 - 5/3)}.
+
+But 1 - 5/3 = -2/3, so:
+
+= (5/3)(1 - (5/3)^{a - 1}) / (-2/3)} = (-5/2)(1 - (5/3)^{a - 1}).
+
+But since (5/3)^{a - 1} > 1 for a >=2, the sum becomes negative, which is impossible. So, we have a mistake in the sign.
+
+Wait, in the second sum, we have:
+
+Sum_{b=1}^{a - 1} (1/3)^b (1/5)^{a - b} = Sum_{b=1}^{a - 1} (1/3)^b (5/3)^b } = Sum_{b=1}^{a - 1} (5/9)^b.
+
+This is a geometric series with ratio 5/9, starting from b=1 to b=a - 1.
+
+Thus, Sum = (5/9)(1 - (5/9)^{a - 1}) / (1 - 5/9)} = (5/9)(1 - (5/9)^{a - 1}) / (4/9)} = (5/4)(1 - (5/9)^{a - 1}).
+
+Thus, the second sum is (5/4)(1 - (5/9)^{a - 1}).
+
+Therefore, putting it all together:
+
+The inner sum is (2^a / 4) [ (1/2)(1 - (1/3)^{a - 1}) - (5/4)(1 - (5/9)^{a - 1}) }.
+
+Simplify:
+
+= (2^a / 4) [ (1/2 - (1/2)(1/3)^{a - 1}) - (5/4 - 5/4 (5/9)^{a - 1}) }.
+
+= (2^a / 4) [ (1/2 - 5/4) + ( -1/2 (1/3)^{a - 1} + 5/4 (5/9)^{a - 1} }.
+
+= (2^a / 4) [ (-3/4) - (1/2)(1/3)^{a - 1} + (5/4)(5/9)^{a - 1} }.
+
+= (2^a / 4) [ -3/4 + ( -1/2 (1/3)^{a - 1} + 5/4 (5/9)^{a - 1} }.
+
+Thus, the sum S = Sum_{a=1}^\infty [2^a / 4 * (-3/4 + ( -1/2 (1/3)^{a - 1} + 5/4 (5/9)^{a - 1} ) }.
+
+This is quite complicated.
+
+Alternatively, perhaps I can factor out 2^a and write in terms of generating functions.
+
+Wait, but 2^a is a term that complicates things.
+
+Alternatively, perhaps we can model the entire sum as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * I_{a < b + c, b < a + c, c < a + b}}.
+
+But given the complexity, perhaps we can find the sum by considering the probability that a < b + c, etc., as independent events.
+
+But as the problem is symmetric in a, b, c, the total sum S can be expressed as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * P(a < b + c, b < a + c, c < a + b}}.
+
+But, as per earlier, the probability that a < b + c, etc., is 1/4 for each pair.
+
+But since the conditions are dependent, the joint probability is 1/4.
+
+But in reality, the events are not independent, so the joint probability is less than 1/8.
+
+But, in the end, it's complicated.
+
+Alternatively, perhaps I can note that:
+
+The sum is equal to Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * I_{a < b + c, b < a + c, c < a + b}}.
+
+But I can write this as:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * [indicator(a < b + c, b < a + c, c < a + b}}.
+
+But since all three conditions are equivalent to a < b + c, etc., which is the same as the triangle inequality, which is a necessary and sufficient condition for a, b, c being the sides of a triangle.
+
+But in probability terms, for random variables a, b, c, the probability that they satisfy all three conditions is 1/8, because the probability that each pair satisfies the triangle inequality is 1/2, and they are independent.
+
+But in reality, the events are not independent, so the probability is less than 1/8.
+
+But since the sum is over all positive integers, the probability is zero, because the sum of a < b + c, etc., is zero.
+
+But in this problem, the sum is a positive number, so perhaps we need to compute the expectation.
+
+Wait, perhaps the sum can be modeled as an expected value.
+
+Alternatively, perhaps I can consider the sum S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * I_{a < b + c, b < a + c, c < a + b}}.
+
+But perhaps, given that the conditions are symmetric, we can express the sum as:
+
+S = Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+Which is equal to:
+
+Sum_{a=1}^\infty Sum_{b=1}^\infty Sum_{c=1}^\infty [2^a / (3^b 5^c)} * [indicator(a < b + c, b < a + c, c < a + b)}.
+
+But due to the complexity, perhaps it's best to compute S by considering that when a >= b + c, the sum can be split accordingly.
+
+But given the time I have, I think I can conclude that the sum is either convergent or can be expressed as a telescoping series.
+
+Alternatively, perhaps I can use generating functions for each variable.
+
+Wait, but given the time constraints, perhaps it's better to conclude that the sum is 1/2.
+
+Wait, but since the original sum is a sum over all positive integers, and each term is positive, it must be a positive number.
+
+Given the problem is of the form a^x / b^y, which is similar to a geometric series, perhaps the sum is 1/2.
+
+But considering the conditions, it's more likely to be 1/8, but I'm not sure.
+
+Wait, let me compute the sum when a, b, c are all 1: 2 < 3 < 4, which is true.
+
+Similarly, a=1, b=1, c=2: 1 < 3, 1 < 3, 2 < 3. True.
+
+a=1, b=1, c=3: 1 < 4, 1 < 4, 3 < 4. True.
+
+a=1, b=2, c=1: 1 < 3, 2 < 3, 1 < 3. True.
+
+a=1, b=2, c=2: 1 < 4, 2 < 4, 2 < 3. True.
+
+a=1, b=3, c=1: 1 < 4, 3 < 4, 1 < 4. True.
+
+a=1, b=3, c=2: 1 < 5, 3 < 5, 2 < 4. True.
+
+Similarly, for other small a, b, c, the conditions hold.
+
+But for a=2, b=2, c=2: 2 < 4, 2 < 4, 2 < 4. True.
+
+a=2, b=2, c=3: 2 < 5, 2 < 5, 3 < 4. True.
+
+a=2, b=3, c=2: 2 < 5, 3 < 5, 2 < 4. True.
+
+So, in all these cases, the conditions hold, so S is a positive number.
+
+But without computing the entire sum, it's hard to find the exact value.
+
+Given the time I have, I think the sum is 1/2, but I need to check:
+
+Wait, note that 2^a = 2*2^a, so for each a, b, c, the term is 2^a / (3^b 5^c). So, the sum is akin to a triple product where a is weighted by 2, and b and c by 1/3 and 1/5.
+
+But I think that the sum can be expressed as a product of geometric series.
+
+But given that, for each a, b, c, the term is 2^a / (3^b 5^c).
+
+So, if I fix a, then the sum over b and c is Sum_{b=1}^\infty Sum_{c=1}^\infty 2^a / (3^b 5^c).
+
+Which is 2^a * (1/3)^a * (1/5)^a = 2^a / (3*5)^a = (2/15)^a.
+
+Thus, for each a, the inner sum is (2/15)^a.
+
+Thus, the entire sum is Sum_{a=1}^\infty (2/15)^a = (2/15)/(1 - 2/15)} = (2/15)/(13/15)} = 2/13.
+
+Wait, that can't be. Wait, because for each a, the inner sum is over b and c, which are independent.
+
+But in reality, the inner sum is a double sum over b and c, which would be Sum_{b=1}^\infty Sum_{c=1}^\infty 2^a / (3^b 5^c) = 2^a * Sum_{b=1}^\infty (1/3)^b * Sum_{c=1}^\infty (1/5)^c.
+
+But for each a, the inner sum is (2^a) * (1/3)^a * (1/5)^a = 2^a / (3*5)^a = (2/15)^a.
+
+Thus, the entire sum is Sum_{a=1}^\infty (2/15)^a} = (2/15)/(1 - 2/15)} = (2/15)/(13/15)} = 2/13.
+
+But in this case, the inner sum is over b and c. However, in this approach, we're considering the sum as a product of three geometric series, but the conditions a < b + c, b < a + c, c < a + b are not captured by this method.
+
+But perhaps, since the conditions are symmetric, the sum can be expressed as a product of three geometric series.
+
+Wait, in the problem statement, it's not symmetric in the way that a, b, c are treated.
+
+But in this case, since the sum is Sum_{a=1}^∞ Sum_{b=1}^∞ Sum_{c=1}^∞ [2^a / (3^b 5^c)} * indicator(a < b + c, b < a + c, c < a + b}}}.
+
+If the conditions were a < b + c, etc., then the sum is Sum_{a=1}^∞ [2^a / (3^b 5^c)} * [indicator(a < b + c, etc.}}.
+
+But as the sum is over all a, b, c, perhaps the conditions can be modeled as indicators functions. But without a way to separate the sum, it's difficult.
+
+But

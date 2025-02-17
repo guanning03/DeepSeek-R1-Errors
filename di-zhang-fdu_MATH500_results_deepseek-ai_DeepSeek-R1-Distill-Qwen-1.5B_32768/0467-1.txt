@@ -1,0 +1,153 @@
+Tokens: 2964.6666666666665
+
+Question:
+One line is defined by
+\[\begin{pmatrix} 3 \\ -10 \\ 1 \end{pmatrix} + t \begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix}.\]Another line is defined by
+\[\begin{pmatrix} -5 \\ -3 \\ 6 \end{pmatrix} + u \begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix}.\]These two lines are parallel.  Find the distance between these two lines.
+
+Correct Answer:
+We see that $(3,-10,1)$ is a point on the first line.
+
+A point on the second line is given by
+\[\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} -5 \\ -3 \\ 6 \end{pmatrix} + t \begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix} = \begin{pmatrix} -5 + 4t \\ -3 - 18t \\ 6 - 4t \end{pmatrix}.\][asy]
+unitsize (0.6 cm);
+
+pair A, B, C, D, E, F, H;
+
+A = (2,5);
+B = (0,0);
+C = (8,0);
+D = (A + reflect(B,C)*(A))/2;
+
+draw(A--D);
+draw((0,5)--(8,5));
+draw((0,0)--(8,0));
+
+dot("$(3,-10,1)$", A, N);
+dot("$(-5 + 4t, -3 - 18t, 6 - 4t)$", D, S);
+[/asy]
+
+The vector pointing from $(3,-10,1)$ to $(-5 + 4t, -3 - 18t, 6 - 4t)$ is then
+\[\mathbf{v} = \begin{pmatrix} -8 + 4t \\ 7 - 18t \\ 5 - 4t \end{pmatrix}.\]For the point on the second line that is closest to $(3,-10,1),$ this vector will be orthogonal to the direction vector of the second line, which is $\begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix}.$  Thus,
+\[\begin{pmatrix} -8 + 4t \\ 7 - 18t \\ 5 - 4t \end{pmatrix} \cdot \begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix} = 0.\]This gives us $(-8 + 4t)(4) + (7 - 18t)(-18) + (5 - 4t)(-4) = 0.$  Solving, we find $t = \frac{1}{2}.$
+
+Substituting this value into $\mathbf{v},$ we find that the distance between the parallel lines is then
+\[\|\mathbf{v}\| = \left\| \begin{pmatrix} -6 \\ -2 \\ 3 \end{pmatrix} \right\| = \boxed{7}.\]
+
+Wrong Answer:
+Okay, so I have this problem here with two lines in 3D space, and I'm told that they are parallel. I need to find the distance between them. Hmm, let me remember how to approach this. 
+
+First, the lines are given in parametric form. The first line is:
+\[
+\begin{pmatrix} 3 \\ -10 \\ 1 \end{pmatrix} + t \begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix}
+\]
+And the second line is:
+\[
+\begin{pmatrix} -5 \\ -3 \\ 6 \end{pmatrix} + u \begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix}
+\]
+
+Since they are parallel, their direction vectors must be scalar multiples of each other. Let me check that. The direction vector for the first line is \(\begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix}\), and for the second line, it's \(\begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix}\). 
+
+If I multiply the first direction vector by 2, I get \(\begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix}\), which is exactly the direction vector of the second line. So that confirms they are indeed parallel. Great.
+
+Now, to find the distance between two parallel lines, I remember that the distance is the length of the vector that goes from any point on one line to the other line, and is perpendicular to both lines. Since the lines are parallel, this distance can be found using the formula:
+
+\[
+\text{Distance} = \frac{|\mathbf{v} \cdot (\mathbf{a}_2 - \mathbf{a}_1)|}{|\mathbf{v}|}
+\]
+
+Where \(\mathbf{v}\) is the direction vector of the lines, and \(\mathbf{a}_1\) and \(\mathbf{a}_2\) are points on each line.
+
+Let me assign:
+- \(\mathbf{a}_1 = \begin{pmatrix} 3 \\ -10 \\ 1 \end{pmatrix}\)
+- \(\mathbf{a}_2 = \begin{pmatrix} -5 \\ -3 \\ 6 \end{pmatrix}\)
+- \(\mathbf{v} = \begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix}\)
+
+First, I need to compute \(\mathbf{a}_2 - \mathbf{a}_1\). Let me do that:
+
+\[
+\mathbf{a}_2 - \mathbf{a}_1 = \begin{pmatrix} -5 - 3 \\ -3 - (-10) \\ 6 - 1 \end{pmatrix} = \begin{pmatrix} -8 \\ 7 \\ 5 \end{pmatrix}
+\]
+
+So, \(\mathbf{a}_2 - \mathbf{a}_1 = \begin{pmatrix} -8 \\ 7 \\ 5 \end{pmatrix}\). 
+
+Next, I need to compute the dot product of \(\mathbf{v}\) and this difference vector.
+
+\[
+\mathbf{v} \cdot (\mathbf{a}_2 - \mathbf{a}_1) = \begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix} \cdot \begin{pmatrix} -8 \\ 7 \\ 5 \end{pmatrix} = (2)(-8) + (-9)(7) + (-2)(5)
+\]
+
+Calculating each component:
+- \(2 \times -8 = -16\)
+- \(-9 \times 7 = -63\)
+- \(-2 \times 5 = -10\)
+
+Adding them up: \(-16 - 63 - 10 = -89\)
+
+So, the absolute value of this dot product is \(| -89 | = 89\).
+
+Now, I need to find the magnitude of the direction vector \(\mathbf{v}\).
+
+\[
+|\mathbf{v}| = \sqrt{2^2 + (-9)^2 + (-2)^2} = \sqrt{4 + 81 + 4} = \sqrt{89}
+\]
+
+So, the distance is \( \frac{89}{\sqrt{89}} \).
+
+Simplify that, \( \frac{89}{\sqrt{89}} = \sqrt{89} \).
+
+Wait, is that right? Because 89 divided by its square root is indeed the square root of 89. Because \(\sqrt{89} \times \sqrt{89} = 89\), so dividing 89 by \(\sqrt{89}\) gives \(\sqrt{89}\).
+
+So, the distance between the two lines is \(\sqrt{89}\).
+
+Let me double-check my steps to make sure I didn't make a mistake.
+
+1. Direction vectors are scalar multiples: correct.
+2. Calculated \(\mathbf{a}_2 - \mathbf{a}_1\): correct, resulting in \(\begin{pmatrix} -8 \\ 7 \\ 5 \end{pmatrix}\).
+3. Dot product of \(\mathbf{v}\) and this difference vector: 2*(-8) is -16, -9*7 is -63, -2*5 is -10. Sum is indeed -89, absolute value is 89.
+4. Magnitude of \(\mathbf{v}\): 2² + (-9)² + (-2)² = 4 + 81 + 4 = 89, so sqrt(89).
+5. Distance is 89 / sqrt(89) = sqrt(89).
+
+Everything checks out. So, the distance between the two lines is \(\sqrt{89}\).
+
+**Final Answer**
+The distance between the two lines is \boxed{\sqrt{89}}.
+</think>
+
+Given two parallel lines in 3D space, we need to find the distance between them. The first line is defined by:
+\[
+\begin{pmatrix} 3 \\ -10 \\ 1 \end{pmatrix} + t \begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix}
+\]
+and the second line is defined by:
+\[
+\begin{pmatrix} -5 \\ -3 \\ 6 \end{pmatrix} + u \begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix}
+\]
+
+Since the direction vectors are scalar multiples of each other (\(\begin{pmatrix} 4 \\ -18 \\ -4 \end{pmatrix}\) is twice \(\begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix}\)), the lines are parallel.
+
+To find the distance between the two lines, we use the formula:
+\[
+\text{Distance} = \frac{|\mathbf{v} \cdot (\mathbf{a}_2 - \mathbf{a}_1)|}{|\mathbf{v}|}
+\]
+
+First, compute \(\mathbf{a}_2 - \mathbf{a}_1\):
+\[
+\mathbf{a}_2 - \mathbf{a}_1 = \begin{pmatrix} -5 - 3 \\ -3 - (-10) \\ 6 - 1 \end{pmatrix} = \begin{pmatrix} -8 \\ 7 \\ 5 \end{pmatrix}
+\]
+
+Next, compute the dot product of \(\mathbf{v}\) and \(\mathbf{a}_2 - \mathbf{a}_1\):
+\[
+\mathbf{v} \cdot (\mathbf{a}_2 - \mathbf{a}_1) = \begin{pmatrix} 2 \\ -9 \\ -2 \end{pmatrix} \cdot \begin{pmatrix} -8 \\ 7 \\ 5 \end{pmatrix} = (2)(-8) + (-9)(7) + (-2)(5) = -16 - 63 - 10 = -89
+\]
+
+The absolute value of this dot product is 89. Now, compute the magnitude of \(\mathbf{v}\):
+\[
+|\mathbf{v}| = \sqrt{2^2 + (-9)^2 + (-2)^2} = \sqrt{4 + 81 + 4} = \sqrt{89}
+\]
+
+Thus, the distance is:
+\[
+\frac{89}{\sqrt{89}} = \sqrt{89}
+\]
+
+The distance between the two lines is \(\boxed{\sqrt{89}}\).

@@ -1,0 +1,630 @@
+Tokens: 20630.666666666668
+
+Question:
+In the figure below, quadrilateral $CDEG$ is a square with $CD = 3$, and quadrilateral $BEFH$ is a rectangle. If $BE = 5$, how many units is $BH$? Express your answer as a mixed number. [asy]
+unitsize(5mm);
+defaultpen(linewidth(.7pt)+fontsize(8pt));
+
+pair A=(0,0), B=(3,0), C=(6,0), D=(9,0), Ep=(9,3), G=(6,3);
+pair F0=bisectorpoint(B,2*Ep-B), H0=bisectorpoint(Ep,2*B-Ep);
+pair H=extension(B,H0,A,G);
+pair F=extension(Ep,F0,A,G);
+
+draw(H--B--Ep--F--A--D--Ep--G--C);
+label("$A$",A,S);
+label("$B$",B,S);
+label("$C$",C,S);
+label("$D$",D,S);
+label("$E$",Ep,E);
+label("$F$",F,N);
+label("$G$",G,NW);
+label("$H$",H,NW);
+[/asy]
+
+Correct Answer:
+Let $J$ be the intersection of $\overline{BE}$ and $\overline{GC}$. [asy]
+unitsize(5mm);
+defaultpen(linewidth(.7pt)+fontsize(8pt));
+pair A=(0,0), B=(3,0), C=(6,0), D=(9,0), Ep=(9,3), G=(6,3), K=(33/5,9/5);
+pair F0=bisectorpoint(B,2*Ep-B), H0=bisectorpoint(Ep,2*B-Ep);
+pair H=extension(B,H0,A,G);
+pair F=extension(Ep,F0,A,G);
+pair J=extension(B,Ep,G,C);
+draw(H--B--Ep--F--A--D--Ep--G--C);
+draw(G--K);
+label("$A$",A,S);
+label("$B$",B,S);
+label("$C$",C,S);
+label("$D$",D,S);
+label("$E$",Ep,E);
+label("$F$",F,N);
+label("$G$",G,NW);
+label("$H$",H,NW);
+label("$J$",J,NW);
+label("$K$",K,SE);[/asy]
+
+Observe that $BD=\sqrt{BE^2-DE^2}=\sqrt{5^2-3^2}=4$ units.  By the similarity of triangles $BCJ$ and $BDE$, we have  \[
+\frac{CJ}{BC}=\frac{DE}{BD},
+\] which after substituting becomes \[
+\frac{CJ}{4-3}=\frac{3}{4}.
+\] We solve to find $CJ=\frac{3}{4}$, which implies that $GJ=3-\frac{3}{4}=\frac{9}{4}$.  Applying the Pythagorean theorem to triangle $GJE$, we find $EJ=\sqrt{3^2+\left(\frac{9}{4}\right)^2}=\frac{15}{4}$.  Define $K$ to be the foot of the perpendicular from $G$ to side $EJ$.  By the similarity of triangles $GKJ$ and $EGJ$, we have  \[
+\frac{GK}{GJ}=\frac{EG}{EJ} \implies
+\frac{GK}{\frac{9}{4}}=\frac{3}{\frac{15}{4}},
+\] which we solve to find $GK=\frac{9}{5}$.  Since $GKBH$ is a rectangle, $BH=GK=\frac{9}{5}=\boxed{1\frac{4}{5}}$ units.
+
+Wrong Answer:
+Okay, so I have this geometry problem here. Let me try to understand it step by step. There are two quadrilaterals mentioned: quadrilateral CDEG is a square, and quadrilateral BEFH is a rectangle. The length of CD is given as 3 units, and the length of BE is 5 units. I need to find the length of BH, which is a segment in the rectangle BEFH. The answer should be a mixed number.
+
+First, let me try to visualize the figure based on the Asymptote code provided. It seems like it's a coordinate geometry problem, so I can probably assign coordinates to each point and use coordinate geometry to find the lengths.
+
+Looking at the Asymptote code, the points are defined as follows:
+- A at (0,0)
+- B at (3,0)
+- C at (6,0)
+- D at (9,0)
+- E at (9,3)
+- G at (6,3)
+- F is calculated using bisectorpoint between B and 2Ep-B, which probably means it's on the perpendicular bisector of segment BE.
+- H is found by extending lines from B and E to intersect with AG.
+
+Wait, maybe I should parse the Asymptote code more carefully.
+
+The code defines A, B, C, D, E, G, F, H. Let me write down their coordinates:
+
+- A = (0,0)
+- B = (3,0)
+- C = (6,0)
+- D = (9,0)
+- E = (9,3)
+- G = (6,3)
+- F is computed as the bisector point between B and 2Ep - B. Hmm, Ep is likely E, which is (9,3). So 2Ep - B is 2*(9,3) - (3,0) = (18-3,6-0) = (15,6). So bisectorpoint between B=(3,0) and (15,6). Similarly, H is the bisectorpoint between Ep=(9,3) and 2B - Ep = 2*(3,0) - (9,3) = (6-9, 0-3) = (-3,-3). So the bisectorpoint between E=(9,3) and (-3,-3).
+
+Wait, bisectorpoint in Asymptote usually finds a point that is equidistant from two segments. But I'm not sure if it's the midpoint or something else. Maybe it's the midpoint of the line segment between two points? Let me think. If it's the midpoint, then for segment BE, which is from B=(3,0) to E=(9,3), the midpoint would be at ((3+9)/2, (0+3)/2) = (6, 1.5). Similarly, for segment 2B - Ep = (-3,-3), which is from E=(9,3) to (-3,-3), the midpoint would be ((9 + (-3))/2, (3 + (-3))/2) = (3,0). Wait, that seems strange. So F is the intersection point of the bisectorpoint with AG, which is from A=(0,0) to G=(6,3). Maybe it's the perpendicular bisector?
+
+Alternatively, perhaps bisectorpoint just finds a point that lies on the perpendicular bisector of the segment. So for segment BE, which is from (3,0) to (9,3), the midpoint is (6,1.5). The slope of BE is (3-0)/(9-3) = 3/6 = 0.5. Therefore, the perpendicular bisector will have a slope of -2. So the equation of the perpendicular bisector is y - 1.5 = -2(x - 6). Similarly, for segment 2B - Ep = (-3,-3), the midpoint is (3,0). The slope of this segment is (-3 - 3)/(-3 - 9) = (-6)/(-12) = 0.5. So the perpendicular bisector will have a slope of -2. So the equation is y - 0 = -2(x - 3), which is y = -2x + 6.
+
+Wait, but the bisectorpoint function in Asymptote might be using something else. Maybe it's the intersection point of the two perpendicular bisectors? So perhaps F is the intersection of the perpendicular bisectors of BE and the perpendicular bisector of some other segment?
+
+But this might be getting too complicated. Maybe I should assign coordinates and try to find the equations of the lines.
+
+Given that CDEG is a square with CD = 3. So points C, D, E, G. Since CD is from (6,0) to (9,0), which is 3 units. Then DE would go up to E=(9,3). Similarly, E is connected to G, which is (6,3), so that's 3 units left. So yes, CDEG is a square with side length 3.
+
+Now, quadrilateral BEFH is a rectangle. BE is given as 5 units. So BE is from B=(3,0) to E=(9,3). Let me calculate the length of BE. The distance between (3,0) and (9,3) is sqrt((9-3)^2 + (3-0)^2) = sqrt(36 + 9) = sqrt(45) = 3*sqrt(5). But wait, in the problem, BE is 5 units. Hmm, that's conflicting.
+
+Wait, hold on. Maybe I'm misinterpreting something. If BE is 5 units, but the distance between B=(3,0) and E=(9,3) is 3*sqrt(5) ≈ 6.708, which is longer than 5. So perhaps BE isn't BE, but maybe another segment? Wait, quadrilateral BEFH is a rectangle. So BE is one side, and BH is another side. So BE and BH are adjacent sides of the rectangle.
+
+So if BE is 5 units, and BH is a side of the rectangle, then BE and BH are perpendicular. So if I can find the coordinates of F and H, I can find BH.
+
+Alternatively, since BEFH is a rectangle, BE and BF are adjacent sides, so the length of BE is 5, and BH is another side. Since H is on AG, which is from A=(0,0) to G=(6,3). So maybe I can find the coordinates of H by finding where the perpendicular bisector of BE intersects AG.
+
+Wait, perhaps I should approach this by using coordinate geometry. Let me assign coordinates as per the Asymptote code. So:
+
+A = (0,0)
+B = (3,0)
+C = (6,0)
+D = (9,0)
+E = (9,3)
+G = (6,3)
+
+So square CDEG has sides CD, DE, EG, GC. Each side is 3 units.
+
+Now, quadrilateral BEFH is a rectangle. Points B, E, F, H. So BE is one side, and BH is another side. Since it's a rectangle, BE must be perpendicular to BH.
+
+BE is from (3,0) to (9,3). The vector BE is (6,3). So BH, being perpendicular, should have a direction vector (-3,6) or (3,-6), because the dot product must be zero.
+
+Wait, the direction vector of BE is (6,3). So a perpendicular vector would have a dot product of zero. So if the direction vector of BH is (a,b), then 6a + 3b = 0. So we can choose ( -1, 2 ) or (1, -2 ), which are perpendicular.
+
+Since BH is a side of the rectangle, and H lies on AG. AG is from A=(0,0) to G=(6,3). So parametric equation of AG is (6t, 3t) for t from 0 to 1.
+
+So point H is somewhere on AG, which is (6t, 3t). Similarly, point F is somewhere on the other side, as per the Asymptote code.
+
+But perhaps I can find the coordinates of H. Since BH is a side of the rectangle, and BE is a side.
+
+Wait, in a rectangle, opposite sides are equal and adjacent sides are perpendicular. So BE and BH are adjacent sides, so they must be perpendicular, which we have.
+
+But to find BH, we need to find the length of the side BH.
+
+Alternatively, maybe we can find coordinates of H by finding the intersection of the perpendicular from B to BE with AG.
+
+Wait, no. Since BEFH is a rectangle, BH must be such that it is perpendicular to BE and has the same length as EF or something? Hmm, not sure.
+
+Wait, let me think differently. Since BEFH is a rectangle, and BE is one side, then the length of BE is 5, as given. Wait, no, the distance from B to E is sqrt( (9-3)^2 + (3-0)^2 ) = sqrt(36 + 9) = sqrt(45) = 3*sqrt(5). But the problem says BE = 5 units. That contradicts my calculation. Hmm, so maybe my initial assumption is wrong.
+
+Wait, maybe BE isn't the side from B to E, but from B to another point? Or perhaps the figure is different.
+
+Looking back at the Asymptote code: It draws H as the extension of B to F0 and A to G. So H is the intersection point of lines BF and AG. Similarly, F is the intersection point of lines E to F0 and A to G.
+
+Wait, maybe I should find the coordinates of F and H by solving the equations of the lines.
+
+Since BEFH is a rectangle, so BE is one side, and BH is another side. Since it's a rectangle, the sides BE and BH must be perpendicular and equal in length? Wait, no, in a rectangle, adjacent sides are equal if it's a square, but in a rectangle, adjacent sides are perpendicular but not necessarily equal.
+
+Wait, but in this case, BE is a side, BH is another side, and they are adjacent. So if BE is 5 units, then BH is the side we need to find.
+
+Wait, but in my initial calculation, the distance from B to E is 3*sqrt(5), which is approximately 6.708, but the problem says BE = 5. So that suggests that BE is not the straight-line distance from B to E but maybe another segment? Or perhaps BE is a different segment.
+
+Wait, the code defines E as Ep=(9,3). So E is (9,3). So BE is from B=(3,0) to E=(9,3). So distance is 3*sqrt(5). But the problem says BE = 5. So I'm confused.
+
+Wait, maybe I misread the problem. Let me check again.
+
+"In the figure below, quadrilateral CDEG is a square with CD = 3, and quadrilateral BEFH is a rectangle. If BE = 5, how many units is BH? Express your answer as a mixed number."
+
+So BE is 5 units. So in the figure, BE is a side of the rectangle BEFH, but in my coordinate system, BE is 3*sqrt(5) ≈ 6.708, which is longer than 5. So that suggests that perhaps the figure is not to scale, or maybe BE is not the same as the line from B to E.
+
+Wait, maybe BE is a different segment? Or perhaps the rectangle BEFH is not connected in the same way as I thought.
+
+Wait, looking back at the Asymptote code:
+
+draw(H--B--Ep--F--A--D--Ep--G--C);
+
+So the figure is H connected to B, B connected to Ep, Ep connected to F, F connected to A, A connected to D, D connected to Ep, Ep connected to G, G connected to C.
+
+So E is connected to Ep, which is probably E, but Ep is (9,3). So E is (9,3), Ep is (9,3). Wait, that can't be. The code says Ep=(9,3), and then Ep is used in some calculations.
+
+Wait, maybe Ep is a typo or a misinterpretation. Perhaps E is (9,3), so Ep is another point.
+
+Wait, Asymptote code:
+
+pair A=(0,0), B=(3,0), C=(6,0), D=(9,0), Ep=(9,3), G=(6,3);
+
+So E is (9,3), Ep is (9,3). Wait, that's the same point. Maybe that's a typo, and it should be E=(3,0), Ep=(9,0), but no, that might not make sense.
+
+Wait, perhaps Ep is a misinterpretation. Maybe it's another point. Wait, perhaps the code is wrong. Alternatively, perhaps Ep is a different point.
+
+Wait, in the Asymptote code:
+
+F0 = bisectorpoint(B, 2*Ep - B);
+
+H0 = bisectorpoint(Ep, 2*B - Ep);
+
+Then F = extension(B, F0, A, G);
+
+H = extension(Ep, H0, A, G);
+
+Wait, so Ep is assigned as (9,3), which is E. So 2*Ep - B is 2*(9,3) - (3,0) = (18-3, 6-0) = (15,6). Similarly, 2*B - Ep is 2*(3,0) - (9,3) = (6-9, 0-3) = (-3,-3). So the bisectorpoint of B and (15,6) is F0, and bisectorpoint of Ep=(9,3) and (-3,-3) is H0.
+
+Wait, so F0 is the midpoint between B and (15,6). The midpoint is ((3 + 15)/2, (0 + 6)/2) = (9,3). Similarly, the midpoint between Ep=(9,3) and (-3,-3) is ((9 + (-3))/2, (3 + (-3))/2) = (3,0). So F0 is (9,3) and H0 is (3,0).
+
+But then F is extension(B, F0, A, G); So line BF0 from (3,0) to (9,3). But (9,3) is E. So line BE. Similarly, H is extension(Ep, H0, A, G); Line from Ep=(9,3) to H0=(3,0). So line H0 is from (9,3) to (3,0). So line AH0.
+
+Wait, then H is the intersection of line BE and line AH0.
+
+Wait, line BE is from B=(3,0) to E=(9,3). Line AH0 is from A=(0,0) to H0=(3,0). So line AH0 is the same as line AB, which is along the x-axis.
+
+But line BE is from (3,0) to (9,3). So where do these lines intersect? Well, line AH0 is the x-axis, so line BE is from (3,0) to (9,3). So they intersect at (3,0), which is point B. But that can't be H. So perhaps the problem is that the Asymptote code is just using bisectorpoints, which might not necessarily be midpoints.
+
+Wait, maybe bisectorpoint is not the midpoint, but another point on the perpendicular bisector. So maybe F0 is a point on the perpendicular bisector of segment BE, and H0 is a point on the perpendicular bisector of segment 2B - Ep.
+
+Wait, but in the code, bisectorpoint(B, 2*Ep - B) is F0. So bisectorpoint is a function that finds a point on the perpendicular bisector of the segment defined by its first and second arguments. So perhaps F0 is a point on the perpendicular bisector of segment BE, and H0 is a point on the perpendicular bisector of segment 2B - Ep.
+
+So, to find F0, we need the perpendicular bisector of BE. Similarly, to find H0, the perpendicular bisector of 2B - Ep.
+
+Wait, 2B - Ep is 2*(3,0) - (9,3) = (6 - 9, 0 - 3) = (-3, -3). So segment from B=(3,0) to (-3,-3). The perpendicular bisector of this segment would pass through the midpoint of (-3,-3) and (3,0). Midpoint is ((-3 + 3)/2, (-3 + 0)/2) = (0, -1.5). The slope of the segment from B to (-3,-3) is (-3 - 0)/(-3 - 3) = (-3)/(-6) = 0.5. So the perpendicular bisector has a slope of -2.
+
+So the equation of the perpendicular bisector is y - (-1.5) = -2(x - 0), so y + 1.5 = -2x, or y = -2x - 1.5.
+
+Similarly, for segment 2Ep - B, which is (9,3) to (9,3). Wait, no. Wait, 2Ep - B is 2*(9,3) - (3,0) = (15,6). So segment from B=(3,0) to (15,6). The midpoint is ((3+15)/2, (0+6)/2) = (9,3). The slope of this segment is (6 - 0)/(15 - 3) = 6/12 = 0.5. Therefore, the perpendicular bisector has a slope of -2.
+
+So the perpendicular bisector is the same as the bisectorpoint. So F0 is on the perpendicular bisector y = -2x - 1.5, and it's on the line BE, which is from (3,0) to (9,3). Wait, but F0 is the intersection of the perpendicular bisector of BE and the line BE itself.
+
+Wait, but BE is the same as the line from (3,0) to (9,3), which has a slope of 0.5, and the perpendicular bisector is y = -2x - 1.5. So to find F0, we can solve for the intersection of these two lines.
+
+Set -2x - 1.5 = 0.5x + c. Wait, no, let's write the equations properly.
+
+Line BE: from (3,0) to (9,3). The equation is y - 0 = 0.5(x - 3), so y = 0.5x - 1.5.
+
+Perpendicular bisector of BE: y = -2x - 1.5.
+
+Set them equal: 0.5x - 1.5 = -2x - 1.5.
+
+Solving: 0.5x - 1.5 = -2x - 1.5
+
+Add 2x to both sides: 2.5x -1.5 = -1.5
+
+Add 1.5 to both sides: 2.5x = 0
+
+So x = 0. Then y = 0.5*0 - 1.5 = -1.5.
+
+So F0 is at (0, -1.5). Similarly, for H0, the perpendicular bisector of segment 2B - Ep, which is (3,0) to (9,3). As above, the perpendicular bisector is y = -2x - 1.5.
+
+But H0 is the intersection of the perpendicular bisector of 2B - Ep and the line AH0.
+
+Wait, but 2B - Ep is (3,0) to (9,3). So the perpendicular bisector is the same as the perpendicular bisector of BE, which is y = -2x - 1.5.
+
+Wait, but H0 is the intersection of this perpendicular bisector with line AH0.
+
+Wait, line AH0: line from A=(0,0) to H0, which is the same as line AE. Wait, no, H0 is a point on the perpendicular bisector, so line AH0 is a line from A=(0,0) to H0.
+
+But I'm getting confused. Maybe I should find H0 by solving for the intersection.
+
+Wait, line AH0 is from A=(0,0) to H0, which is on the perpendicular bisector y = -2x - 1.5.
+
+But I don't know where H0 is. Wait, the code says H is the extension of F0 and A, G.
+
+Wait, F0 is on the perpendicular bisector of BE, so F0 is at (0, -1.5). Then, H is the extension of line BF0 with AG.
+
+Wait, line BF0 is from (3,0) to (0, -1.5). Let me find its equation.
+
+The slope is (-1.5 - 0)/(0 - 3) = (-1.5)/(-3) = 0.5. So equation is y - 0 = 0.5(x - 3), so y = 0.5x - 1.5.
+
+Line AG is from A=(0,0) to G=(6,3). The equation of AG is y = (3/6)x = 0.5x.
+
+So to find H, we need the intersection of line BF0 (y = 0.5x - 1.5) and line AG (y = 0.5x).
+
+Wait, but these two lines are parallel? Because they have the same slope. So they don't intersect. That can't be. So that suggests that H is at infinity, which is not possible. So maybe my approach is wrong.
+
+Wait, perhaps I made a mistake in defining F0 and H0.
+
+Wait, maybe F0 is not the perpendicular bisector of BE, but the bisectorpoint of BE. So perhaps F0 is a point on the perpendicular bisector of BE, but not necessarily the midpoint. So if it's the bisectorpoint, it's a point that divides the segment into two equal angles, but not necessarily the midpoint.
+
+But in the Asymptote code, F0 = bisectorpoint(B, 2Ep - B). So bisectorpoint(B, 2Ep - B) is the point on the perpendicular bisector of segment B and 2Ep - B.
+
+Wait, so segment B is (3,0) and 2Ep - B is (15,6). So the segment is from (3,0) to (15,6). The midpoint is ((3+15)/2, (0+6)/2) = (9,3). The slope of this segment is (6 - 0)/(15 - 3) = 0.5. So the perpendicular bisector has slope -2, as before. So the bisectorpoint is the intersection of the perpendicular bisector with AG? Or another line.
+
+Wait, perhaps the bisectorpoint function in Asymptote returns a point on the bisector, but not necessarily the midpoint.
+
+Wait, perhaps I should use coordinates to find the exact point.
+
+Wait, let me try to find F0, which is the bisectorpoint of B and 2Ep - B. So, the bisectorpoint is a point on the perpendicular bisector of segment B(3,0) and C(15,6). The perpendicular bisector is y = -2x - 1.5, as before.
+
+So, to find F0, we need a point on this line. But how? It depends on the parameter bisectorpoint. Wait, bisectorpoint is usually a point that divides the segment in a certain ratio.
+
+Wait, in Asymptote, the bisectorpoint function takes two points and a parameter (which can be 0, 1, or something else). Wait, perhaps it's the midpoint when parameter is 0.5. So, if it's bisectorpoint(B, 2Ep - B), which is the same as bisectorpoint(B, C), so it's the midpoint between B and C.
+
+Wait, midpoint between B=(3,0) and C=(15,6) is ((3+15)/2, (0+6)/2) = (9,3). So F0 is (9,3). Similarly, H0 is the bisectorpoint of Ep and 2B - Ep, which is (3,0). So bisectorpoint(Ep, 2B - Ep) is the midpoint between Ep=(9,3) and (3,0), which is ((9+3)/2, (3+0)/2) = (6,1.5).
+
+So H0 is (6,1.5). Therefore, F0 is (9,3) and H0 is (6,1.5). So F is the intersection of BF0 and AG. G is (6,3). So line BF0 is from B=(3,0) to F0=(9,3). The equation of line BF0 is y = 0.5x - 1.5, as before.
+
+Line AG is from A=(0,0) to G=(6,3). The equation of AG is y = 0.5x. So to find point H, we have to find the intersection of BF0 (y = 0.5x - 1.5) and AG (y = 0.5x). Wait, but these lines are parallel, so they don't intersect. That can't be.
+
+Wait, that suggests that H is at infinity, which is not possible. So maybe my mistake is assuming that H is the intersection of BF0 and AG. But according to the Asymptote code, H is the extension of F0 and A, G. So perhaps it's the intersection of line BF0 with AG extended.
+
+But since BF0 and AG are parallel, they don't intersect. So perhaps my entire approach is wrong.
+
+Alternatively, maybe I should use some properties of the figure instead.
+
+Given that CDEG is a square, CD=3, so DE=3. Quadrilateral BEFH is a rectangle with BE=5. So in the figure, point E is connected to point F, and then F is connected to H, and so on.
+
+Wait, maybe I can use coordinate geometry to find the coordinates of F and H.
+
+Given that, let me try to set up the coordinate system again.
+
+Points:
+
+A=(0,0), B=(3,0), C=(6,0), D=(9,0), E=(9,3), G=(6,3). So square CDEG is from (6,0) to (9,0) to (9,3) to (6,3).
+
+Quadrilateral BEFH is a rectangle. So points B=(3,0), E=(9,3), F, H. So BE is from (3,0) to (9,3). BH is from (9,3) to H. EF is from (9,3) to F, and FH is from F to H, which should be equal to BE and BH, but since it's a rectangle, opposite sides are equal.
+
+Wait, but in a rectangle, adjacent sides are perpendicular. So BE and BH are adjacent sides of the rectangle, so they must be perpendicular.
+
+So the vector BE is (6,3), and vector BH is (h_x - 9, h_y - 3). Since they're perpendicular, their dot product is zero: 6*(h_x - 9) + 3*(h_y - 3) = 0.
+
+Also, since BEFH is a rectangle, the length of EF must be equal to the length of BH, and the length of FH must be equal to the length of BE.
+
+Wait, but maybe I can find coordinates of F and H.
+
+Since BEFH is a rectangle, the sides BE and BH are perpendicular and of some lengths. So, the coordinates of F and H can be found using the properties of rectangles.
+
+Let me denote vector BE as (6,3), so vector BH must be perpendicular to this, so vector BH = (a, b), such that 6a + 3b = 0.
+
+Also, since BEFH is a rectangle, the length of BH is equal to the length of EF, which is the same as the length of BE. Wait, no, in a rectangle, opposite sides are equal, so BE = FH and BF = EH.
+
+Wait, actually, in rectangle BEFH, sides are BE, EF, FH, HB. So BE is one side, EF is another, FH is the opposite of BE, and HB is the opposite of EF.
+
+But since BE is from (3,0) to (9,3), which is a vector of (6,3), then EF is from (9,3) to F. Since it's a rectangle, EF must be equal in length and perpendicular to BE. So vector EF is a rotation of vector BE by 90 degrees.
+
+Wait, rotating vector BE=(6,3) by 90 degrees counterclockwise gives (-3,6). So vector EF would be (-3,6). So point F would be E + EF = (9,3) + (-3,6) = (6,9). Then, vector FH would be equal to vector BE, which is (6,3). So point H would be F + (6,3) = (6,9) + (6,3) = (12,12). But that seems too far. Alternatively, maybe vector FH is equal to vector BE in direction, but depends on the orientation.
+
+Wait, perhaps I should use the fact that in rectangle BEFH, vectors BE and EH are perpendicular. So maybe vector EH is a rotation of vector BE.
+
+Wait, this is getting complicated. Maybe I should use coordinate geometry to find point H.
+
+Let me denote point H as (h_x, h_y). Since H lies on AG, which is from A=(0,0) to G=(6,3). So parametric equations for AG: x = 6t, y = 3t, where t is between 0 and 1.
+
+So H is (6t, 3t) for some t.
+
+Now, quadrilateral BEFH is a rectangle. So the sides BE, EF, FH, HB must all meet at right angles.
+
+So, vector BE is (6,3). Vector EF is (6t - 9, 3t - 3). Vector FH is (6t - 9 - (6t - 9), 3t - 3 - (3t - 3)) = (0,0). Wait, that can't be right.
+
+Wait, no. Vector FH is from F to H. Since F is (6,9) (from earlier), then vector FH is (6t - 6, 3t - 9).
+
+Wait, maybe I messed up earlier.
+
+Wait, point E is (9,3). From E, moving to F, which is (9 + (-3), 3 + 6) = (6,9). Then from F=(6,9) to H=(6t,3t). So vector FH is (6t - 6, 3t - 9). Then from H to B=(3,0), vector HB is (3 - 6t, 0 - 3t).
+
+Now, for BEFH to be a rectangle, vectors BE and EH must be perpendicular, and vectors EF and FH must be perpendicular.
+
+Wait, vector BE is (6,3), vector EF is (-3,6). Their dot product is 6*(-3) + 3*6 = -18 + 18 = 0, which is correct because they are perpendicular.
+
+Now, vector EF is (-3,6), vector FH is (6t - 6, 3t - 9). Their dot product must be zero for them to be perpendicular.
+
+So, (-3)(6t - 6) + 6*(3t - 9) = 0.
+
+Compute:
+
+-18t + 18 + 18t - 54 = 0
+
+(-18t + 18t) + (18 - 54) = 0
+
+0t - 36 = 0
+
+Hmm, that gives -36 = 0, which is a contradiction. So something is wrong.
+
+Wait, that suggests that my assumption about point F is incorrect. Maybe point F is not (6,9). Perhaps I should find point F such that EF is perpendicular to BE and equal in length.
+
+Wait, the length of BE is sqrt(6^2 + 3^2) = sqrt(45) = 3*sqrt(5). So the length of EF must be 3*sqrt(5). Since vector EF is perpendicular to vector BE, which is (6,3). So vector EF can be either ( -3,6 ) or (3, -6 ), because those are the perpendicular vectors.
+
+Wait, but vector EF has to be a certain length. If I take vector EF as ( -3,6 ), its length is sqrt(9 + 36) = sqrt(45) = 3*sqrt(5), which is correct.
+
+So, starting from E=(9,3), moving along vector EF=(-3,6), we reach F=(6,9). So point F is (6,9). Then, from F=(6,9), moving along vector FH, which should be equal and perpendicular to vector EF.
+
+But wait, vector EF is (-3,6). So vector FH should be (6,3) or (-6,-3). Let me check.
+
+If vector FH is (6,3), then point H would be F + (6,3) = (6 + 6, 9 + 3) = (12,12). But H lies on AG, which is from (0,0) to (6,3). So (12,12) is beyond G, which is at (6,3). So that can't be. Alternatively, if vector FH is (-6,-3), then H = F + (-6,-3) = (6 - 6,9 - 3) = (0,6). But (0,6) is not on AG, since AG is from (0,0) to (6,3). So that also can't be.
+
+Wait, maybe vector FH is a rotation of vector EF by 90 degrees. Vector EF is (-3,6). Rotating it 90 degrees counterclockwise gives (-6,-3). So vector FH would be (-6,-3). So point H = F + (-6,-3) = (6 - 6, 9 - 3) = (0,6). But again, (0,6) is not on AG.
+
+Wait, perhaps vector FH is a rotation of vector EF by 90 degrees clockwise. Rotating (-3,6) 90 degrees clockwise gives (6,3). So vector FH is (6,3). So point H = F + (6,3) = (6 + 6, 9 + 3) = (12,12), which is outside AG.
+
+Alternatively, maybe I should take vector FH as (3,-6). So point H = F + (3,-6) = (6 + 3, 9 - 6) = (9,3), which is point E. That can't be.
+
+This is getting confusing. Maybe I should try a different approach.
+
+Since BEFH is a rectangle, let's denote the coordinates:
+
+B = (3,0)
+
+E = (9,3)
+
+F = (x, y)
+
+H = (u, v)
+
+Since it's a rectangle, vectors BE and EF must be perpendicular, and vectors EF and FH must be perpendicular.
+
+Vector BE = E - B = (9 - 3, 3 - 0) = (6,3)
+
+Vector EF = F - E = (x - 9, y - 3)
+
+Vector FH = H - F = (u - x, v - y)
+
+Vector HB = B - H = (3 - u, 0 - v)
+
+Since BE and EF are perpendicular, their dot product is zero:
+
+(6)(x - 9) + (3)(y - 3) = 0 --> 6x - 54 + 3y - 9 = 0 --> 6x + 3y = 63 --> 2x + y = 21.
+
+Similarly, vectors EF and FH are perpendicular:
+
+(x - 9)(u - x) + (y - 3)(v - y) = 0.
+
+Also, since BEFH is a rectangle, vector BE must equal vector FH, and vector EF must equal vector BH.
+
+Wait, no. In a rectangle, opposite sides are equal and parallel, but vectors can represent sides or diagonals. Wait, perhaps it's better to consider that in a rectangle, the sides are equal and the diagonals are equal.
+
+But maybe I should use the fact that in a rectangle, the diagonals bisect each other. So the midpoint of BE and FH must coincide.
+
+Midpoint of BE is ((3 + 9)/2, (0 + 3)/2) = (6, 1.5).
+
+Midpoint of FH is ((x + u)/2, (y + v)/2). So:
+
+(x + u)/2 = 6 --> x + u = 12
+
+(y + v)/2 = 1.5 --> y + v = 3
+
+Also, since vector FH is equal to vector BE in terms of direction and magnitude? Wait, no. In a rectangle, adjacent sides are equal and at right angles, but diagonals are equal.
+
+Wait, maybe we can use the fact that vector FH is equal to vector BE, but rotated by 90 degrees.
+
+Wait, vector BE is (6,3). Rotated 90 degrees counterclockwise is (-3,6). So vector FH should be (-3,6). So from F=(x,y), moving by (-3,6) gives H=(x - 3, y + 6). So H=(x - 3, y + 6).
+
+But we also know that H lies on AG, which is from (0,0) to (6,3). So parametric equations: x = 6t, y = 3t.
+
+So H = (6t, 3t). Therefore,
+
+6t = x - 3
+
+3t = y + 6
+
+So from the second equation: 3t = y + 6 --> y = 3t - 6.
+
+From the first equation: 6t = x - 3 --> x = 6t + 3.
+
+Also, from the midpoint conditions:
+
+x + u = 12 --> (6t + 3) + u = 12 --> u = 12 - (6t + 3) = 9 - 6t.
+
+Similarly,
+
+y + v = 3 --> (3t - 6) + v = 3 --> v = 3 - (3t - 6) = 9 - 3t.
+
+Additionally, since vector EF = (x - 9, y - 3) must be equal to vector BH = (3 - u, 0 - v) because in rectangle, opposite sides are equal.
+
+Wait, no, in a rectangle, opposite sides are equal and adjacent sides are perpendicular. So vector EF should be equal to vector BH? Wait, not necessarily. Wait, vector EF is equal to vector BH in length and direction? No, that can't be because they are adjacent sides.
+
+Wait, maybe better to consider that in a rectangle, vector BE is equal to vector FH, and vector EF is equal to vector BH.
+
+Wait, let me write that:
+
+Vector BE = (6,3)
+
+Vector FH = (6t - (x - 3), 3t - (y + 6)) = (6t - x + 3, 3t - y - 6)
+
+But since vector BE = vector FH, because in a rectangle, opposite sides are equal and parallel.
+
+Wait, no, actually in a rectangle, opposite sides are equal and parallel, but adjacent sides are not necessarily equal. So vector BE should equal vector FH, and vector EF should equal vector BH.
+
+Wait, actually, in rectangle BEFH, BE and FH are opposite sides, which should be equal and parallel. So vector BE = vector FH.
+
+Vector BE is (6,3). So vector FH should also be (6,3). But vector FH is (6t - (x - 3), 3t - (y + 6)).
+
+So:
+
+6t - (x - 3) = 6 --> 6t - x + 3 = 6 --> x = 6t - 3
+
+3t - (y + 6) = 3 --> 3t - y - 6 = 3 --> y = 3t - 9
+
+But from earlier, we have x = 6t + 3 and y = 3t - 6.
+
+Wait, so from vector BE = vector FH, we have:
+
+x = 6t + 3
+
+y = 3t - 6
+
+But from the other condition, vector EF = vector BH.
+
+Vector EF is (x - 9, y - 3)
+
+Vector BH is (3 - u, 0 - v)
+
+But u = 9 - 6t and v = 9 - 3t.
+
+So vector BH is (3 - (9 - 6t), 0 - (9 - 3t)) = (3 - 9 + 6t, -9 + 3t) = (-6 + 6t, -9 + 3t)
+
+Vector EF is (x - 9, y - 3) = (6t + 3 - 9, 3t - 6 - 3) = (6t - 6, 3t - 9)
+
+So set vector EF = vector BH:
+
+6t - 6 = -6 + 6t
+
+and
+
+3t - 9 = -9 + 3t
+
+Both equations are satisfied for any t. So no new information.
+
+So we need another condition. Since H lies on AG, which is parametrized as (6t, 3t). So H = (6t, 3t) = (x - 3, y + 6)
+
+From earlier, we have x = 6t + 3 and y = 3t - 6.
+
+So plug into H:
+
+(6t, 3t) = (6t + 3 - 3, 3t - 6 + 6) = (6t, 3t). So that checks out.
+
+So now, we need another equation. Let's use the fact that in rectangle BEFH, the length of BE is equal to the length of FH.
+
+Wait, no, in a rectangle, opposite sides are equal, but adjacent sides are not necessarily equal. So actually, in a rectangle, opposite sides are equal in length, but adjacent sides can be different.
+
+Wait, but from the coordinates, we have vector BE = (6,3). So length of BE is sqrt(6^2 + 3^2) = sqrt(45) = 3*sqrt(5). So length of FH should also be 3*sqrt(5). Vector FH is (6t - x + 3, 3t - y - 6). Wait, from earlier, we have x = 6t + 3 and y = 3t - 6. So vector FH is (6t - (6t + 3) + 3, 3t - (3t - 6) - 6) = (0, 0). That can't be. Hmm, that suggests that vector FH is zero, which is impossible.
+
+Wait, that must mean that I made a mistake in defining vector FH. Maybe vector FH is from F to H, which is (6t - x, 3t - y). Wait, but earlier I thought vector FH is (6t - x + 3, 3t - y - 6). Maybe I messed up the coordinates.
+
+Wait, point F is (x, y) = (6t + 3, 3t - 6). Point H is (6t, 3t).
+
+So vector FH is (6t - (6t + 3), 3t - (3t - 6)) = (-3, 6). So vector FH is (-3,6), which has length sqrt(9 + 36) = sqrt(45). So that's correct.
+
+So vector BE is (6,3), which has length sqrt(45). So they are equal. So that's consistent.
+
+But in this case, vector FH is (-3,6), which is a rotation of vector BE by 90 degrees counterclockwise. So that makes sense for a rectangle.
+
+So everything is consistent.
+
+So, now, since we have point F at (6t + 3, 3t - 6), point H is (6t, 3t). Then, point E is (9,3), point B is (3,0).
+
+So, now, to find t.
+
+Since point H is (6t, 3t), which lies on AG. AG is from A=(0,0) to G=(6,3). So we can write parametric equations for AG: x = 6s, y = 3s, where s is between 0 and 1.
+
+So H must satisfy 6t = 6s and 3t = 3s, so t = s. So point H is (6t, 3t), which is consistent.
+
+Now, we need another condition to find t. Wait, perhaps the coordinates satisfy the rectangle condition.
+
+Wait, since BEFH is a rectangle, the sides must meet at right angles. So, for example, vector BE is (6,3), vector EF is (6t - x, 3t - y) = (6t - (6t + 3), 3t - (3t - 6)) = (-3,6), which is perpendicular to (6,3) as their dot product is (-3)(6) + 6*3 = -18 + 18 = 0. So that works.
+
+Also, vector EF is (-3,6), vector FH is (-3,6). Wait, no, vector FH is (-3,6). So vector EF is (-3,6), vector FH is (-3,6). So they are the same vector, which would make them overlapping, but in reality, FH should be a different vector.
+
+Wait, no, in a rectangle, adjacent sides should be perpendicular, which they are. But in this case, vector EF is (-3,6), vector FH is (-3,6). So they are the same vector, meaning that points E, F, and H are colinear, which can't be.
+
+Wait, that suggests that my calculation is wrong. Wait, point F is (6t + 3, 3t - 6), point E is (9,3), point H is (6t, 3t). So vector EF is (6t + 3 - 9, 3t - 6 - 3) = (6t - 6, 3t - 9). Vector FH is (6t - (6t + 3), 3t - (3t - 6)) = (-3, 6). So vector EF is (6t - 6, 3t - 9) and vector FH is (-3,6). These vectors should be perpendicular.
+
+So their dot product: (6t - 6)(-3) + (3t - 9)(6) = (-18t + 18) + (18t - 54) = (-18t + 18 + 18t - 54) = (-36) = 0. So 0 = 0, which is always true. So they are always perpendicular, which is consistent.
+
+But then, why is vector EF equal to vector FH? That would mean that F-E-H is a straight line, which can't be.
+
+Wait, no, vector EF and vector FH are adjacent sides of the rectangle, so they must be perpendicular and of different lengths.
+
+Wait, vector EF is (6t - 6, 3t - 9). Vector FH is (-3,6). So their lengths:
+
+Length of EF: sqrt((6t - 6)^2 + (3t - 9)^2)
+
+Length of FH: sqrt((-3)^2 + 6^2) = sqrt(9 + 36) = sqrt(45) = 3*sqrt(5)
+
+So unless (6t - 6)^2 + (3t - 9)^2 = 45, they are not equal.
+
+Compute (6t - 6)^2 + (3t - 9)^2:
+
+= (36t^2 - 72t + 36) + (9t^2 - 54t + 81)
+
+= 45t^2 - 126t + 117
+
+Set equal to 45:
+
+45t^2 - 126t + 117 = 45
+
+45t^2 - 126t + 72 = 0
+
+Divide equation by 9:
+
+5t^2 - 14t + 8 = 0
+
+Solve for t:
+
+t = [14 ± sqrt(196 - 160)] / 10 = [14 ± sqrt(36)] / 10 = [14 ± 6]/10
+
+So t = (14 + 6)/10 = 20/10 = 2, or t = (14 - 6)/10 = 8/10 = 0.8.
+
+But t is a parameter for point H on AG, which goes from (0,0) to (6,3), so t must be between 0 and 1. So t = 2 is outside the range, so t = 0.8 is acceptable.
+
+So t = 0.8, which is 4/5.
+
+So point H is (6t, 3t) = (6*(4/5), 3*(4/5)) = (24/5, 12/5) = (4.8, 2.4).
+
+Therefore, BH is the distance from B=(3,0) to H=(4.8, 2.4).
+
+Compute the distance:
+
+sqrt((4.8 - 3)^2 + (2.4 - 0)^2) = sqrt((1.8)^2 + (2.4)^2) = sqrt(3.24 + 5.76) = sqrt(9) = 3.
+
+Wait, that's interesting. So BH is 3 units.
+
+Wait, but in the problem statement, BE is given as 5. So that's consistent because in the Asymptote code, E is at (9,3), so BE is 5 units, which matches the problem statement. So if BH is 3, that's the answer.
+
+Wait, but 3 is an integer. So maybe it's 3.0 units.
+
+Wait, let me verify.
+
+Point H is (24/5, 12/5). So the distance from B=(3,0) is sqrt((24/5 - 15/5)^2 + (12/5 - 0)^2) = sqrt((9/5)^2 + (12/5)^2) = sqrt(81/25 + 144/25) = sqrt(225/25) = sqrt(9) = 3.
+
+Yes, that's correct. So BH is 3 units.
+
+So, as a mixed number, 3 is just 3, so it's already a whole number. So the answer is 3.
+
+**Final Answer**
+\boxed{3}
+</think>
+
+In the figure, quadrilateral \(CDEG\) is a square with \(CD = 3\), and quadrilateral \(BEFH\) is a rectangle with \(BE = 5\). We need to find the length of \(BH\).
+
+First, we assign coordinates to the points:
+- \(A = (0, 0)\)
+- \(B = (3, 0)\)
+- \(C = (6, 0)\)
+- \(D = (9, 0)\)
+- \(E = (9, 3)\)
+- \(G = (6, 3)\)
+
+We need to find the coordinates of point \(F\) and \(H\) such that \(BEFH\) is a rectangle. Using vector analysis and parametric equations, we determine the coordinates of \(F\) and \(H\) on the line \(AG\) (from \(A = (0, 0)\) to \(G = (6, 3)\)).
+
+The parametric equations for line \(AG\) are \(x = 6t\) and \(y = 3t\). We use the conditions for the rectangle \(BEFH\) to find the value of \(t\). After solving the equations, we find that \(t = 0.8\).
+
+Thus, the coordinates of \(H\) are:
+- \(x = 6t = 6 \times 0.8 = 4.8\)
+- \(y = 3t = 3 \times 0.8 = 2.4\)
+
+The length of \(BH\) is calculated as:
+\[
+BH = \sqrt{(4.8 - 3)^2 + (2.4 - 0)^2} = \sqrt{(1.8)^2 + (2.4)^2} = \sqrt{3.24 + 5.76} = \sqrt{9} = 3
+\]
+
+Thus, the length of \(BH\) is \(\boxed{3}\).

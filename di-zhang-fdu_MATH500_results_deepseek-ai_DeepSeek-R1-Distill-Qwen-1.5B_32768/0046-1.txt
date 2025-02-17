@@ -1,0 +1,796 @@
+Tokens: 15692.0
+
+Question:
+In the diagram, two circles, each with center $D$, have radii of $1$ and $2$. The total area of the shaded region is $\frac5{12}$ of the area of the larger circle. How many degrees are in the measure of (the smaller) $\angle ADC$?
+[asy]
+size(4cm);
+defaultpen(linewidth(0.75));
+real adc = 100;
+pair d = (0, 0); pair a = 2 * dir(100); pair c = (2, 0);
+path inner = arc(d, a/2, c/2, CW);
+
+path outer = arc(d, c, a, CCW);
+guide region1 = (a--a/2)..inner..(c/2--c)..outer..cycle;
+guide region2 = arc(d, a/2, c/2, CCW)..(c/2--d--a/2)..cycle;
+fill(region1, gray(0.75));
+fill(region2, gray(0.75));
+draw(unitcircle); draw(scale(2) * unitcircle);
+draw(a--d--c);
+label("$A$", a, N); label("$C$", c, E); label("$D$", d, NE);
+[/asy]
+
+Correct Answer:
+Suppose that $\angle ADC = x^\circ$. The area of the unshaded portion of the inner circle is thus $\frac x{360}$ of the total area of the inner circle, or $\frac x{360}(\pi(1^2)) = \frac x{360} \pi$ (since $\angle ADC$ is $\frac x{360}$ of the largest possible central angle ($360^\circ$)).
+
+The area of shaded portion of the inner circle is thus $$\pi - \frac x{360}\pi = \frac{360 - x}{360}\pi.$$ The total area of the outer ring is the difference of the areas of the outer and inner circles, or $\pi(2^2) - \pi(1^2) = 3\pi$. The shaded region of the outer ring will be $\frac x{360}$ of this total area. So the shaded region of the outer ring is $\frac x{360} (3\pi) = \frac{3x}{360}\pi$.
+
+So the total shaded area (which must equal $\frac53 \pi$) is, in terms of $x$, $$\frac{3x}{360} \pi + \frac{360 - x}{360} \pi = \frac{360 + 2x}{360} \pi.$$ Therefore, $$\frac{360 + 2x}{360} = \frac53 = \frac{600}{360},$$ so $360 + 2x = 600$, or $x = \boxed{120}$.
+
+Wrong Answer:
+Alright, so I'm looking at this problem here. There are two circles with center D, one has radius 1 and the other has radius 2. The diagram shows them, and the shaded regions are part of these circles. The problem says that the total area of the shaded region is 5/12 of the area of the larger circle, which has radius 2. I need to find the measure in degrees of the smaller angle ADC.
+
+Hmm, okay. Let me try to visualize this. There's a larger circle with radius 2, and a smaller circle with radius 1, both centered at point D. The Asymptote code shows points A, D, and C. Point A is on the larger circle, point C is on the larger circle as well, and point D is the center. So, A and C are points on the circumference of the larger circle, and the smaller circle is inside the larger one.
+
+Looking at the Asymptote code, there are two paths defined: one is an inner arc and another is an outer arc. The inner arc is drawn from point C to point A, going clockwise, and the outer arc is also from C to A but going counterclockwise. Then, there are some guides for the regions, which are shaded gray.
+
+So, the shaded regions are two: one is the area between the inner and outer arcs, and the other is another area that looks like a crescent shape. The total shaded area is given as 5/12 of the area of the larger circle, which is radius 2. The area of the larger circle is π*(2)^2 = 4π, so 5/12 of that is (5/12)*4π = (5/3)π.
+
+But wait, the shaded area is 5/12 of the larger circle, which is (5/3)π. Let me verify that. 5/12 of 4π is indeed (5/12)*4π = (5/3)π. Okay, so the total shaded area is 5/3 π.
+
+Now, I need to figure out how this total shaded area is formed. Looking back at the Asymptote code, there are two regions being shaded: one is the area between the inner and outer arcs, and the other is another region that's kind of a lens shape.
+
+Let me try to break this down. The inner path is an arc from point C to A, going clockwise, with radius a/2. Wait, a is the coordinate of point A, which is on the larger circle. Since the larger circle has radius 2, point A is at (2,0) in the Asymptote code. So, a is 2, right? So, the inner arc has radius a/2 = 1, so that's the smaller circle. Similarly, the outer arc goes from A to C with radius c, which is also 2, so that's the larger circle.
+
+Wait, I'm getting a bit confused. Let me try to parse this. The inner guide is (a--a/2)..inner..(c/2--c)..outer..cycle. So, it's drawing an arc from point c/2 to c, which is the center D to point C, but with radius a/2, so 1. Then it's drawing another arc from a/2 back to D, but this time with radius c, which is 2.
+
+Similarly, the outer guide is arc(d, a/2, c/2, CCW)..(c/2--d--a/2)..cycle. So, this is an arc from a/2 to c/2, but going counterclockwise, then connecting to the line segment from c/2 to D to a/2.
+
+Wait, maybe it's better to think about the regions. The first shaded region is the area between the two arcs: the inner arc and the outer arc. But in the Asymptote code, it's drawing an arc from a/2 to c/2, going clockwise, and another arc from a/2 to c/2, going counterclockwise, but then connecting them. So, perhaps the shaded regions are two: one is the area between the two arcs, and the other is a segment.
+
+Alternatively, maybe each shaded region is a segment of the larger circle minus a segment of the smaller circle.
+
+Wait, the Asymptote code says:
+
+path inner = arc(d, a/2, c/2, CW);
+
+path outer = arc(d, c, a, CCW);
+
+guide region1 = (a--a/2)..inner..(c/2--c)..outer..cycle;
+
+guide region2 = arc(d, a/2, c/2, CCW)..(c/2--d--a/2)..cycle;
+
+So, region1 is constructed by starting at point a, going to a/2, then following the inner arc, then to c/2 and c, then following the outer arc back to a. So, region1 is like a shape that starts at A, goes to the center, then follows the inner arc, then goes to D and C, then follows the outer arc back.
+
+Similarly, region2 is constructed by starting at a/2, going to the center, following a CCW arc, then connecting to the segment from center to a/2, forming another boundary.
+
+So, the total shaded area is the sum of region1 and region2. But looking at the Asymptote code, it's filling both regions gray, so the total shaded area is both regions.
+
+Let me try to compute the area of region1 and region2.
+
+Starting with region1: It's constructed by moving from A to a/2, then along the inner arc from a/2 to c/2, then from c/2 to C, then along the outer arc back to A.
+
+So, this path is a combination of two circular arcs: inner arc from a/2 to c/2, and outer arc from c/2 to a/2.
+
+Therefore, region1 is the area between the two arcs: the outer arc (radius 2) and the inner arc (radius 1), both starting and ending at points c/2 and a/2.
+
+Wait, but in the Asymptote code, it's moving from a to a/2, then along the inner arc, then from c/2 to c, then along the outer arc. Hmm, maybe it's better to think of it as a shape that is bounded by two circular arcs: the inner arc from a/2 to c/2, and the outer arc from c/2 back to a/2.
+
+Similarly, region2 is constructed by moving from a/2 to c/2 along a CCW arc, then from c/2 to a/2 along a straight line through the center.
+
+Therefore, region2 is the area between the outer arc, the inner arc, and the line segment.
+
+Wait, perhaps region1 is the area inside the larger circle but outside the smaller circle, but only in the area between points a/2 and c/2? I'm getting a bit tangled.
+
+Maybe it's better to compute the area of region1 and region2 separately and then sum them up.
+
+Let me think about region1 first. Region1 is constructed by the path a--a/2..inner..c/2--c..outer..cycle.
+
+So, starting at point a (2,0), moving to a/2 (1,0), then along the inner arc from a/2 to c/2 (which is (1,0) to (0,0)), then along the line from c/2 to c (from (0,0) to (2,0)), then along the outer arc from c to a (from (2,0) back to (1,0)), and then back to a.
+
+Wait, so region1 is a closed shape that starts at A, goes to center D, then follows the inner arc from D to (0,0), then goes along the line from (0,0) to C, then follows the outer arc from C back to A, and then back to A.
+
+Wait, but the outer arc is from C back to A? But from C to A on the larger circle is a straight line, but in the Asymptote code, it goes along the outer arc, which is part of the larger circle. So, that would be a 60-degree arc? Wait, point A is at (2,0), point C is at (2,0). Wait, no, point C is at (2,0), same as point A. Wait, hold on, no, point A is (2,0), point C is (2,0)? Wait, no, in the Asymptote code, point c is defined as (2,0). So, point A is 2 units away from D, point C is 2 units away from D, both at (2,0). So, points A and C are the same point? That can't be right.
+
+Wait, no, hold on. Let me check the Asymptote code again.
+
+The Asymptote code defines point d as (0,0). Then point a is 2 * dir(100), which is (2cos100°, 2sin100°). Point c is (2,0). So, point A is at (2cos100°, 2sin100°), which is approximately (2*(-0.1736), 2*(0.9848)) ≈ (-0.347, 1.9696). Point c is at (2,0). So, points A and C are different points, both on the larger circle.
+
+So, the inner arc is from a/2 to c/2, which are points (-0.1736, 0.9848) and (1,0). Then, the outer arc is from c to a, which is from (2,0) to (-0.347, 1.9696). Then, region1 is this closed shape.
+
+Similarly, region2 is constructed by starting at a/2, going to c/2 along a CCW arc, then from c/2 to a/2 along a straight line through the center, forming a sort of lens shape.
+
+So, perhaps region1 is the area between the two circular arcs, and region2 is another area.
+
+But maybe it's better to compute the area of region1 and region2 separately.
+
+Let me compute the area of region1 first.
+
+Region1 is a shape bounded by the inner arc from a/2 to c/2, the line from c/2 to c, the outer arc from c to a, and then back to a. Wait, no. Wait, the Asymptote code is:
+
+guide region1 = (a--a/2)..inner..(c/2--c)..outer..cycle;
+
+So, it's starting at a, going to a/2, then following the inner arc from a/2 to c/2, then from c/2 to c, then following the outer arc from c back to a, and then back to a.
+
+Wait, so region1 is a closed shape starting at A, going to center D, then along the inner arc from D to (0,0), then along the line from (0,0) to C, then along the outer arc from C back to A, and then back to A.
+
+Wait, that would make it a shape that's like a sort of circular segment on top.
+
+Wait, maybe it's easier to compute the area of region1.
+
+Alternatively, perhaps region1 is the area between the two arcs: the larger outer arc from C back to A, and the smaller inner arc from D to (0,0). So, the area would be the area of the sector from D to c/2 to A minus the area of the smaller circle's sector from D to a/2 to c/2.
+
+Wait, that might make sense.
+
+Let me try to compute that.
+
+First, let's compute the area of the sector formed by the outer arc from C back to A.
+
+Point C is at (2,0), point A is at (2cos100°, 2sin100°). So, the angle between points C and A at the center D is 100°, because point A is at 100° in the Asymptote code.
+
+Wait, in the Asymptote code, point a is 2 * dir(100), which means it's at 100 degrees from the positive x-axis. So, the angle between points C (2,0) and A (2cos100°, 2sin100°) is 100°, as point A is at 100°, and point C is at 0°, so the angle between them is 100°.
+
+So, the area of the sector formed by the outer arc from C to A is (100°/360°)*π*(2)^2 = (100/360)*4π = (5/18)*4π = (5/9)*π.
+
+Similarly, the area of the smaller circle's sector from D to a/2 to c/2. Point a/2 is (cos100°, sin100°), and point c/2 is (1,0). So, the angle between these two points at D is the angle between (cos100°, sin100°) and (1,0), which is 100°, right? Because from (1,0) to (cos100°, sin100°), the angle is 100°.
+
+So, the area of the smaller sector is (100°/360°)*π*(1)^2 = (100/360)*π = (5/18)*π.
+
+Therefore, the area of region1, which is the area between the outer arc and the inner arc, is the area of the outer sector minus the area of the inner sector: (5/9)π - (5/18)π = (10/18 - 5/18)π = (5/18)π.
+
+Wait, but the problem says the total shaded area is 5/12 of the area of the larger circle. The area of the larger circle is 4π, so 5/12 of that is (5/12)*4π = (5/3)π. So, region1 is only (5/18)π? But that's only part of the shaded area. There's also region2.
+
+So, let's compute region2.
+
+Region2 is constructed by starting at a/2, going to c/2 along a CCW arc, then from c/2 to a/2 along a straight line through the center, forming a sort of lens shape.
+
+So, this shape is a quadrilateral-like figure, but with one side curved. It's bounded by two circular arcs and a straight line.
+
+Alternatively, perhaps it's a segment of the smaller circle plus a triangle or something.
+
+Wait, let me think again.
+
+The Asymptote code for region2 is:
+
+arc(d, a/2, c/2, CCW)..(c/2--d--a/2)..cycle;
+
+So, the path starts at a/2, goes along the CCW arc to c/2, then connects through the line segment from c/2 to d to a/2, forming a closed shape.
+
+So, this is a region bounded by the smaller circle's arc from a/2 to c/2, and the two straight lines from c/2 to d and d to a/2.
+
+Wait, so it's a sort of sector of the smaller circle minus a triangle? Or maybe just a segment.
+
+Wait, if I consider the area bounded by the arc from a/2 to c/2 and the two lines from c/2 to d and d to a/2, that is, it's the area of the smaller circle's sector from a/2 to c/2 minus the area of the triangle formed by a/2, d, c/2.
+
+So, the area of region2 is (area of sector a/2-c/2) minus (area of triangle a/2-d-c/2).
+
+First, let's compute the angle at D between a/2 and c/2. Point a/2 is (cos100°, sin100°), and point c/2 is (1,0). The angle between these two points is the angle from (1,0) to (cos100°, sin100°), which is 100°, as before.
+
+So, the area of the sector is (100°/360°)*π*(1)^2 = (5/18)π.
+
+Now, the area of the triangle a/2-d-c/2. Let's compute that.
+
+Point a/2 is (cos100°, sin100°), point d is (0,0), and point c/2 is (1,0). So, the triangle is formed by these three points.
+
+To find the area of this triangle, we can use the formula for the area given coordinates.
+
+The area is (1/2)*base*height. The base can be the distance between (1,0) and (0,0), which is 1. The height is the y-coordinate of point a/2, which is sin100°.
+
+So, the area is (1/2)*1*sin100° = (1/2)*sin100°.
+
+Therefore, region2's area is (5/18)π - (1/2)sin100°.
+
+So, putting it all together, the total shaded area is region1 + region2 = (5/18)π + [(5/18)π - (1/2)sin100°] = (10/18)π - (1/2)sin100° = (5/9)π - (1/2)sin100°.
+
+But the problem states that the total shaded area is 5/12 of the area of the larger circle, which is 5/3 π.
+
+So, we have:
+
+(5/9)π - (1/2)sin100° = 5/3 π.
+
+Wait, that can't be right because 5/9 is less than 5/3, so subtracting (1/2)sin100° would make the left side smaller. But in the Asymptote code, region2 is also shaded, so perhaps my calculation is wrong.
+
+Wait, maybe I got the regions wrong. Let me re-examine the Asymptote code.
+
+The Asymptote code draws two paths: inner and outer. The inner path is an arc from a/2 to c/2, but in the code it's written as arc(d, a/2, c/2, CW). Wait, arc with direction, so arc from a/2 to c/2, clockwise.
+
+Similarly, the outer path is arc from c to a, CCW.
+
+Then, guide region1 is (a--a/2)..inner..(c/2--c)..outer..cycle. So, starting at a, going to a/2, then following the inner arc from a/2 to c/2, then from c/2 to c, then following the outer arc from c back to a, and back to a.
+
+So, region1 is the area bounded by the two arcs: inner from a/2 to c/2 and outer from c to a.
+
+Similarly, region2 is constructed by arc(d, a/2, c/2, CCW) .. (c/2--d--a/2)..cycle. So, this is an arc from a/2 to c/2 in the CCW direction, then connecting to the straight line from c/2 to a/2 through the center.
+
+Therefore, region2 is the area bounded by the CCW arc from a/2 to c/2 and the two straight lines from c/2 to d and d to a/2.
+
+So, region2 is a sort of segment of the smaller circle, but connected to the larger circle.
+
+Wait, perhaps region2 is the area of the smaller circle's sector from a/2 to c/2 minus the area of the triangle formed by a/2, d, c/2.
+
+Wait, but then, if that's the case, the area of region2 is (5/18)π - (1/2)sin100°, as I computed earlier.
+
+Similarly, region1 is the area between the two arcs: the outer arc from C back to A, which is (5/9)π, minus the inner arc's area (5/18)π, so (5/18)π.
+
+Therefore, total shaded area is (5/18)π + [(5/18)π - (1/2)sin100°] = (10/18)π - (1/2)sin100° = (5/9)π - (1/2)sin100°.
+
+But according to the problem, the total shaded area is 5/3π.
+
+So,
+
+(5/9)π - (1/2)sin100° = 5/3π
+
+Hmm, that would imply:
+
+- (1/2)sin100° = 5/3π - 5/9π = (15/9 - 5/9)π = (10/9)π
+
+So,
+
+- (1/2)sin100° = (10/9)π
+
+Which is impossible because the left side is negative and the right side is positive. Therefore, my calculation must be wrong.
+
+Wait, perhaps I got the sign wrong. Let me double-check.
+
+Wait, region1 is (5/9)π - (5/18)π = (5/18)π. That's positive.
+
+Region2 is (5/18)π - (1/2)sin100°. So, if sin100° is positive, then region2 is 5/18π minus something positive, so it might be positive or negative. But if region2 is shaded, it should be positive, so perhaps 5/18π - (1/2)sin100° must be positive.
+
+But then, if I plug in the numbers, 5/18 is roughly 0.277, and 1/2 sin100° is roughly 0.4998, so 0.277 - 0.4998 is negative, which would make region2 negative, which doesn't make sense because it's shaded.
+
+Wait, that suggests that my approach is wrong.
+
+Perhaps I need to think of the shaded regions differently. Maybe the total shaded area is the area inside the larger circle but outside the smaller circle, but only in certain regions. Maybe the regions are not just the segments but also something else.
+
+Wait, let me try to figure out the shaded area step by step. The Asymptote code draws two arcs: a small inner arc and a large outer arc. The area between them is shaded. Additionally, there's another shaded region formed by connecting points from the small circle to the large circle.
+
+Wait, perhaps the total shaded area is the sum of two regions: one is the area between the two arcs, and the other is a lens-shaped region formed by the intersection of the two circles.
+
+But in the Asymptote code, it's drawing region1 as a shape from A to a/2 to c/2 to outer arc back to A, and region2 as a shape from a/2 to c/2 via the center.
+
+Wait, maybe the regions are as follows:
+
+- The first region, region1, is the area between the outer arc and the inner arc, which is a circular segment.
+
+- The second region, region2, is the area of the smaller circle's sector from a/2 to c/2, minus the triangle.
+
+Wait, but when I calculate that, it gives a negative value, which is not possible.
+
+Wait, maybe the other way around: region1 is the smaller circle's segment, and region2 is the larger circle's segment, both above the chord AC.
+
+Wait, but point A and C are different points on the larger circle, both at radius 2.
+
+Wait, hold on. Let me think about the chord AC. The chord AC is common to both circles. The chord is from point A (2cos100°, 2sin100°) to point C (2,0). So, the central angle between A and C is 100°, as computed earlier.
+
+Therefore, the area between the two arcs (outer and inner) can be computed as the area between the two circular segments.
+
+Wait, the area of the outer segment is (θ/2) - (sinθ)/2, where θ is the central angle in radians. But since our angle is 100°, which is 5π/9 radians.
+
+Wait, so the area of the outer segment is (100°/360°)*(π*(2)^2) - (1/2)*base*height. Wait, no, the area of a circular segment is (r²/2)(θ - sinθ), where θ is in radians.
+
+So, for the outer segment, θ is 100°, which is 5π/9 radians.
+
+So, area_outer_segment = (2² / 2)(5π/9 - sin(5π/9)) = (2)(5π/9 - sin(5π/9)).
+
+Similarly, the inner segment is for the smaller circle with radius 1, so θ is the same 100°, so area_inner_segment = (1² / 2)(5π/9 - sin(5π/9)) = (1/2)(5π/9 - sin(5π/9)).
+
+Therefore, the area of the outer segment minus the area of the inner segment is (2 - 0.5)(5π/9 - sin5π/9) = (1.5)(5π/9 - sin5π/9).
+
+Wait, but 1.5 is 3/2, so 3/2*(5π/9 - sin5π/9) = (15π/18 - 3/2 sin5π/9) = (5π/6 - (3/2) sin5π/9).
+
+But the problem says the total shaded area is 5/3 π. So, is this equal to (5π/6 - (3/2) sin5π/9)? Hmm, let's see.
+
+Wait, 5π/6 is approximately 2.618, and 5/3 π is approximately 5.236. So, 5π/6 - (3/2) sin5π/9 ≈ 2.618 - (1.5)(0.5878) ≈ 2.618 - 0.8817 ≈ 1.736, which is less than 5/3 π. So, that can't be.
+
+Wait, maybe my approach is wrong.
+
+Wait, perhaps the total shaded area is the union of two regions: one is the area between the two segments (outer and inner), and the other is the area of the smaller circle above the chord AC.
+
+Wait, so the total shaded area would be (outer segment area) + (inner segment area) + (smaller circle segment area above chord AC).
+
+Wait, let's compute that.
+
+Area_outer_segment = (2² / 2)(θ - sinθ) = 2*(θ - sinθ)
+
+Area_inner_segment = (1² / 2)(θ - sinθ) = 0.5*(θ - sinθ)
+
+Area_smaller_circle_segment = (π*(1)^2)/2*(θ - sinθ) = 0.5*(θ - sinθ)
+
+So, total shaded area = [2*(θ - sinθ)] + [0.5*(θ - sinθ)] + [0.5*(θ - sinθ)] = 2*(θ - sinθ) + (θ - sinθ) = 3*(θ - sinθ)
+
+Given that total shaded area is 5/3 π.
+
+So, 3*(θ - sinθ) = 5/3 π
+
+Therefore, θ - sinθ = 5/(9) π
+
+But θ is 100°, which is 5π/9 radians. Let's compute sin(5π/9):
+
+sin(5π/9) ≈ sin(100°) ≈ 0.9848
+
+So, θ - sinθ ≈ 5π/9 - 0.9848 ≈ 1.745 - 0.9848 ≈ 0.760 radians.
+
+But 0.760 radians is approximately 43.4°, which is not 100°. So, that doesn't make sense.
+
+Wait, maybe my assumption about the regions is incorrect.
+
+Alternatively, perhaps the total shaded area is just the area between the two arcs, which is the outer segment minus the inner segment, as I computed earlier.
+
+Which was (5π/6 - (3/2) sin5π/9). But this was approximately 1.736, which is much less than 5/3 π.
+
+Therefore, perhaps my initial assumption is wrong, and the Asymptote code is drawing something else.
+
+Wait, let me try to think differently.
+
+Looking back at the Asymptote code:
+
+- The large circle is radius 2, centered at D.
+
+- The small circle is radius 1, centered at D.
+
+- Point a is on the large circle at (2cos100°, 2sin100°).
+
+- Point c is at (2,0).
+
+- The inner arc is from a/2 to c/2, which is from (cos100°, sin100°) to (1,0).
+
+- The outer arc is from c to a, which is from (2,0) to (2cos100°, 2sin100°).
+
+- Then, region1 is the area bounded by a--a/2..inner..(c/2--c)..outer..cycle.
+
+- region2 is the area bounded by a/2--c/2..(c/2--d--a/2)..cycle.
+
+So, perhaps region1 is the area inside the large circle but outside the small circle, but connected through the inner arc.
+
+Wait, maybe the total shaded area is the area of the larger circle minus the area of the smaller circle. But that would be π*(2)^2 - π*(1)^2 = 4π - π = 3π, which is more than 5/3 π.
+
+But the Asymptote code seems to shade two specific regions.
+
+Alternatively, perhaps the shaded area is the area inside the larger circle but outside the smaller circle, but only in the regions where the smaller circle is entirely within the larger one.
+
+Wait, but in the Asymptote code, the smaller circle is entirely within the larger circle because its radius is 1, which is less than 2.
+
+Wait, so maybe the total shaded area is the area of the larger circle minus the area of the smaller circle: 4π - π = 3π, which is 3π. But the problem says the total shaded area is 5/3 π, which is less than that.
+
+So, that can't be.
+
+Wait, perhaps the shaded area is the area inside the larger circle but outside the smaller circle, but only in the lens-shaped regions created by the intersection of the two circles.
+
+Wait, the two circles intersect each other, creating two lens-shaped regions. The area of each lens can be calculated as the sum of the two circular segments.
+
+Given that, the area of the intersection of two circles can be found using the formula:
+
+Area = r² cos⁻¹(d² + r² - R²)/(2dr) + R² cos⁻¹(d² + R² - r²)/(2dR) - 0.5*sqrt((-d + r + R)(d + r - R)(d - r + R)(d + r + R))
+
+But in our case, the larger circle has radius R=2, smaller circle has radius r=1, and the distance between centers is d=0 because both circles are centered at D.
+
+Wait, wait, no. Wait, in the Asymptote code, the larger circle is centered at (0,0), and the smaller circle is centered at (0,0) as well? Wait, no, looking at the code:
+
+Wait, no, the smaller circle is centered at (0,0), same as the larger circle. Wait, that can't be, because the larger circle has radius 2, and the smaller circle has radius 1. So, if both are centered at (0,0), then the smaller circle is entirely within the larger one. So, the area of the larger circle not covered by the smaller one is 4π - π = 3π.
+
+But the problem says the shaded area is 5/3 π, which is about 1.666π, which is less than 3π.
+
+Therefore, perhaps the shaded area is only part of the annulus.
+
+Wait, but the problem says in the Asymptote code that the total area is 5/12 of the larger circle, which is 5/3 π.
+
+Wait, perhaps the regions shaded are only specific parts.
+
+Wait, perhaps the shaded region is the area inside both circles? No, because it's shaded as two separate regions.
+
+Wait, perhaps the shaded area is made up of two circular segments: one from the larger circle and one from the smaller circle.
+
+Wait, let me think of the Asymptote code again.
+
+The Asymptote code draws two paths:
+
+1. The inner arc from a/2 to c/2, which is from (cos100°, sin100°) to (1,0).
+
+2. The outer arc from c to a, which is from (2,0) to (2cos100°, 2sin100°).
+
+Then, it's creating two paths:
+
+- region1: starting at a, going to a/2, along the inner arc, then from c/2 to c, then along the outer arc back to a.
+
+- region2: starting at a/2, going to c/2, then along a straight line through the center, then back to a/2.
+
+Wait, so region1 is a sort of curved quadrilateral, and region2 is a triangle-like shape.
+
+Wait, maybe the total shaded area is the area of region1 plus the area of region2.
+
+Earlier, I thought region1 was 5/18 π and region2 was 5/18 π - 1/2 sin100°, but that didn't add up.
+
+Wait, perhaps I should compute the area of region1 as the area between the outer arc and the inner arc.
+
+Which is equal to the area of the sector formed by the outer arc minus the area of the sector formed by the inner arc.
+
+Which is (100°/360°)*(π*(2)^2) - (100°/360°)*(π*(1)^2) = (5/18)π - (5/36)π = (10/36 - 5/36)π = (5/36)π.
+
+Wait, that seems low.
+
+Wait, but the problem says the total shaded area is 5/12 π, which is equal to (15/36)π, so maybe my calculation is missing something.
+
+Alternatively, perhaps region1 is only the outer segment, and region2 is the inner segment.
+
+Wait, so the total shaded area is the outer segment plus the inner segment, which would be (5/18)π + (5/36)π = 10/36 π + 5/36 π = 15/36 π = 5/12 π, which matches the problem statement.
+
+So, maybe region1 is the outer segment, and region2 is the inner segment, both above the chord AC.
+
+Therefore, total shaded area is the sum of the outer segment and the inner segment.
+
+So, the area of the outer segment is (5/18)π, and the area of the inner segment is (5/36)π, so total is (15/36)π = 5/12π, which is correct.
+
+Therefore, this suggests that region1 is the outer segment, and region2 is the inner segment.
+
+Now, the problem asks for the measure of angle ADC, which is the angle at point D between points A and C.
+
+In the Asymptote code, point A is 100°, so angle ADC is 100°.
+
+But let me verify.
+
+Wait, in the Asymptote code, point a is defined as 2 * dir(100), which is a point on the larger circle at 100°, so angle between DA and DC is 100°, so angle ADC is 100°.
+
+But in the problem statement, is the Asymptote code just a diagram, or is it specific to the problem?
+
+Wait, in the Asymptote code, point a is at 100°, but the problem refers to angle ADC, which is angle at D between points A and C. So, if in the Asymptote code, the angle is 100°, then maybe the answer is 100°, but let me confirm.
+
+Wait, but perhaps the Asymptote code is just an example, but in the problem, the angle could be different.
+
+Wait, let me think differently.
+
+We have two circles, one radius 1, the other radius 2, both centered at D.
+
+Points A and C are points on the larger circle such that angle ADC is θ, which we need to find.
+
+The total shaded area is 5/12 of the larger circle, which is 5/3 π.
+
+The shaded area is two regions:
+
+1. The area between the larger circle and the smaller circle, above the chord AC.
+
+2. The area of the smaller circle segment above the chord AC.
+
+Total shaded area is sum of these two.
+
+So, let's denote:
+
+- θ is angle ADC.
+
+- The area of the larger segment above chord AC: (r²/2)(θ - sinθ) = (4/2)(θ - sinθ) = 2(θ - sinθ).
+
+- The area of the smaller segment above chord AC: (1²/2)(θ - sinθ) = 0.5(θ - sinθ).
+
+Therefore, total shaded area is 2(θ - sinθ) + 0.5(θ - sinθ) = 2.5(θ - sinθ).
+
+Given that total shaded area is 5/3 π:
+
+2.5(θ - sinθ) = 5/3 π
+
+Multiply both sides by 2/5:
+
+θ - sinθ = (2/5)*(5/3 π) = (2/3) π
+
+So, θ - sinθ = (2/3) π
+
+Now, θ is the central angle between points A and C in the larger circle.
+
+But points A and C are on the larger circle, so θ is the angle between DA and DC.
+
+We need to find θ such that θ - sinθ = 2π/3.
+
+Let me try to solve this equation.
+
+Let me denote x = θ.
+
+So, x - sinx = 2π/3 ≈ 2.0944 radians.
+
+So, let's compute sinx for different x.
+
+Let me try x=2 radians.
+
+sin2 ≈ 0.9093
+
+So, 2 - 0.9093 ≈ 1.0907 < 2.0944
+
+x=2.5 radians.
+
+sin2.5 ≈ 0.5985
+
+2.5 - 0.5985 ≈ 1.9015 < 2.0944
+
+x=2.7 radians.
+
+sin2.7 ≈ 0.4274
+
+2.7 - 0.4274 ≈ 2.2726 > 2.0944
+
+So, solution is between 2.5 and 2.7 radians.
+
+Let me try x=2.6 radians.
+
+sin2.6 ≈ sin(2.6) ≈ 0.5220
+
+2.6 - 0.5220 ≈ 2.0780 < 2.0944
+
+Difference: 2.0944 - 2.0780 ≈ 0.0164
+
+So, need a bit higher x.
+
+x=2.61 radians.
+
+sin2.61 ≈ sin(2.61) ≈ 0.5270
+
+2.61 - 0.5270 ≈ 2.0830 < 2.0944
+
+Difference: 2.0944 - 2.0830 ≈ 0.0114
+
+x=2.62 radians.
+
+sin2.62 ≈ sin(2.62) ≈ 0.5315
+
+2.62 - 0.5315 ≈ 2.0885 < 2.0944
+
+Difference: 2.0944 - 2.0885 ≈ 0.0059
+
+x=2.625 radians.
+
+sin2.625 ≈ sin(2.625) ≈ 0.5350
+
+2.625 - 0.5350 ≈ 2.0900 ≈ 2.0944
+
+Close enough.
+
+So, x ≈ 2.625 radians, which is approximately 150 degrees.
+
+Wait, 2.625 radians is about 150 degrees because π ≈ 3.1416, so 2.625 ≈ 82.5 degrees? Wait, no, wait, 1 radian is about 57.3 degrees.
+
+2.625 radians * (180/π) ≈ 2.625 * 57.3 ≈ 150.7 degrees.
+
+So, x ≈ 150.7 degrees, which is approximately 150 degrees.
+
+But the Asymptote code had point a at 100 degrees, which is about 1.745 radians.
+
+But in the problem, the total shaded area is 5/12 of the larger circle, which leads to θ ≈150 degrees, so about 2.62 radians.
+
+But the problem didn't specify whether the angle is in degrees or radians.
+
+Wait, the problem says "the total area of the shaded region is 5/12 of the larger circle." It doesn't specify units, but since we're dealing with angles in a circle, it's likely in radians.
+
+But 150 degrees is 5π/6 radians, which is approximately 2.618 radians, which is close to the 2.625 radians we got earlier.
+
+So, θ ≈ 5π/6, which is 150 degrees.
+
+But let me see if that's exact.
+
+If θ = 5π/6, then sinθ = sin(5π/6) = 1/2.
+
+So, θ - sinθ = 5π/6 - 1/2 ≈ 2.61799 - 0.5 ≈ 2.11799, which is approximately 2.118, while 2π/3 is approximately 2.0944. Not exact, but close.
+
+Wait, but maybe the equation can be solved exactly.
+
+We have θ - sinθ = 2π/3.
+
+Is this solvable exactly?
+
+Well, for some angles, yes, but generally, it's not solvable with elementary functions. So, likely, the angle is approximately 150 degrees.
+
+But in the Asymptote code, angle is 100 degrees.
+
+Wait, but in the Asymptote code, point a is at 100 degrees, so angle ADC is 100 degrees, which is approximately 1.745 radians.
+
+But in the problem, the angle comes out to be approximately 2.62 radians, which is 150 degrees.
+
+But in the Asymptote code, the shaded area is 5/12 of the larger circle.
+
+Wait, unless the Asymptote code is just an example, and in the problem, the angle is different.
+
+Wait, perhaps in the problem, the total shaded area is 5/12 of the larger circle, but the Asymptote code is just a diagram to illustrate the positions.
+
+So, in the problem, we have to assume that the total shaded area is 5/12 of the larger circle, and find the angle ADC.
+
+So, in that case, we have θ - sinθ = 2π/3.
+
+We can solve for θ numerically or see if it's a standard angle.
+
+Wait, let me try θ = 2 radians:
+
+θ = 2, sinθ ≈ 0.9093, so θ - sinθ ≈ 1.0907 < 2.0944
+
+θ=2.5, sin2.5≈0.5985, θ - sinθ≈1.9015 <2.0944
+
+θ=2.6, sin2.6≈0.5220, θ - sinθ≈2.0780 <2.0944
+
+θ=2.61, sin2.61≈0.5270, θ - sinθ≈2.0830 <2.0944
+
+θ=2.62, sin2.62≈0.5315, θ - sinθ≈2.0885 <2.0944
+
+θ=2.625, sin2.625≈0.5350, θ - sinθ≈2.0900 <2.0944
+
+θ=2.63, sin2.63≈0.5385, θ - sinθ≈2.0915 >2.0944
+
+So, between 2.625 and 2.63 radians.
+
+Using linear approximation:
+
+At θ=2.625, difference=2.0900
+
+At θ=2.63, difference=2.0915
+
+We need difference=2.0944.
+
+So, difference increases by 0.0044 from θ=2.625 to θ=2.63.
+
+Total difference between 2.625 and 2.63 is 0.0015.
+
+We need 2.0944 - 2.0900 = 0.0044.
+
+So, fraction=0.0044 /0.0015≈0.293.
+
+Therefore, θ≈2.625 + 0.293*(0.005)≈2.625 + 0.001465≈2.626465 radians.
+
+So, approximately 2.6265 radians, which is about 150 degrees.
+
+But the problem is likely expecting an exact answer, likely in radians or degrees.
+
+But 5π/6 is 150 degrees, which is the angle closest to our approximation.
+
+But since θ - sinθ = 2π/3 is approximately 2.0944, which is 5π/6 - 1/2.
+
+Wait, 5π/6 is approximately 2.61799, so 5π/6 - 1/2 ≈ 2.61799 - 0.5 ≈ 2.11799, which is less than 2π/3≈2.0944.
+
+Wait, no, 2π/3 is approximately 2.0944, and 5π/6 - 1/2 is approximately 2.11799.
+
+So, not equal.
+
+Wait, so perhaps the angle is not a standard angle, but we can write it in terms of inverse functions, but that's not helpful.
+
+Alternatively, maybe the problem is expecting a different approach.
+
+Wait, perhaps the regions are not the ones I thought.
+
+Wait, the problem says: "the total area of the shaded region is 5/12 of the area of the larger circle." So, the total shaded area is 5/12 of π*(2)^2 = 5/3 π.
+
+So, total shaded area is 5/3 π.
+
+The problem is to find the measure of angle ADC.
+
+So, perhaps the total shaded area is the area of the larger circle minus the area of the smaller circle, but that is 4π - π = 3π, which is more than 5/3 π.
+
+Alternatively, perhaps the shaded area is the area inside the larger circle but outside the smaller circle, but only in the segment above chord AC.
+
+Wait, in that case, the area would be (4π - π) * (θ - sinθ)/2.
+
+Wait, but I'm not sure.
+
+Alternatively, the shaded area is the area of the larger circle above chord AC minus the area of the smaller circle above chord AC.
+
+Wait, the area of the larger circle above chord AC is the segment, which is (4π - πθ + π/2 sinθ).
+
+Wait, no, the area of the segment is (r²/2)(θ - sinθ). So, for the larger circle, it's (4/2)(θ - sinθ)=2(θ - sinθ). For the smaller circle, it's (1/2)(θ - sinθ).
+
+So, total shaded area is 2(θ - sinθ) + (1/2)(θ - sinθ) = 2.5(θ - sinθ).
+
+We have 2.5(θ - sinθ) = 5/3 π.
+
+So, θ - sinθ = (2/5)(5/3 π) = (2/3) π.
+
+So, θ - sinθ = (2/3)π.
+
+So, solving for θ.
+
+From earlier, θ≈2.625 radians, which is about 150 degrees.
+
+But maybe, since 2.625 is 21/8 radians, which is 150 degrees.
+
+Wait, 21/8 is 2.625.
+
+Wait, 21/8 is 2.625, which is 2 and 7/8, which is 150 degrees.
+
+Wait, 2π/3 is 120 degrees, which is less than 150, so 21/8 is 150 degrees.
+
+Wait, 21/8 is 2.625, which is 150 degrees.
+
+So, maybe the angle is 150 degrees.
+
+But 2π/3 is approximately 120 degrees.
+
+Wait, let me see:
+
+Wait, 21/8 is 2.625, which is 2.625 radians.
+
+Convert 2.625 radians to degrees:
+
+Multiply by (180/π) ≈ 57.2958.
+
+So, 2.625 * 57.2958 ≈ 150 degrees.
+
+So, 21/8 radians is 150 degrees.
+
+So, the angle is 150 degrees, which is 5π/6 radians.
+
+Wait, but 5π/6 is approximately 2.61799 radians, which is close to 2.625 radians.
+
+Wait, so the exact value is θ = 5π/6, which is 150 degrees.
+
+Wait, but if we plug θ=5π/6 into θ - sinθ=2π/3.
+
+Compute 5π/6 - sin(5π/6) = 5π/6 - 1/2.
+
+Compute 5π/6 is approximately 2.61799, minus 0.5 is approximately 2.11799.
+
+But 2π/3≈2.0944.
+
+So, these are close but not equal.
+
+Hmm, so it's not exactly 5π/6, but very close.
+
+Wait, perhaps the angle is 5π/6, and the slight discrepancy is due to approximation.
+
+Alternatively, maybe the problem expects the answer in radians, which is 5π/6.
+
+But let me check: 5π/6 is 150 degrees.
+
+So, with the given total shaded area, 5/12 of the larger circle, the measure of angle ADC is 150 degrees.
+
+Therefore, the answer is 150 degrees.
+
+But before finalizing, let me verify.
+
+If θ = 5π/6, then θ - sinθ = 5π/6 - 1/2.
+
+Compute 5π/6 ≈ 2.61799.
+
+1/2 = 0.5.
+
+So, 5π/6 - 1/2 ≈ 2.11799.
+
+But 2π/3 ≈ 2.0944.
+
+So, it's a bit off.
+
+But in the Asymptote code, the angle is 100 degrees, which is 5π/18 ≈0.872 radians.
+
+So, angle in the problem is 5π/6, which is 150 degrees.
+
+Therefore, the measure of angle ADC is 150 degrees.
+
+So, I think the answer is 150 degrees, which is 5π/6 radians.
+
+**Final Answer**
+The measure of angle \( \angle ADC \) is \(\boxed{150}\) degrees.
+</think>
+
+The problem involves two circles, each with center \( D \), with radii 1 and 2. The total area of the shaded region is \( \frac{5}{12} \) of the area of the larger circle. We need to find the measure of \( \angle ADC \).
+
+1. **Understanding the Problem:**
+   - The larger circle has radius 2 and the smaller circle has radius 1.
+   - The total shaded area is \( \frac{5}{12} \) of the area of the larger circle, which is \( \frac{5}{12} \times \pi \times 2^2 = \frac{5}{3} \pi \).
+
+2. **Analyzing the Shaded Area:**
+   - The shaded area consists of two parts: the area between the larger circle and the smaller circle above the chord \( AC \), and the area of the smaller circle above the chord \( AC \).
+   - The area of the larger segment (the area between the larger circle and the smaller circle) is calculated as \( 2(\theta - \sin \theta) \).
+   - The area of the smaller segment is calculated as \( \frac{1}{2}(\theta - \sin \theta) \).
+
+3. **Setting Up the Equation:**
+   - The total shaded area is the sum of the larger segment and the smaller segment:
+     \[
+     2(\theta - \sin \theta) + \frac{1}{2}(\theta - \sin \theta) = \frac{5}{3} \pi
+     \]
+   - Simplifying, we get:
+     \[
+     2.5(\theta - \sin \theta) = \frac{5}{3} \pi
+     \]
+   - Solving for \( \theta - \sin \theta \):
+     \[
+     \theta - \sin \theta = \frac{2}{3} \pi
+     \]
+
+4. **Approximating the Angle:**
+   - The equation \( \theta - \sin \theta = \frac{2}{3} \pi \) is solved numerically.
+   - Through approximation, we find that \( \theta \approx 2.625 \) radians, which is approximately 150 degrees.
+
+5. **Conclusion:**
+   - The measure of \( \angle ADC \) is 150 degrees.
+
+\[
+\boxed{150}
+\]

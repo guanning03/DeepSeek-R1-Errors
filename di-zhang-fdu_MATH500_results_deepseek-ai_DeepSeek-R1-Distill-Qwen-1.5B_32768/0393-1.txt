@@ -1,0 +1,307 @@
+Tokens: 12287.0
+
+Question:
+A gecko is in a room that is 12 feet long, 10 feet wide and 8 feet tall. The gecko is currently on a side wall ($10^{\prime}$ by $8^{\prime}$), one foot from the ceiling and one foot from the back wall ($12^{\prime}$ by $8^{\prime}$). The gecko spots a fly on the opposite side wall, one foot from the floor and one foot from the front wall. What is the length of the shortest path the gecko can take to reach the fly assuming that it does not jump and can only walk across the ceiling and the walls? Express your answer in simplest radical form.
+
+Correct Answer:
+[asy]
+import three;
+currentprojection=orthographic(1/2,-1,1/2);
+triple A,B,C,D,E,F,G,H,g,f;
+A = (0,0,0);
+B = (12,0,0);
+C = (12,10,0);
+D = (0,10,0);
+E = (0,10,8);
+F = (0,0,8);
+G = (12,0,8);
+H = (12,10,8);
+draw(A--B--C--D--cycle);
+draw(E--F--G--H--cycle);
+draw(A--F); draw(B--G); draw(C--H); draw(D--E);
+g = (12,9,7); f = (0,1,1);
+dot(g, green); dot(f, purple);
+label("12", A--B); label("10", B--C); label("8", C--H);
+[/asy] In the above diagram, the green dot is the gecko and the purple dot is the fly. We can ``unfold'' the walls that the gecko traveled along, as below, to represent the gecko's path in two dimensions. This unfolding does not change the length of the gecko's path, so in order for the gecko's path to be minimal before unfolding, it must be minimal after unfolding. In other words, it must be a straight line after unfolding. Now, besides the side walls, the gecko can travel along the front, back, and ceiling. Suppose that among these, it only travels along the front wall. The walls the gecko walked along unfold as such: [asy]
+draw( (0,0)--(10,0)--(10,8)--(0,8)--cycle ); draw( (10,0)--(22,0) ); draw( (10,8)--(22,8) );
+draw( (22,0)--(32,0)--(32,8)--(22,8)--cycle );
+pair g = (31,7); pair f = (9,1);
+dot(g, green); dot(f, purple);
+draw(g--f, red);
+draw(f--(31,1), red+dashed); draw(g--(31,1), red+dashed);
+label( "10", (0,0)--(10,0) ); label( "12", (10,0)--(22,0) ); label( "10", (22,0)--(32,0) ); label( "8", (32,0)--(32,8) );
+[/asy] The gecko's path is the hypotenuse of a right triangle with legs 6 and 22, so its length is $\sqrt{6^2 + 22^2} = 2\sqrt{3^2 + 11^2} = 2\sqrt{130}$. By symmetry (the gecko and the fly are exactly opposite each other in the room), the path length is the same if the gecko only travels along the back wall and side walls.
+
+Now suppose the gecko only travels along the ceiling and side walls. These walls unfolded become: [asy]
+draw( (0,0)--(8,0)--(8,10)--(0,10)--cycle ); draw( (8,0)--(20,0) ); draw( (8,10)--(20,10) );
+draw( (20,0)--(28,0)--(28,10)--(20,10)--cycle );
+pair g = (21,9); pair f = (1,1);
+dot(g, green); dot(f, purple);
+draw(g--f, red);
+draw(f--(21,1), red+dashed); draw(g--(21,1), red+dashed);
+label( "8", (0,0)--(8,0) ); label( "12", (8,0)--(20,0) ); label( "8", (20,0)--(28,0) ); label( "10", (28,0)--(28,10) );
+[/asy] The path is the hypotenuse of a right triangle with legs 8 and 20, so its length is $\sqrt{8^2 + 20^2} = 2\sqrt{4^2+10^2} = 2\sqrt{116}$. (We'll keep it in this form because it makes it easier to compare with the other cases.)
+
+Finally, the gecko may cross both the ceiling and front wall (or back wall; the cases give the same results by symmetry). The unfolded walls then look like this: [asy]
+draw( (0,0)--(10,0)--(10,8)--(0,8)--cycle );
+draw( (10,0)--(22,0)--(22,8)--(10,8)--(10,18)--(22,18) );
+draw( (22,8)--(30,8)--(30,18)--(22,18)--cycle );
+pair g = (23,17); pair f = (9,1);
+dot(g, green); dot(f, purple);
+draw(g--f, red);
+draw(f--(23,1), red+dashed); draw(g--(23,1), red+dashed);
+label("10", (0,0)--(10,0)); label("12", (10,0)--(22,0)); label("8", (0,0)--(0,8), W);
+
+label("8", (22,18)--(30,18), N); label("10", (30,18)--(30,8), E);
+[/asy] The path is the hypotenuse of a right triangle with legs 16 and 14, so its length is $\sqrt{16^2+14^2} = 2\sqrt{8^2+7^2} = 2\sqrt{113}$. Of the three cases, this is the smallest, so the answer is $\boxed{2\sqrt{113}}$.
+
+Wrong Answer:
+Okay, so I have this problem about a gecko in a room, and I need to find the shortest path the gecko can take to reach a fly. Hmm, let me visualize the room first. The room is 12 feet long, 10 feet wide, and 8 feet tall. So, it's a rectangular box. 
+
+The gecko is on a side wall, specifically one that is 10 feet by 8 feet. It's one foot from the ceiling and one foot from the back wall. That means the gecko is on the front wall, right? Because the back wall is opposite, so one foot from the back wall would be one foot away from the back face, which is on the longer side. Since the gecko is on a side wall, it's either the front or the back wall. It says one foot from the ceiling, so the gecko is on the front wall because the ceiling is 10 feet tall, and if it's one foot from the ceiling, that would place it near the top of the front wall.
+
+Then, the fly is on the opposite side wall, one foot from the floor and one foot from the front wall. So, the opposite side wall would be the back wall, right? Because the front wall is where the gecko is, so the back wall is opposite. One foot from the floor on the back wall would place it near the bottom, and one foot from the front wall would place it near the left side, since the front wall is 12 feet long. So, the fly is on the back wall, one foot from the floor and one foot from the front wall.
+
+So, the gecko is on the front wall, one foot from the ceiling and one foot from the back wall, and the fly is on the back wall, one foot from the floor and one foot from the front wall. The gecko can walk across the ceiling or on the walls, but it can't jump or fly. So, it has to walk along the surfaces.
+
+I remember that in problems like this, where you have to find the shortest path across a 3D object, it's helpful to use the concept of unfolding the surfaces into a flat plane. By doing this, you can turn the 3D problem into a 2D one, making it easier to visualize and calculate distances.
+
+So, to apply that here, I need to figure out how to unfold the walls so that the gecko's path from the starting point to the fly's location becomes a straight line in the unfolded net. Then, the length of this straight line will be the shortest path.
+
+First, let me sketch the room mentally. The room is 12 feet long, so that's the length of the floor. The width is 10 feet, and the height is 8 feet. The front wall is 10 feet wide and 8 feet tall, and the back wall is also 10 feet wide but on the other side.
+
+The gecko is on the front wall, one foot from the ceiling and one foot from the back wall. So, that would place it 1 foot from the top of the front wall and 1 foot from the back wall. On the front wall, which is 10 feet wide, being one foot from the back wall means it's one foot away from the end. So, the gecko is 1 foot in from the corner on the front wall.
+
+The fly is on the back wall, one foot from the floor and one foot from the front wall. So, on the back wall, which is 10 feet wide, being one foot from the front wall means it's one foot in from the corner. So, the fly is one foot in from the corner on the back wall.
+
+Now, if I want to find the shortest path from the gecko's starting point to the fly's location, I can unfold the walls in a way that connects these two points. The key is to figure out how to lay out the walls so that the gecko's path becomes a straight line.
+
+I think one way to do this is to unfold the front wall and the back wall into a flat plane. If I can unfold the two walls into a single rectangle, then the gecko's path can be represented as a straight line across this rectangle.
+
+But wait, the gecko is on the front wall, which is 10 feet in width and 8 feet in height. The fly is on the back wall, which is also 10 feet wide but on the opposite side. So, if I unfold the front wall and the back wall into a single rectangle, the total width would be the length of the room plus the width of the front and back walls? Wait, no.
+
+Wait, maybe that's not the right way. Let me think.
+
+If I unfold the front and back walls into a single plane, it would effectively create a large rectangle where the front and back walls are laid out next to each other. But since the gecko is on the front wall and the fly is on the back wall, the distance between them can be found by considering the path that goes over these walls.
+
+Alternatively, another method is to consider the two-dimensional net of the room, which includes the front, back, left, and right walls, but in this case, since the gecko is only moving across the ceiling and the walls, maybe I can consider the front and back walls as part of the net.
+
+Wait, no, the fly is on the back wall, which is opposite to the front wall. So, if the gecko wants to go from the front wall to the back wall, it has to cross either the left, right, or top/bottom walls.
+
+But since the gecko can walk across the ceiling and the walls, but can't jump, the shortest path likely involves crossing over one or two walls.
+
+Wait, but the gecko is on the front wall, one foot from the ceiling and one foot from the back wall. So, that's 1 foot from ceiling and 1 foot from the back wall. So, the coordinates might help here.
+
+Let me assign coordinates to the room. Let's say the front wall is at x=0, width is along y-axis, and height is along z-axis. So, the front wall is at x=0, from y=0 to y=10, and z=0 to z=8.
+
+The geckos starting position is one foot from the ceiling, so at z=7, and one foot from the back wall, so at y=9 (since back wall is at y=10). So, the starting point is (0,9,7).
+
+Similarly, the fly is on the back wall, one foot from the floor and one foot from the front wall. The back wall is at x=12, from y=0 to y=10, and z=0 to z=8. Being one foot from the front wall would be at x=11, and one foot from the floor is at z=7. So, the fly's position is (11,0,7).
+
+So, in 3D space, the geckos is at (0,9,7) and the fly is at (11,0,7). Since the height is the same, the geckos can walk on the ceiling or through the walls. But since both are on the ceiling, maybe the path is along the ceiling? Wait, but the geckos is on the front wall, so it can't go through the ceiling.
+
+Wait, actually, the geckos is on the front wall, which is on the ceiling, so it can't go through the ceiling. So, it has to walk on the walls or on the ceiling.
+
+But the ceiling is 12 feet long, 10 feet wide, and 8 feet tall. So, the ceiling is a rectangle of 12x10. The geckos is on the front wall, which is 10x8. So, the starting point is on the front wall.
+
+Similarly, the fly is on the back wall, 10x8. So, the fly is on the back wall, and the back wall is opposite to the front wall.
+
+So, to get from the front wall to the back wall, the geckos has to cross over the left or right walls or go through the ceiling.
+
+But since it can't jump or fly, it has to stay on the ceiling or walls.
+
+Wait, if it's on the ceiling, it can walk around the walls, but maybe the shortest path would involve crossing over one wall.
+
+Alternatively, the geckos could walk on the ceiling from the starting point to the fly's position, but the ceiling is 12 feet long, 10 feet wide, and 8 feet tall. So, the ceiling is a rectangle. But the starting point is on the front wall, which is 10 feet wide, so if the ceiling is 12 feet long, the geckos can walk along the ceiling, 12 feet long, 10 feet wide, and 8 feet high.
+
+Wait, so if the geckos is on the front wall at (0,9,7), and the fly is on the back wall at (11,0,7), both at the same height, so the geckos can walk on the ceiling from (0,9,7) to (11,0,7), but that would require crossing over the ceiling.
+
+But let me think. If the ceiling is 12 feet long, 10 feet wide, and 8 feet tall. So, the starting point is (0,9,7), which is on the front wall, one foot from the ceiling and one foot from the back wall. The fly is on the back wall, one foot from the floor and one foot from the front wall, so at (11,0,7).
+
+So, both are at the same height, 7 feet. So, to go from (0,9,7) to (11,0,7), the geckos can walk on the ceiling, which is 12 feet long in the x-direction and 10 feet wide in the y-direction, but 8 feet high.
+
+So, the geckos can walk along the ceiling from (0,9,7) to (11,0,7). The distance between these two points is sqrt[(11-0)^2 + (0-9)^2 + (7-7)^2] = sqrt[121 + 81 + 0] = sqrt[202]. But that seems like a long path, and I don't think it's the shortest.
+
+Wait, maybe the geckos can take a different path by going over one of the side walls.
+
+Wait, the geckos is on the front wall, and the fly is on the back wall. So, the front and back walls are opposite each other across the room. So, if the geckos walks over one of the side walls, it can go from front to side to back.
+
+Wait, but the side walls are the left and right walls, which are 12 feet long and 8 feet high.
+
+So, the geckos is on the front wall, one foot from the back wall, so at (0,9,7). The fly is on the back wall, one foot from the front wall, so at (11,0,7). So, the distance between these two points is sqrt[(11-0)^2 + (0-9)^2 + (7-7)^2] = sqrt[121 + 81] = sqrt[202], as before.
+
+But if the geckos walks over the side walls, it would have to go from front wall to left wall, then over to right wall, then to back wall.
+
+Wait, that seems longer. Alternatively, maybe the geckos can walk over the side walls in a straight line.
+
+Wait, perhaps I can unfold the front wall and the back wall into a single plane.
+
+So, if I unfold the front wall and the back wall into a flat rectangle, then the distance from the starting point to the fly's position would be a straight line across this rectangle.
+
+So, the front wall is 10 feet wide and 8 feet tall. If I unfold it, it's like a rectangle of 10 feet by 8 feet. The back wall is also 10 feet wide but on the opposite side. So, if I lay them side by side, the combined width would be 20 feet, and the height remains 8 feet.
+
+So, the starting point is 1 foot from the back wall on the front wall, so at 1 foot from the corner, and the fly is 1 foot from the front wall on the back wall. So, in the unfolded net, the starting point is at (0,9) and the fly is at (19,7). Wait, no.
+
+Wait, in the unfolded net, if I lay the front wall and the back wall next to each other, the front wall is from (0,0) to (10,8), and the back wall is from (10,0) to (20,8). So, the starting point is on the front wall, one foot from the back wall, so at (1,9) in the unfolded net. Wait, no.
+
+Wait, actually, in terms of coordinates, if I lay the front wall and back wall next to each other, the front wall is from (0,0) to (10,8), and the back wall is from (10,0) to (20,8). So, the geckos is on the front wall, one foot from the back wall, so that point is at (1,9). The fly is on the back wall, one foot from the front wall, so that point is at (11,7). Wait, no.
+
+Wait, maybe I'm getting confused with the coordinates. Let me think again.
+
+If I lay the front wall and the back wall flat next to each other, forming a 20x8 rectangle. The front wall is 10 feet wide, so the starting point is 1 foot from the back wall, so in the unfolded net, it's 1 foot into the front wall, which is 1 foot from the corner. So, in 2D coordinates, that would be (1,9).
+
+Similarly, the fly is on the back wall, one foot from the front wall, so in the unfolded net, it's 1 foot into the back wall, which is 1 foot from the corner on the back wall. So, in 2D, that would be (19,7).
+
+So, the starting point is (1,9) and the fly is at (19,7). The distance between these two points is sqrt[(19-1)^2 + (7-9)^2] = sqrt[18^2 + (-2)^2] = sqrt[324 + 4] = sqrt[328]. Hmm, that seems more complicated than sqrt[202]. Maybe that's not the right unfolding.
+
+Wait, perhaps if I unfold the front wall and the right or left walls instead.
+
+Wait, another way to think about it is that to get from the front wall to the back wall, the geckos can go over the left or right wall, which is 12 feet long and 8 feet high.
+
+So, if I unfold the front wall and the left wall into a single plane, the starting point is (0,9,7) and the fly is on the left wall, which is 12 feet long. So, the fly is 1 foot from the front wall on the left wall, so it's at (1,0,7). So, in the unfolded net of the front wall and the left wall, the starting point is (0,9) and the fly is at (1,0). So, the distance is sqrt[(1 - 0)^2 + (0 - 9)^2] = sqrt[1 + 81] = sqrt[82]. That is shorter than sqrt[202], which was the straight line across the ceiling.
+
+Wait, is that correct? Let me visualize it again.
+
+If I unfold the front wall and the left wall into a flat plane, the front wall is 10 feet wide, and the left wall is 12 feet long. So, in this unfolded net, the front wall is at (0,0) to (10,8), and the left wall is from (0,8) to (12,8). So, the starting point is at (0,9) on the front wall, and the fly is at (1,0) on the left wall. Wait, but the left wall is at the same height as the front wall, which is 8 feet, but the fly is on the back wall, so maybe that's incorrect.
+
+Wait, no, the fly is on the back wall, which is on the opposite side of the front wall. So, in the unfolded net, the front wall and the left wall are laid out next to each other, making a 22 feet (10 + 12) by 8 feet rectangle. But the starting point is on the front wall, 1 foot from the back wall, so at (0,9), and the fly is on the back wall, 1 foot from the front wall, so at (1,0). So, the distance between (0,9) and (1,0) is sqrt[(1)^2 + (9)^2] = sqrt(1 + 81) = sqrt(82). That seems correct.
+
+But wait, is the length of the side wall 12 feet? So, the left wall is 12 feet long. So, if I lay it next to the front wall, which is 10 feet wide, then the total length from (0,0) to (22,8). So, the starting point is at (0,9) and the fly is at (1,0). So, the distance is sqrt[(1)^2 + (9)^2] = sqrt(82). But 82 is 9*9 + 1, so sqrt(82) is about 9.055 feet.
+
+Wait, but the ceiling is 12 feet long, 10 feet wide, and 8 feet high. So, the distance from (0,9,7) to (1,0,7) is sqrt[(1)^2 + (9)^2] = sqrt(82). So, that seems correct.
+
+Alternatively, if I consider another unfolding: front wall and right wall.
+
+So, if I unfold the front wall and the right wall into a single plane. The right wall is 12 feet long and 8 feet high. So, in this unfolding, the front wall is 10 feet wide, and the right wall is 12 feet long. So, the total length from (0,0) to (22,8). The starting point is on the front wall, 1 foot from the back wall, so at (0,9). The fly is on the back wall, 1 foot from the front wall, so on the right wall, 1 foot from the front wall, so at (11,0). So, the distance is sqrt[(11)^2 + (9)^2] = sqrt(121 + 81) = sqrt(202). That's the same as the straight line across the ceiling.
+
+Wait, so depending on which walls we unfold, we get different distances.
+
+So, sqrt(82) is about 9.055, and sqrt(202) is about 14.213. So, clearly, the shorter path is sqrt(82). But is that actually the case?
+
+Wait, but the geckos can't go through the ceiling, it's on the ceiling, so to go from the front wall to the back wall, it might need to go through the ceiling, but maybe it can walk on the walls.
+
+Wait, the question says the geckos can walk across the ceiling and the walls. So, it can cross over the walls. So, the shortest path would be the shortest path on the surfaces.
+
+But if the geckos can go across walls, then the unfolding method should still apply.
+
+Wait, but in the unfolding, if I lay the front wall and the left wall, then the distance is sqrt(82). So, is that the minimal distance? Because the ceiling is 12x10, so the straight line across the ceiling is sqrt(12^2 + 10^2) = sqrt(244) ≈ 15.62, which is longer than sqrt(82). So, that's not the case.
+
+Alternatively, if I unfold the front wall and the right wall, then the distance is sqrt(202). So, which is longer than sqrt(82). So, that's not the minimal.
+
+But then, if I unfold the front wall and the left wall, giving a distance of sqrt(82). Is that the minimal? Or is there a better unfolding.
+
+Wait, another way is to consider the front wall and the right wall, but since the front wall is adjacent to the left wall and the right wall, but not the back wall.
+
+Wait, perhaps the geckos can take a different route, going over the top or bottom walls.
+
+Wait, the top and bottom walls are 12 feet long and 8 feet high, so 12x8.
+
+So, the geckos is on the front wall, 1 foot from the ceiling and 1 foot from the back wall. So, it's near the top-left corner of the front wall. The front wall is 10 feet wide (left to right) and 8 feet tall (front to back). So, the starting point is at (0,9), as we had earlier.
+
+The fly is on the back wall, 1 foot from the floor and 1 foot from the front wall, so it's near the bottom-right corner of the back wall.
+
+So, in the 3D space, the geckos is at (0,9,7) and the fly is at (11,0,7). So, to get from (0,9,7) to (11,0,7), the geckos can walk on the ceiling, or it can walk on the walls.
+
+But since the ceiling is 12x10, 8 feet tall, maybe the geckos can take a diagonal across the ceiling or across the walls.
+
+Wait, but the ceiling is 12x10, so in the x-y plane, the distance from (0,9) to (11,0) is sqrt[(11)^2 + (9)^2] = sqrt(202) ≈ 14.21.
+
+Alternatively, if the geckos takes a path over the left or right walls, which are 12 feet long and 8 feet high, so the distance from (0,9) to (1,0) is sqrt(1^2 + 9^2) = sqrt(82) ≈ 9.055.
+
+But is that the minimal?
+
+Wait, another way, perhaps unfolding the front wall, the left wall, and the back wall into a single plane. So, front wall is 10 feet wide, left wall is 12 feet long, and back wall is 10 feet wide. If I lay them all out in a straight line, the total length would be 10 + 12 + 10 = 32 feet, and the height is 8 feet. So, the distance from (0,9) to (11,0) is sqrt(32^2 + 8^2) = sqrt(1024 + 64) = sqrt(1088) ≈ 32.98. That's longer than sqrt(82), so not helpful.
+
+Alternatively, maybe another unfolding.
+
+Wait, perhaps if I unfold the front wall and the right wall into a single plane.
+
+So, front wall is 10 feet wide, right wall is 12 feet long, and then from the right wall, we can go to the back wall, but that would complicate.
+
+Wait, no, in this case, the back wall is on the opposite side of the front wall. So, perhaps if I unfold the front wall and the left wall into a single plane, as I did before, getting a distance of sqrt(82). Alternatively, if I unfold the front wall and the right wall into a single plane, but the right wall is on the opposite side.
+
+Wait, perhaps that's another way.
+
+Wait, let me try to think in terms of unfolding the front wall and the right wall into a plane, making a longer rectangle.
+
+But the front wall is 10 feet wide, the right wall is 12 feet long, but the front wall is 10 feet wide. So, if I lay the front wall and the right wall together, the total width would be 10 + 12 = 22 feet, and the height remains 8 feet. The starting point is (0,9) on the front wall, and the fly is on the right wall, 1 foot from the front wall, so at (11,0). So, the distance is sqrt[(11)^2 + (9)^2] = sqrt(202) ≈ 14.21, which is longer than sqrt(82). So, that's not better.
+
+Wait, maybe I need to consider unfolding the front wall and the back wall into a single plane, but placing them side by side.
+
+So, front wall is 10 feet wide, back wall is 10 feet wide, so if I lay them side by side, the total width is 20 feet, and the height is 8 feet. The starting point is 1 foot from the back wall on the front wall, so at (0,9). The fly is 1 foot from the front wall on the back wall, so at (19,7). So, the distance is sqrt[(19)^2 + (9)^2] = sqrt(361 + 81) = sqrt(442) ≈ 21.03. That's longer than sqrt(82). So, worse.
+
+Hmm, perhaps the minimal path is sqrt(82), as that's the minimal when we unfold the front wall and the left wall into a plane, giving a shorter distance.
+
+But let me confirm.
+
+If I consider the front wall and the left wall as a single plane, the starting point is at (0,9) and the fly is at (1,0). So, that's a distance of sqrt(1 + 81) = sqrt(82). So, that seems correct.
+
+But let me think again about the unfolding. If I'm on the front wall, can I walk over the left wall to reach the fly? Because the left wall is 12 feet long and 8 feet high. So, the distance from (0,9) to (1,0) is sqrt(1 + 81) = sqrt(82). So, that should be the minimal path.
+
+Wait, but is there a shorter path that goes over the top or bottom walls? Because the top and bottom walls are 12 feet long and 8 feet high, 12x8.
+
+If I go over the top wall, which is 12 feet long and 8 feet high, the starting point is (0,9) on the front wall. The top wall is at z=8. The fly is on the back wall at (11,0,7). So, if I go over the top wall, I can reach from (0,9,7) to some point on the top wall, then to (11,0,7). But that seems longer.
+
+Alternatively, if I go over the left or right walls, which are 12 feet long and 8 feet high, but in that case, from (0,9,7) to the left wall at (1,0,7). The distance is sqrt(82). Alternatively, if I go over the top wall, it's 12 feet, but the starting point is at (0,9), which is near the top-left of the front wall.
+
+Wait, let's think in 3D. The geckos is on the front wall, 1 foot from the back wall. So, it's at (0,9,7). The fly is on the back wall, 1 foot from the front wall, so it's at (11,0,7). So, the geckos can walk on the front wall to the left wall, then to the back wall. That path would cross the front wall, then go over the left wall, then reach the fly.
+
+But in reality, the path would have to go from (0,9,7) to some point on the left wall, then to (11,0,7). So, the distance would be the distance from (0,9,7) to (1,0,z), and then from (1,0,z) to (11,0,7). But since the left wall is at z=8, the point (1,0,8) is the corner.
+
+Wait, so if the geckos walks from (0,9,7) to (1,0,8), and then to (11,0,7). So, the total distance would be the distance from (0,9,7) to (1,0,8): sqrt[(1)^2 + (9)^2 + (1)^2] = sqrt(1 + 81 + 1) = sqrt(83). Then, from (1,0,8) to (11,0,7): sqrt[(10)^2 + (0)^2 + (1)^2] = sqrt(100 + 0 + 1) = sqrt(101). So, total distance is sqrt(83) + sqrt(101) ≈ 9.11 + 10.05 ≈ 19.16, which is way longer than sqrt(82). So, that's not the minimal.
+
+Alternatively, maybe going from (0,9,7) to (1,0,7), which is the straight line over the left wall. So, the distance is sqrt(1 + 81) = sqrt(82), which is shorter than going over the top wall.
+
+So, that seems better.
+
+Wait, but is there a way to go over the top wall and make it shorter? Let's think.
+
+If the geckos walks from (0,9,7) to (1,0,7), that's sqrt(82). Alternatively, maybe it can go up the top wall, but then the height is 8, so the distance would be longer.
+
+So, I think sqrt(82) is the minimal path.
+
+But wait, let me check if the unfolding is correct. So, if I have the front wall and the left wall laid out as a single plane, the starting point is (0,9) and the fly is at (1,0). So, in this unfolded net, the distance is sqrt(1 + 81) = sqrt(82). So, that's the distance between the two points.
+
+But let me also consider the 3D distance. The straight line distance between (0,9,7) and (1,0,7) is sqrt[(1)^2 + (9)^2 + (0)^2] = sqrt(82). So, that's the same as the distance in the unfolded net. So, that's consistent.
+
+So, that seems to confirm that sqrt(82) is the minimal path.
+
+Wait, but let me think again about the unfolding. Is there a way to unfold the front wall and the right wall to get a shorter distance?
+
+If I unfold the front wall and the right wall into a single plane, the starting point is (0,9) on the front wall, and the fly is at (11,0) on the right wall. So, in this plane, the distance is sqrt(11^2 + 9^2) = sqrt(202). Which is longer than sqrt(82).
+
+So, that's not better.
+
+Alternatively, if I unfold the left and right walls with the ceiling, but that seems not helpful.
+
+Wait, another idea: Maybe the geckos can go over the top or bottom walls. But as we saw earlier, that would result in longer paths.
+
+Wait, but perhaps if I unfold the ceiling and the walls. Wait, the ceiling is 12x10. So, if I unfold the ceiling and the front wall, it's a rectangle of 12 + 10 = 22 feet long and 8 feet high. The starting point is (0,9) on the front wall. Wait, but the ceiling is 12 feet long, and the front wall is 10 feet wide. So, the starting point is at (0,9), which is 1 foot from the back wall.
+
+Wait, so if I unfold the ceiling and the front wall, the starting point is (0,9) and the fly is (11,0). So, the distance is sqrt[(11)^2 + (9)^2] = sqrt(202). So, same as before.
+
+Alternatively, maybe not, because the ceiling is 12 feet long, but the starting point is on the front wall, which is 1 foot from the back wall, so it's near the corner.
+
+Wait, perhaps the minimal path is indeed sqrt(82). So, I think I can conclude that.
+
+But just to make sure, let me think about another way.
+
+If I consider the 3D coordinates, the starting point is (0,9,7) and the fly is at (11,0,7). The minimal path would be the shortest path over the surfaces, which in the unfolded net is sqrt(82). So, that's the minimal.
+
+So, the answer is sqrt(82). So, expressed in LaTeX, that's \boxed{\sqrt{82}}.
+
+**Final Answer**
+The length of the shortest path the gecko can take to reach the fly is \boxed{\sqrt{82}} feet.
+</think>
+
+The gecko is on the front wall of a room that is 12 feet long, 10 feet wide, and 8 feet tall. It is one foot from the ceiling and one foot from the back wall. The fly is on the opposite side wall, one foot from the floor and one foot from the front wall. We need to find the shortest path the gecko can take to reach the fly.
+
+1. The geckos is on the front wall at coordinates (0, 9, 7) and the fly is on the back wall at coordinates (11, 0, 7).
+2. To find the shortest path, we can unfold the room into a net. Unfolding the front wall and the left wall into a single plane, we get a rectangle of width 20 feet (10 feet + 12 feet) and height 8 feet.
+3. The starting point (0, 9) on the front wall and the fly (1, 0) on the left wall are now on this unfolded plane.
+4. The distance between these two points is calculated as the straight line distance in this plane:
+   \[
+   \sqrt{(1 - 0)^2 + (0 - 9)^2} = \sqrt{1 + 81} = \sqrt{82}
+   \]
+
+Thus, the length of the shortest path the gecko can take to reach the fly is \(\boxed{\sqrt{82}}\) feet.

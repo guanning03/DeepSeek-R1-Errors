@@ -1,0 +1,600 @@
+Tokens: 12287.0
+
+Question:
+A gecko is in a room that is 12 feet long, 10 feet wide and 8 feet tall. The gecko is currently on a side wall ($10^{\prime}$ by $8^{\prime}$), one foot from the ceiling and one foot from the back wall ($12^{\prime}$ by $8^{\prime}$). The gecko spots a fly on the opposite side wall, one foot from the floor and one foot from the front wall. What is the length of the shortest path the gecko can take to reach the fly assuming that it does not jump and can only walk across the ceiling and the walls? Express your answer in simplest radical form.
+
+Correct Answer:
+[asy]
+import three;
+currentprojection=orthographic(1/2,-1,1/2);
+triple A,B,C,D,E,F,G,H,g,f;
+A = (0,0,0);
+B = (12,0,0);
+C = (12,10,0);
+D = (0,10,0);
+E = (0,10,8);
+F = (0,0,8);
+G = (12,0,8);
+H = (12,10,8);
+draw(A--B--C--D--cycle);
+draw(E--F--G--H--cycle);
+draw(A--F); draw(B--G); draw(C--H); draw(D--E);
+g = (12,9,7); f = (0,1,1);
+dot(g, green); dot(f, purple);
+label("12", A--B); label("10", B--C); label("8", C--H);
+[/asy] In the above diagram, the green dot is the gecko and the purple dot is the fly. We can ``unfold'' the walls that the gecko traveled along, as below, to represent the gecko's path in two dimensions. This unfolding does not change the length of the gecko's path, so in order for the gecko's path to be minimal before unfolding, it must be minimal after unfolding. In other words, it must be a straight line after unfolding. Now, besides the side walls, the gecko can travel along the front, back, and ceiling. Suppose that among these, it only travels along the front wall. The walls the gecko walked along unfold as such: [asy]
+draw( (0,0)--(10,0)--(10,8)--(0,8)--cycle ); draw( (10,0)--(22,0) ); draw( (10,8)--(22,8) );
+draw( (22,0)--(32,0)--(32,8)--(22,8)--cycle );
+pair g = (31,7); pair f = (9,1);
+dot(g, green); dot(f, purple);
+draw(g--f, red);
+draw(f--(31,1), red+dashed); draw(g--(31,1), red+dashed);
+label( "10", (0,0)--(10,0) ); label( "12", (10,0)--(22,0) ); label( "10", (22,0)--(32,0) ); label( "8", (32,0)--(32,8) );
+[/asy] The gecko's path is the hypotenuse of a right triangle with legs 6 and 22, so its length is $\sqrt{6^2 + 22^2} = 2\sqrt{3^2 + 11^2} = 2\sqrt{130}$. By symmetry (the gecko and the fly are exactly opposite each other in the room), the path length is the same if the gecko only travels along the back wall and side walls.
+
+Now suppose the gecko only travels along the ceiling and side walls. These walls unfolded become: [asy]
+draw( (0,0)--(8,0)--(8,10)--(0,10)--cycle ); draw( (8,0)--(20,0) ); draw( (8,10)--(20,10) );
+draw( (20,0)--(28,0)--(28,10)--(20,10)--cycle );
+pair g = (21,9); pair f = (1,1);
+dot(g, green); dot(f, purple);
+draw(g--f, red);
+draw(f--(21,1), red+dashed); draw(g--(21,1), red+dashed);
+label( "8", (0,0)--(8,0) ); label( "12", (8,0)--(20,0) ); label( "8", (20,0)--(28,0) ); label( "10", (28,0)--(28,10) );
+[/asy] The path is the hypotenuse of a right triangle with legs 8 and 20, so its length is $\sqrt{8^2 + 20^2} = 2\sqrt{4^2+10^2} = 2\sqrt{116}$. (We'll keep it in this form because it makes it easier to compare with the other cases.)
+
+Finally, the gecko may cross both the ceiling and front wall (or back wall; the cases give the same results by symmetry). The unfolded walls then look like this: [asy]
+draw( (0,0)--(10,0)--(10,8)--(0,8)--cycle );
+draw( (10,0)--(22,0)--(22,8)--(10,8)--(10,18)--(22,18) );
+draw( (22,8)--(30,8)--(30,18)--(22,18)--cycle );
+pair g = (23,17); pair f = (9,1);
+dot(g, green); dot(f, purple);
+draw(g--f, red);
+draw(f--(23,1), red+dashed); draw(g--(23,1), red+dashed);
+label("10", (0,0)--(10,0)); label("12", (10,0)--(22,0)); label("8", (0,0)--(0,8), W);
+
+label("8", (22,18)--(30,18), N); label("10", (30,18)--(30,8), E);
+[/asy] The path is the hypotenuse of a right triangle with legs 16 and 14, so its length is $\sqrt{16^2+14^2} = 2\sqrt{8^2+7^2} = 2\sqrt{113}$. Of the three cases, this is the smallest, so the answer is $\boxed{2\sqrt{113}}$.
+
+Wrong Answer:
+Alright, so I've got this problem here about a gecko in a room, and I need to find the shortest path it can take to reach a fly. Let me try to visualize the room first. The room is 12 feet long, 10 feet wide, and 8 feet tall. That gives me a good starting point.
+
+The gecko is on a side wall that's 10 feet by 8 feet. Wait, actually, hold on. The problem says it's on a side wall that's one foot from the ceiling and one foot from the back wall. Hmm, hold on, is it one foot from the ceiling and one foot from the back wall? Let me parse that again.
+
+"A gecko is currently on a side wall (10' by 8'), one foot from the ceiling and one foot from the back wall." Hmm, okay, so the gecko is on a side wall. A side wall would be either the front or back wall, but the problem mentions it's one foot from the ceiling and one foot from the back wall. Wait, that's a bit confusing. If it's on a side wall, it can't be one foot from the ceiling because the ceiling is 8 feet high. If it's one foot from the ceiling, that would be 7 feet from the floor, right?
+
+But wait, the gecko is also one foot from the back wall. So maybe the back wall is one foot away, meaning the gecko is on the side wall, one foot from the ceiling (so 7 feet from the floor) and one foot from the back wall. So the gecko is on the side wall, which is 10 feet wide and 8 feet tall, but the side wall is 10 feet by 8 feet, so perhaps the 10 feet is the length and 8 feet is the height. So if it's on a side wall, one foot from the ceiling, then that would be 7 feet from the floor on that wall. And one foot from the back wall, which is the other side wall, so 1 foot away.
+
+Wait, maybe I should sketch this out mentally. Let's assign coordinates to make this easier. Let's assume the room is a rectangular prism with length, width, and height as 12 feet, 10 feet, and 8 feet respectively. Let me consider the front wall as one side, back wall as the opposite, left wall as another, and right wall as the opposite. Since the gecko is on a side wall, it's either the front or the back wall.
+
+But the problem says it's one foot from the ceiling and one foot from the back wall. So if I imagine the room, the ceiling is 8 feet high. So if the gecko is one foot from the ceiling, that would be 7 feet from the floor. So on the side wall, the distance from the ceiling is 1 foot, so the gecko is 7 feet up on that wall. Also, it's one foot from the back wall, meaning on the side wall, it's 1 foot away from the back wall, so 1 foot from the back wall, which is the back wall being 12 feet long. Wait, the front wall is 12 feet long, so the side walls are 12 feet as well? Wait, no, the problem says the room is 12 feet long, 10 feet wide, and 8 feet tall.
+
+So the dimensions: length is 12 feet, width is 10 feet, height is 8 feet. So, if I imagine the room, it's 12 feet in length, 10 feet in width, and 8 feet in height. So the front and back walls are 12 feet long, the left and right walls are 10 feet wide, and the ceiling and floor are 12 feet by 8 feet.
+
+Wait, maybe not. Wait, length, width, and height. So, if the room is 12 feet long, 10 feet wide, and 8 feet tall, then the walls are 12 feet in length, 10 feet in width, and 8 feet in height.
+
+So, the side walls are the ones that are 12 feet long and 8 feet tall. The front and back walls are 10 feet wide and 8 feet tall. So, if the gecko is on a side wall, it's on either the front or the back wall, which are 10 feet wide and 8 feet tall. But the problem says it's one foot from the ceiling and one foot from the back wall.
+
+Wait, so if it's on a side wall, which is 10 feet wide, and it's one foot from the ceiling, which is 8 feet high, so 7 feet from the floor. But it's also one foot from the back wall. So, if the side wall is 10 feet wide, and it's one foot from the back wall, which is the right wall, then it's 1 foot away from the right wall, meaning 1 foot from the right end of the side wall. So, on the side wall, the gecko is 1 foot from the right end, and 7 feet from the floor.
+
+So, the coordinates of the gecko: Let's assign a coordinate system where the origin is one corner of the room. Let's say the front wall is along the y-axis, the left wall is along the x-axis, and the height is along the z-axis. So, the front wall is along y from 0 to 10 feet, the left wall is along x from 0 to 12 feet, and the height is z from 0 to 8 feet.
+
+So, the gecko is on the side wall. Since it's on the side wall, let's say it's on the back wall. The back wall is at x = 12 feet, and the gecko is 1 foot from the back wall, so x = 12 - 1 = 11 feet. It's also one foot from the ceiling, which is z = 8 feet, so it's 7 feet from the floor, so z = 7 feet. So, the gecko's coordinates are (11, y, 7). But wait, the side wall is 12 feet long, so y is from 0 to 10 feet. So, y can be any value between 0 and 10 feet.
+
+But also, the geck is on a side wall that is one foot from the ceiling and one foot from the back wall. So, on the side wall, which is 10 feet wide, the geck is 1 foot from the back wall. So, on that side wall, it's 1 foot away from the right end, meaning x = 11 feet. So, its coordinates are (11, y, 7). So, y can be any value between 0 and 10 feet, but it's on the side wall.
+
+Wait, but the side wall is 10 feet wide, so y is from 0 to 10 feet. So, the geck is somewhere on that wall, 1 foot from the back wall (x=12), so x=11, and 7 feet from the floor (z=7). So, its position is (11, y, 7), where y is between 0 and 10.
+
+Similarly, the fly is on the opposite side wall, which is the front wall. The front wall is along y from 0 to 10 feet, and z from 0 to 8 feet. The fly is one foot from the floor and one foot from the front wall. So, since the front wall is at y=0, the fly is 1 foot away from the front wall, so y=1 foot. It's also one foot from the floor, so z=7 feet. So, the fly is at (0, 1, 7).
+
+So, now we have the geck at (11, y, 7) and the fly at (0, 1, 7). The geck needs to reach the fly by walking across the ceiling and the walls. So, the geck can walk over the ceiling or across the walls.
+
+But since the geck can't jump, it has to walk along the surfaces. So, the shortest path would involve unfolding the walls into a plane, so that we can compute the straight-line distance.
+
+Wait, that's a common technique in shortest path problems on boxes or rooms. So, if we can unfold the walls into a flat surface, the geck's path becomes a straight line on that unfolded surface. So, perhaps I can unfold the walls in such a way that the geck's starting point and the fly's position lie on the same plane, and the straight-line distance between them is the shortest path.
+
+So, let's think about the room as a rectangular prism. If I can unfold the relevant walls into a flat net, then the geck's path can be represented as a straight line in that net.
+
+So, the geck is on the back wall, 1 foot from the front wall (y=1), and 7 feet from the ceiling (z=7). The fly is on the front wall, 1 foot from the back wall (y=0) and 7 feet from the floor (z=7).
+
+Wait, the fly is on the front wall, one foot from the floor, so z=7, and one foot from the front wall, which is y=0, so y=1. So, the fly is at (0, 1, 7).
+
+The geck is on the back wall, which is at x=12, one foot from the back wall, so x=11, and one foot from the ceiling, so z=7, and y can be any value between 0 and 10. So, the geck can be anywhere on that side wall.
+
+Wait, but since the geck can choose any position on the back wall that is one foot from the ceiling and one foot from the back wall, which is x=11, so x=11, z=7, and y can be from 0 to 10. So, the geck can be at (11, y, 7), where y is between 0 and 10.
+
+Similarly, the fly is at (0, 1, 7). So, the geck needs to go from (11, y, 7) to (0, 1, 7). The path must stay on the ceiling or across the walls. But since the ceiling is 8 feet high, and the walls are 12 feet long and 10 feet wide, the geck can walk across the ceiling or along the walls.
+
+But the geck is on the side wall, so it's on the back wall, which is at x=12. The front wall is at y=0. So, the geck can either walk along the back wall, along the front wall, or across the ceiling.
+
+But since the fly is on the front wall, one foot from the front wall, the geck can either walk along the front wall, or across the ceiling or front wall.
+
+Wait, but since the geck is already on the back wall, which is adjacent to the front wall, it can either walk along the ceiling from the back wall to the front wall, or it can walk along the front wall from the back wall to the fly.
+
+But the fly is on the front wall, so the geck can either walk from the back wall to the front wall, across the ceiling, or walk from the back wall to the fly along the front wall.
+
+But we need the shortest path, so perhaps unfolding the walls into a plane would help.
+
+So, if I unfold the ceiling and the two walls, I can create a flat plane where the geck's path becomes a straight line.
+
+Wait, so let's imagine that the room is a box, and we can unfold the front, right, and back walls into a plane. Then, the geck can go from the back wall to the front wall, or it can go from the back wall to the floor, then up the wall, then across the front wall, etc. But the shortest path would be the one where the path is a straight line in the unfolded net.
+
+So, let's model this. Let's consider the geck is on the back wall, which is x=12. The fly is on the front wall, y=0. If we unfold the front wall and the back wall into a plane, the distance between them would be the sum of their lengths.
+
+Wait, but the back wall is 10 feet wide, and the front wall is 10 feet wide as well. So, if we unfold the front wall and the back wall, we can create a rectangle that is 10 feet wide and 8 feet high for the front wall, and 10 feet wide and 8 feet high for the back wall.
+
+Wait, perhaps I should think about the two adjacent walls, front and back, which are both 10 feet wide and 8 feet tall, and the ceiling and floor which are 8 feet high and 12 feet long.
+
+Wait, maybe a better approach is to consider the path from the geck's position to the fly as a straight line on the unfolded net.
+
+So, if I unfold the front wall and the back wall into a single plane, then the geck can go from the back wall to the front wall, across the ceiling, and then to the fly.
+
+Alternatively, it can go from the back wall to the floor, then along the floor to the fly, but that would require walking on the floor, which is not allowed since the geck can only walk across the ceiling and the walls.
+
+Wait, no, the geck is on a wall, so it can't just walk on the floor. So, if it walks from the back wall to the floor, it would have to go down, but the problem says it can only walk across the ceiling and walls. So, it can't walk on the floor. So, that's not an option.
+
+Therefore, the geck must walk from the back wall, either along the ceiling or along the walls, to reach the fly on the front wall.
+
+Therefore, the path can be either:
+
+1. Walking along the ceiling from the back wall to the front wall, across the ceiling, and then up the front wall to the fly.
+
+2. Walking from the back wall to the front wall across the ceiling in a straight line, but since it's on a wall, it's a bit more complex.
+
+Alternatively, the geck can cross the ceiling and walls in a straight line across a plane that covers both the ceiling and the walls.
+
+Wait, let me think about unfolding the walls.
+
+If I unfold the front wall and the back wall into a single plane, then the distance from the geck's position to the fly can be represented as a straight line.
+
+But the geck is on the back wall, one foot from the back wall (so x=11), and one foot from the ceiling (so z=7). The fly is on the front wall, one foot from the front wall (y=1) and one foot from the floor (z=7). So, their coordinates are (11, y, 7) and (0, 1, 7).
+
+So, in the unfolded net, the back wall and front wall form a rectangle that is 10 feet (width) by (8+8) feet (height). Because if we unfold the front and back walls, the total height becomes 8 + 8 = 16 feet.
+
+Wait, but the ceiling is 8 feet high, and the front and back walls are 8 feet high as well.
+
+Wait, no, the ceiling is 8 feet high, and the front wall is 8 feet high as well, right? So, if I unfold the front wall and the back wall, the total height becomes 8 + 8 = 16 feet.
+
+So, in the unfolded net, the back wall and the front wall form a rectangle of 10 feet (width) by 16 feet (height). The geck is on the back wall, one foot from the back wall, so 1 foot up from the back wall, and one foot from the ceiling, so 7 feet up from the floor.
+
+Wait, but if I unfold the front wall and the back wall, the distance from the geck to the fly becomes the straight line in this unfolded plane.
+
+But the fly is on the front wall, one foot from the front wall, so y=1, and one foot from the floor, so z=7. So, in the unfolded net, the fly is at (10, 1, 7). Wait, no, because the front wall is 10 feet wide, so if I unfold the front wall and the back wall, the front wall becomes part of the same plane as the back wall.
+
+Wait, perhaps I should think of the front wall as a separate wall from the back wall, but when unfolded, their combined width is 10 feet. Since both front and back walls are 10 feet wide.
+
+Wait, but in reality, the front wall and back wall are 10 feet wide but are on opposite sides of the room, so when unfolded, their combined width is 10 feet (from front) + 10 feet (from back) = 20 feet. But that might not be correct.
+
+Wait, maybe not. Let's think about the room as a 3D structure. The back wall is 10 feet wide and 8 feet tall. The front wall is also 10 feet wide and 8 feet tall. So, when we unfold the two walls into a plane, they form a rectangle that is 10 feet (width) by 8 feet (height) on each side, but when unfolded, they form a rectangle that is 10 feet (width) by 16 feet (height). Because the ceiling is 8 feet, and the front and back walls are also 8 feet, so unfolding them would make the total height 16 feet.
+
+So, in this unfolded net, the back wall is at the right end, and the front wall is at the left end, each 10 feet wide, and 8 feet tall. So, the total height becomes 16 feet.
+
+So, the geck is on the back wall, one foot from the back wall, which is at x=12. So, one foot from x=12 is x=11, and one foot from the ceiling is z=7. So, the geck's position is at (11, y, 7). But in the unfolded net, it's at (11, y, 7). Wait, no, in the unfolded net, the positions are in 2D, so the x and y coordinates are 2D.
+
+Wait, perhaps I need to define the coordinate system carefully. Let me define the front wall as the leftmost wall, from x=0 to x=12 feet, y=0 to y=10 feet, z=0 to z=8 feet. The back wall is the rightmost wall, from x=12 to x=0 (since it's a rectangle), y=0 to y=10 feet, z=0 to z=8 feet. So, the ceiling is at z=8 feet.
+
+Wait, no, in standard coordinate systems, x increases to the right, y increases upward, and z increases forward. So, perhaps it's better to model the room with x from 0 to 12 feet (left to right), y from 0 to 10 feet (front to back), and z from 0 to 8 feet (floor to ceiling).
+
+So, the front wall is at y=0, the back wall is at y=10, the left wall is at x=0, and the right wall is at x=12. The ceiling is at z=8, and the floor is at z=0.
+
+So, the geck is on the back wall, which is at y=10. It's one foot from the ceiling, so z=7, and one foot from the back wall, which is y=10, so it's at y=9. So, coordinates are (x, 9, 7). The fly is on the front wall, which is at y=0. It's one foot from the floor, so z=7, and one foot from the front wall, which is y=0, so it's at (x, 0, 7). So, the geck is at (x, 9, 7) and the fly is at (x, 0, 7). Wait, but the geck is on a wall, so x can be anywhere on the back wall, which is at y=10. So, the geck's position is (x1, 9, 7), and the fly's position is (x2, 0, 7). So, both are at z=7, so the vertical distance is zero. Therefore, the geck can move along the ceiling or across the walls on the same z level.
+
+Wait, but if the geck is on the back wall, which is at y=10, and the fly is on the front wall at y=0, but both are at z=7, they can move along the ceiling from y=10 to y=0, or they can cross the ceiling diagonally across the walls.
+
+Wait, but the ceiling is at z=8, so the geck is at z=7, which is 1 foot below the ceiling. So, maybe the geck can walk up the ceiling to the ceiling, and then across the ceiling to reach the fly.
+
+But the fly is on the front wall, so the geck can either walk up the ceiling to the front wall, cross the ceiling to the front wall, and then walk along the front wall to the fly.
+
+But the fly is on the front wall, so if the geck walks up the ceiling to the front wall, it would have to go from (x, 9, 7) to (x, 0, 8), and then from (x, 0, 8) to (x, 0, 7). That seems longer than a straight path.
+
+Alternatively, the geck can cross the ceiling diagonally from (x, 9, 7) to (x, 0, 8), and then walk along the front wall from (x, 0, 8) to (x, 0, 7). But again, that's two legs, which might not be the shortest.
+
+Wait, perhaps it's better to model this as a 2D problem on the unfolded walls.
+
+So, let's unfold the ceiling and the two walls into a flat plane. So, if we unfold the ceiling and the two adjacent walls (front and back), the total area would be the ceiling (12 feet long, 8 feet high) plus the front wall (10 feet wide, 8 feet high) plus the back wall (10 feet wide, 8 feet high). But when unfolded, the front and back walls form a rectangle of 10 feet wide and (8 + 8) feet tall, so 16 feet.
+
+Wait, but the ceiling is 12 feet long and 8 feet high, and the front and back walls are 10 feet wide and 8 feet high each. So, if we unfold the front and back walls, their combined width is 10 feet (front) + 10 feet (back) = 20 feet. But the ceiling is 12 feet long and 8 feet high.
+
+Wait, that seems conflicting. Maybe I should consider only the front and back walls and the ceiling as the walls that need to be unfolded.
+
+Alternatively, perhaps the geck can take a path that goes from the back wall across the ceiling to the front wall, then across the front wall to the fly.
+
+Wait, but the fly is on the front wall, so after reaching the front wall, it's just one foot away, so the path would be from (x, 9, 7) to (x, 0, 8) on the ceiling, then from (x, 0, 8) to (x, 0, 7) on the front wall. But that seems longer than a straight line across the ceiling and front wall.
+
+Alternatively, the geck can walk across the ceiling from (x, 9, 7) to (x, 0, 8), which is a diagonal line on the ceiling. The length of that diagonal is the hypotenuse of a right triangle with sides 9 feet and 1 foot. So, sqrt(9^2 + 1^2) = sqrt(81 + 1) = sqrt(82). Then, from (x, 0, 8) to (x, 0, 7) is 1 foot. So, total distance would be sqrt(82) + 1. But that seems longer than a straight line across both walls.
+
+Wait, perhaps there's a better way. If we unfold the ceiling and the two walls into a single plane, the geck can go from (x, 9, 7) to (x, 0, 8) to (x, 0, 7). But that's two segments, so the total distance would be sqrt(82) + 1, as before.
+
+Alternatively, if we consider unfolding the ceiling and the two walls into a flat plane, we can represent this as a single rectangle where the ceiling is 12 feet long, and the front and back walls are 10 feet wide each, but when unfolded, they form a rectangle of 10 + 10 = 20 feet wide, and 8 feet high. Wait, but that might not make sense.
+
+Wait, perhaps it's better to model the path as a straight line on the unfolded walls.
+
+Wait, another approach is to model the problem as moving from the geck's position on the back wall to the fly's position on the front wall, considering the walls as part of a larger plane. So, the path can be represented as a straight line in this plane, which would account for the walls.
+
+So, if we consider the back wall as at y=10, and the front wall at y=0, then the distance between the geck and the fly can be calculated as a straight line in this plane.
+
+Wait, but when we unfold the walls, the distance from the geck to the fly becomes a straight line in the combined plane of the front and back walls.
+
+Wait, perhaps if we flatten the front wall and the back wall into a single plane, the total width becomes 10 + 10 = 20 feet, but the height is 8 feet. So, the geck's position is at (11, 9, 7), and the fly's position is at (x, 0, 7). Wait, but on this unfolded plane, the geck's position is at (11, 9), and the fly's position is at (x, 0). But the fly is on the front wall, so in this plane, it's at (x, 0), but the geck is at (11, 9). So, the straight-line distance would be sqrt((11 - x)^2 + (9 - 0)^2). But x can be any value, so perhaps we can choose x to minimize the distance.
+
+Wait, that's a bit confusing. Maybe I should think of it as moving from (11, 9) on the back wall to (x, 0) on the front wall, and the minimal distance is when x is such that the path is a straight line in the combined plane.
+
+Wait, perhaps using the method of images. If we unfold the two walls into a plane, then the geck's path becomes a straight line from (11, 9) to (x, 0). To minimize the distance, we can set up the plane such that the path is a straight line.
+
+Wait, perhaps the minimal distance is the straight line from (11, 9) to (0, 0), but that seems incorrect.
+
+Wait, maybe I'm overcomplicating it. Let me think in terms of coordinates.
+
+The geck is on the back wall, at (x, 9, 7). The fly is on the front wall, at (x', 0, 7). So, in a 2D cross-section, the geck is at (x, 9) and the fly is at (x', 0). But x and x' can be any values, so to find the minimal distance, we can imagine moving the front wall to the back wall, so that the fly is at (x, 0). But in reality, the front wall is 10 feet wide, so x' is between 0 and 10.
+
+Wait, perhaps the minimal path is achieved when the fly is reflected across the front wall, making it appear as if it's on the back wall but mirrored. So, the minimal path would be a straight line from the geck's position to the mirrored fly's position.
+
+So, the geck is at (11, 9) on the back wall. If we mirror the fly across the front wall, which is at y=0, the fly would appear at (x, 0) on the reflected plane. So, the mirrored fly's position is at (x, 0). The minimal path would then be the straight line from (11, 9) to (x, 0), minimized over x.
+
+Wait, that doesn't make sense because x is the same for both. Alternatively, perhaps we can mirror the front wall across the back wall, so that the fly's position is mirrored across the back wall.
+
+Wait, perhaps the minimal path is achieved when we unfold the walls such that the front wall is a reflection of the back wall, so the fly's position is mirrored across the front wall.
+
+Alternatively, maybe I should represent the two walls as a single plane by reflecting one of them.
+
+Wait, perhaps it's better to calculate the minimal distance by considering the path as a straight line across the ceiling and walls.
+
+Wait, another approach: the geck can go from its position on the back wall to the ceiling, then across the ceiling to the front wall, then to the fly.
+
+Alternatively, it can go from the back wall to the ceiling, then across the ceiling to the fly, and that might be shorter.
+
+Wait, let's calculate both options.
+
+Option 1: From (11, 9, 7) to ceiling (z=8), then to fly (x, 0, 7). So, the distance from (11,9,7) to (11,9,8) is 1 foot, then from (11,9,8) to (x,0,7). The minimal distance in this case would be when (x,0,7) is in the same line as the ceiling, so the distance would be sqrt( (11 - x)^2 + (9 - 0)^2 + 1^2 ). But since x can vary, we can minimize this expression.
+
+Wait, that's a bit messy. Maybe I should consider the path as a straight line in the combined plane of the ceiling and the front wall.
+
+So, unfolding the front wall and the ceiling into a single plane, the distance from (11,9,7) to (x,0,7) is a straight line. The minimal distance would be the straight line distance from (11,9) to (x,0), but since x can be any value, we can choose x to minimize this distance.
+
+Wait, but that's not correct because the front wall is at y=0 and the ceiling is at z=8. Wait, perhaps the unfolding should be such that the front wall is adjacent to the ceiling, forming a plane.
+
+Wait, perhaps the minimal path is when the geck walks across the ceiling and then along the front wall, but that might not be the shortest.
+
+Wait, another idea: the shortest path can be found by reflecting the fly across the front wall and then drawing a straight line from the geck's position to the reflected fly. So, the distance would be the straight line in this reflected plane.
+
+Wait, so if I reflect the fly across the front wall, which is at y=0, then the fly's reflection is at (x, 0) across y=0, which would be (x, 0). Wait, but that doesn't make sense because the fly is already at (x, 0, 7). Reflecting it across the front wall would give (x, 0, 7) again, which doesn't help.
+
+Wait, maybe I need to reflect across the back wall instead. Wait, no, the front wall is on the other side.
+
+Wait, perhaps I should think of the front wall as a flat surface and the back wall as another flat surface, both at y=10 and y=0, respectively. So, in this case, the distance from the geck to the fly can be found by considering the path across both walls.
+
+Wait, perhaps the minimal path is achieved by unfolding the walls into a single plane, so that the distance is the straight line in that plane.
+
+So, the geck is at (11, 9) on the back wall, and the fly is at (x, 0) on the front wall. If we unfold the two walls into a single plane, the combined plane would be 10 feet wide (from front to back) plus 8 feet high (ceiling). So, the total width is 10 + 10 = 20 feet, and the height is 8 feet. So, the geck is at (11, 9), and the fly is at (x, 0). Wait, but in this plane, the distance would be sqrt( (11 - x)^2 + 9^2 + 8^2 ). But that seems incorrect.
+
+Wait, perhaps it's better to model it as a 2D problem where we unfold the walls into a single plane, and then the distance is a straight line.
+
+Wait, let's consider the front wall and the back wall as a single plane, with the ceiling as another plane. So, the geck is on the back wall, 10 feet wide, and the fly is on the front wall, 10 feet wide. If we unfold the front and back walls into a single plane, the total width becomes 10 + 10 = 20 feet, but the height would be 8 feet (ceiling) + 8 feet (back wall) = 16 feet.
+
+Wait, so in this unfolded plane, the geck is at (11, 9) and the fly is at (x, 0), where x can range from 0 to 20. So, the minimal distance is the straight line from (11, 9) to (x, 0), which would be sqrt( (11 - x)^2 + 9^2 ). To minimize this, we can choose x to minimize (11 - x)^2, which is zero when x=11. So, the minimal distance would be sqrt(0 + 81) = 9 feet. But that seems too short. Wait, that can't be right because the fly is 7 feet away from the ceiling, so I don't think the distance can be 9 feet.
+
+Wait, maybe I'm making a mistake in the unfolding. Let me think again.
+
+Wait, another approach is to model the path as going from the back wall to the ceiling to the front wall. So, the distance would be the distance from the geck to the ceiling along the back wall, plus the distance from the ceiling to the fly along the front wall. But the geck can't walk through the ceiling, so it would have to go around, which might not be the shortest path.
+
+Wait, perhaps the shortest path is a straight line across the ceiling and the front wall. So, from the geck's position on the back wall, it can walk across the ceiling to the front wall, then walk along the front wall to the fly.
+
+Wait, let's calculate that. The geck is at (11, 9, 7). The front wall is at y=0, so the distance from the geck to the ceiling is 8 - 7 = 1 foot. Then, the fly is at (x, 0, 7). So, the distance from the ceiling to the fly is 7 feet along the front wall.
+
+But wait, no, the fly is on the front wall, so the distance between the ceiling and the fly is 7 feet. But the geck is on the back wall, which is 1 foot away from the ceiling, so it can walk up the ceiling to the front wall, which is 1 foot, then along the front wall, which is 7 feet. So, total distance is 1 + 7 = 8 feet. But that seems too straightforward, and maybe the path isn't that simple.
+
+Wait, but the geck is on the back wall, which is 1 foot from the ceiling, and the fly is on the front wall, which is 1 foot from the back wall. So, the geck can walk up the ceiling to the front wall, which is 1 foot up, then walk along the front wall to the fly, which is 7 feet away. So, total distance is 1 + 7 = 8 feet. But 8 feet seems a bit too short, considering the room is 12 feet long.
+
+Wait, perhaps that's not the shortest path. Maybe there's a way to go diagonally from the back wall to the front wall, across the ceiling.
+
+Wait, if we consider that the geck can walk from the back wall to the ceiling to the front wall, then to the fly, but maybe there's a shorter path that goes across the ceiling and the two walls at once.
+
+Wait, perhaps using the method of images, we can represent the path as a straight line in a 2D unfolding.
+
+Wait, let me think of the two walls and the ceiling as part of a single plane. So, unfolding the two walls into a plane. If we unfold the front wall and the back wall, the combined width becomes 10 feet (front) + 10 feet (back) = 20 feet. But the ceiling is 8 feet high. So, if we unfold the ceiling, the total height becomes 8 + 8 = 16 feet.
+
+So, the geck is at (11, 9) on the back wall, and the fly is at (x, 0) on the front wall. So, in this unfolded plane, the distance is sqrt( (11 - x)^2 + 9^2 + 16^2 ). Wait, but that's not correct because the fly is only 7 feet up the front wall.
+
+Wait, perhaps the minimal distance is the straight line in this plane, which would be sqrt( (11 - x)^2 + 9^2 + 16^2 ). But again, that doesn't seem right.
+
+Wait, perhaps I'm overcomplicating this. Let me step back.
+
+The geck is on the back wall, 1 foot from the ceiling and 1 foot from the back wall. The fly is on the front wall, 1 foot from the front wall and 1 foot from the floor. So, if the geck walks up the ceiling to the front wall, it's 1 foot up, then walks along the front wall 7 feet to the fly. So, that's 8 feet total. But maybe there's a shorter path.
+
+Wait, another thought: the geck can walk from the back wall to the front wall across the ceiling. Since the ceiling is 12 feet long, and the geck is 1 foot from the ceiling, perhaps it can walk diagonally across the ceiling from its position to the fly's position on the front wall.
+
+Wait, but the fly is 7 feet from the ceiling, so the geck needs to go up the ceiling from its position to the fly's position.
+
+Wait, if the geck is at (11,9,7), and the fly is at (x,0,7), then the vertical distance is 7 feet. The horizontal distance is from y=9 to y=0, which is 9 feet. So, the geck can walk up the ceiling diagonally, which is sqrt(9^2 + 7^2) = sqrt(81 + 49) = sqrt(130). Wait, that's approximately 11.4 feet.
+
+But then from the ceiling, the fly is 1 foot away from the ceiling, so the geck can walk down the ceiling to the fly, which is 1 foot. So, total distance would be sqrt(130) + 1. That seems too long.
+
+Wait, perhaps the geck can walk across the ceiling and then onto the front wall. So, from (11,9,7) to (11,0,8), which is 1 foot up, and then from there to (x,0,7) on the front wall, which is 1 foot down. So, total distance is 1 + 1 = 2 feet. But that seems way too short.
+
+Wait, that can't be right. The room is 12 feet long, so the geck can't walk 2 feet in the room.
+
+Wait, perhaps the minimal path is when the geck walks in a straight line from (11,9,7) to (x,0,7) across the ceiling and the front wall. So, the minimal distance would be the straight line in this combined plane.
+
+Wait, so if we unfold the front wall and the ceiling into a single plane, the combined width is 10 feet (front wall) + 8 feet (ceiling) = 18 feet. Then, the distance from (11,9) to (x,0) would be sqrt( (11 - x)^2 + 9^2 ). But x can be any value, so to minimize this, we can set x=11, giving sqrt(0 + 81) = 9 feet. But that seems too long.
+
+Wait, perhaps that's not the right approach.
+
+Wait, let me think about the problem in 3D. The geck is on the back wall, 1 foot from the ceiling and 1 foot from the back wall. The fly is on the front wall, 1 foot from the front wall and 1 foot from the floor. The geck can walk on the ceiling and the walls. So, the geck can go from its position on the back wall to the ceiling, then across the ceiling to the front wall, then along the front wall to the fly.
+
+Wait, but the fly is on the front wall, so the path from the ceiling to the fly is 7 feet down the front wall. So, the total distance would be 1 foot up the ceiling, plus 7 feet along the front wall, plus 1 foot down the front wall. So, total 9 feet. But that seems too straightforward, and the problem says to express the answer in simplest radical form, so maybe it's better to express it as sqrt( something ).
+
+Wait, but perhaps the minimal path is a straight line across the ceiling and the front wall, which forms a right triangle with sides 9 feet and 1 foot, giving a distance of sqrt(9^2 + 1^2) = sqrt(82). But that doesn't account for the geck's position on the back wall.
+
+Wait, perhaps I need to consider the position of the geck on the back wall. The geck is 1 foot from the back wall, so it's 1 foot away from the wall, and 1 foot from the ceiling. So, in terms of coordinates, it's 1 foot from the back wall (so x=11), 1 foot from the ceiling (z=7), and 1 foot from the front wall (y=0). So, in the unfolded plane, its position would be (11, 9, 7).
+
+Wait, so if we unfold the front wall and the ceiling into a single plane, the geck is at (11, 9) and the fly is at (x, 0). The minimal distance would be the straight line from (11,9) to (x, 0). But since x can vary, the minimal distance is achieved when x is chosen such that the line is straight. Wait, but x is fixed on the front wall, so the minimal distance is when x is 11, giving sqrt( (11 - 11)^2 + (9 - 0)^2 ) = 9 feet. But that seems too long.
+
+Wait, maybe I'm missing something here. Let me try to think of it as a 3D problem. The geck is on the back wall, 1 foot from the back wall, so it's at (11, 9, 7). The fly is on the front wall, 1 foot from the front wall, so it's at (x, 0, 7). The geck can walk on the ceiling and the walls. So, the geck can go from (11, 9, 7) to (11, 0, 8) on the ceiling, then to (x, 0, 7) on the front wall. The distance would be the distance from (11, 9, 7) to (11, 0, 8) on the ceiling, which is sqrt( (11 -11)^2 + (9 - 0)^2 + (7 - 8)^2 ) = sqrt(0 + 81 + 1) = sqrt(82). Then, from (11, 0, 8) to (x, 0, 7) is 1 foot. So, total distance would be sqrt(82) + 1. But that's more than 9 feet.
+
+Wait, perhaps there's a better path. If the geck can cross the ceiling and walk across the front wall in a straight line, then the minimal distance would be the straight line from (11, 9, 7) to (x, 0, 7), but x can be chosen to minimize the distance.
+
+Wait, perhaps the minimal distance is when the path is a straight line in the combined plane of the ceiling and front wall. So, in that case, the distance would be sqrt( (11 - x)^2 + 9^2 + 1^2 ). But since x can be any value, the minimal distance is when (11 - x) is zero, so x=11, giving sqrt(0 + 81 + 1) = sqrt(82). So, sqrt(82) is approximately 9.055 feet.
+
+Wait, that seems better than 9 feet. But let me check again.
+
+Wait, so from (11,9,7) to (x,0,7), the distance is sqrt( (11 - x)^2 + (9 - 0)^2 + (7 - 7)^2 ) = sqrt( (11 - x)^2 + 81 ). To minimize this, we set (11 - x)^2 to zero, so x=11, giving sqrt(0 + 81) = 9. But that's just the straight line along the ceiling and front wall, but the fly is on the front wall, so it's 1 foot away. Wait, but the geck must reach the fly, which is 1 foot away, so the minimal distance would be 9 feet.
+
+Wait, but that seems possible. Wait, the fly is on the front wall, 1 foot from the front wall, so if the geck walks straight across the ceiling to the fly's position, which is 1 foot below the ceiling on the front wall, the distance would be 9 feet. So, the minimal path is 9 feet.
+
+Wait, but that seems a bit odd because the fly is only 1 foot away. So, maybe the minimal path is 9 feet.
+
+Wait, but let me verify.
+
+If I unfold the ceiling and the front wall into a single plane, the distance from (11,9) to (x,0) is sqrt( (11 - x)^2 + 9^2 ). To minimize this, we set x=11, so the distance is 9 feet. So, the minimal distance is 9 feet.
+
+But wait, in reality, the fly is only 1 foot away, so the geck can walk straight from (11,9) to (11,0) on the ceiling, which is 9 feet, then down to (11,0,7), which is 1 foot. So, total distance is 10 feet, which is longer than 9 feet. So, that can't be the minimal path.
+
+Wait, that suggests that the minimal path is 9 feet, but that seems incorrect because the fly is only 1 foot away. So, perhaps my unfolding is wrong.
+
+Wait, perhaps the minimal path is 9 feet, but that would mean the geck can reach the fly in 9 feet. But let me think again.
+
+Wait, perhaps the minimal path is 9 feet, but since the fly is on the front wall, which is 1 foot from the front wall, the geck can walk 9 feet to reach the point directly above the fly on the ceiling, then 1 foot down the front wall, totaling 10 feet. But that's longer than 9 feet.
+
+Wait, perhaps I made a mistake. Let me try to calculate the distance again.
+
+If the geck walks from (11,9,7) to (11,0,8) on the ceiling, which is sqrt( (11 - 11)^2 + (9 - 0)^2 + (7 - 8)^2 ) = sqrt(0 + 81 + 1) = sqrt(82) ≈ 9.055 feet. Then, from (11,0,8) to (x,0,7), it's 1 foot. So, total distance is sqrt(82) + 1 ≈ 10.055 feet.
+
+Alternatively, if the geck walks across the ceiling and front wall in a straight line, it's sqrt( (11 - x)^2 + 9^2 + 1^2 ), but that's not the minimal path.
+
+Wait, perhaps the minimal path is sqrt( (11 - x)^2 + 9^2 + 1^2 ), but to minimize, we set x=11, so sqrt(0 + 81 + 1) = sqrt(82), which is approximately 9.055 feet. But that seems longer than 9 feet. So, perhaps the minimal path is 9 feet, but that's not correct because the fly is only 1 foot away.
+
+Wait, I'm getting confused. Let me try to draw it out.
+
+The geck is on the back wall, 1 foot from the ceiling and 1 foot from the back wall. The fly is on the front wall, 1 foot from the front wall and 1 foot from the floor. If I unfold the ceiling and front wall into a single plane, the geck's position is at (11,9) and the fly's position is at (x,0). The minimal distance would be the straight line in this plane, which is sqrt( (11 - x)^2 + 9^2 ). To minimize this, we set x=11, giving sqrt(0 + 81) = 9 feet. So, that suggests that the minimal distance is 9 feet.
+
+Wait, but that seems to ignore the fact that the fly is on the front wall, so the geck must walk down the front wall to reach it. So, maybe the minimal path is 9 feet up the ceiling and 1 foot down the front wall, totaling 10 feet. But that's longer than 9 feet.
+
+Wait, perhaps the minimal path is when the geck walks straight across the ceiling and front wall in a straight line, which is sqrt(82) ≈ 9.055 feet. So, the minimal distance is sqrt(82) feet.
+
+Wait, but that's not possible because the fly is on the front wall, so the geck must reach it. Hmm.
+
+Wait, perhaps I should consider the problem in terms of the shortest path on the surfaces of the room, which would involve unfolding the surfaces into a plane.
+
+So, the geck is on the back wall, 1 foot from the ceiling and 1 foot from the back wall. The fly is on the front wall, 1 foot from the front wall and 1 foot from the floor.
+
+If I unfold the back wall and the ceiling into a single plane, then the geck's position is at (11,9), and the fly's position is at (x,0) on the front wall. The minimal distance would be the straight line in this plane, which is sqrt( (11 - x)^2 + 9^2 ). Since the fly is on the front wall, x can be chosen to minimize this. The minimal distance is when x=11, giving 9 feet.
+
+Wait, but that doesn't account for the fly being on the front wall. So, maybe the minimal distance is 9 feet, but in reality, the fly is 1 foot away, so the geck must walk 9 feet to reach the fly, which is directly above it on the ceiling, then 1 foot down the front wall. So, total distance is 10 feet.
+
+But that contradicts my earlier calculation, so I'm confused.
+
+Wait, perhaps I should consider using the method of images where the fly is mirrored across the front wall, and the geck is mirrored across the ceiling.
+
+Wait, so the fly's mirrored position would be at (x, 0, 7) mirrored over the front wall, which is at y=0. So, the mirrored fly's position would be at (x, 0, 7). Wait, that doesn't make sense.
+
+Wait, no, the mirror image would be at (x, 0, 7) across the front wall, which is at y=0. So, the mirror image is at (x, 0, 7), which is the same as the fly's position. So, that doesn't help.
+
+Wait, perhaps I need to mirror the fly across the ceiling, so it's at (x, 0, 8), and then mirror the geck across the ceiling, so it's at (x, 0, 7). Then, the minimal path would be a straight line from (11,9,7) to (x,0,8), then to (x,0,7). But since the fly is on the front wall at (x,0,7), the total distance would be sqrt( (11 - x)^2 + 9^2 + 1^2 ). To minimize this, set x=11, giving sqrt(0 + 81 + 1) = sqrt(82), which is approximately 9.055 feet.
+
+Wait, so the minimal distance is sqrt(82) feet. But that seems complicated, and I'm not sure if that's the correct approach.
+
+Wait, perhaps the minimal path is sqrt( (11 - x)^2 + 9^2 ), which is minimized when x=11, giving 9 feet. But that ignores the fly's position. Alternatively, if we consider the path from the geck to the ceiling to the fly, it's 1 foot up the ceiling, then 1 foot down the front wall, totaling 2 feet, but that's not possible because the geck can't walk through walls.
+
+Wait, perhaps the minimal distance is 9 feet, but that seems inconsistent with the problem's setup.
+
+Wait, the problem says the geck is on the opposite side wall, one foot from the ceiling and one foot from the back wall, and the fly is on the opposite side wall, one foot from the floor and one foot from the front wall. So, the geck is on one wall, and the fly is on the opposite wall.
+
+Wait, perhaps the minimal path is a straight line across the ceiling and front wall, which would be sqrt(11^2 + 9^2) = sqrt(121 + 81) = sqrt(202), but that's longer than 9 feet.
+
+Wait, I'm getting more confused. Maybe I should look for a different approach. Let's consider unfolding the room into a net where the geck's path can be represented as a straight line.
+
+Since the geck is on the back wall, which is 1 foot from the ceiling and 1 foot from the back wall, and the fly is on the front wall, 1 foot from the front wall and 1 foot from the floor, if I unfold the back wall and the ceiling into a single plane, then the geck's position is at (11,9) on the back wall, and the fly's position is at (x, 0) on the front wall, but x can be anywhere between 0 and 10 feet.
+
+Wait, but if I unfold the front wall and the ceiling, the fly's position would be at (x,0) on the front wall, and the geck's position on the back wall is at (11,9). So, the minimal distance is the straight line in this combined plane, which is sqrt( (11 - x)^2 + 9^2 ). To minimize this, set x=11, giving sqrt(0 + 81) = 9 feet.
+
+Wait, but again, that's 9 feet, but the fly is on the front wall, so the geck must walk down the front wall to reach it. So, perhaps the minimal distance is 9 feet, but that seems to ignore the fly's position.
+
+Wait, perhaps the minimal path is 9 feet, and the fly is at (11,0,7), but that's on the same spot as the geck's position, which can't be because the geck can't walk through walls.
+
+Wait, maybe I'm overcomplicating it, and the minimal path is 9 feet, so the answer is 9 feet, which would be sqrt(81) feet, but expressed as a radical, it's 9√1, but that's not simplified. Wait, but 9 is already simplified.
+
+Wait, but let me check the room dimensions again. The room is 12 feet long, 10 feet wide, and 8 feet tall. The geck is on the back wall, 1 foot from the ceiling and 1 foot from the back wall. So, in the x-direction, it's 1 foot from the back wall (so x=11), in the y-direction, it's 1 foot from the ceiling (so y=7), and in the z-direction, it's 1 foot from the ceiling, so z=7. Wait, no, the ceiling is 8 feet from the floor, so if the geck is 1 foot from the ceiling, it's at z=7. Wait, no, in standard coordinate systems, z=0 is the floor, so z=7 would be 7 feet up. Wait, but the ceiling is at z=8. So, if the geck is 1 foot from the ceiling, it's at z=7. So, the position is (11,9,7).
+
+Wait, then if the fly is on the front wall, 1 foot from the front wall, so x=11, and 1 foot from the floor, so z=7. So, the fly's position is (11,0,7).
+
+Wait, so the geck is at (11,9,7), and the fly is at (11,0,7). So, they are vertically aligned. So, the minimal distance is 9 feet, as the geck can walk straight down the wall from (11,9,7) to (11,0,7), which is 9 feet. So, the minimal path is 9 feet.
+
+Wait, that makes sense because the geck can walk along the wall to the fly, which is directly below it on the ceiling. So, the minimal distance is 9 feet.
+
+Wait, so the length of the shortest path is 9 feet.
+
+Wait, but I'm not sure because the fly is on the front wall, and the geck is on the back wall, which are opposite each other. So, perhaps the minimal path is 9 feet, but in reality, the geck can't walk through walls, so it has to go around, which might make it longer.
+
+Wait, but in this case, since the geck is directly above the fly on the ceiling, it can walk straight down the wall, which is 9 feet, so that's the minimal path.
+
+Wait, so I think the answer is 9 feet, which is sqrt(9^2) = 9, so expressed as sqrt(81) but simplified, it's 9.
+
+Wait, but 9 seems too straightforward. Let me check.
+
+Wait, the geck is at (11,9,7), the fly is at (11,0,7). The straight line distance between them is sqrt( (11-11)^2 + (9-0)^2 + (7-7)^2 ) = sqrt(0 + 81 + 0) = 9 feet. So, yes, that's correct.
+
+But wait, in the problem, the geck can only walk across the ceiling and walls, so the minimal path is 9 feet. So, the answer is 9 feet.
+
+Wait, but that seems too simple. Maybe I made a mistake in considering the positions.
+
+Wait, let me confirm the coordinates again. The geck is on the back wall, one foot from the ceiling and one foot from the back wall, so x=11, y=9, z=7. The fly is on the front wall, one foot from the front wall and one foot from the floor, so x=11, y=0, z=7. So, they are vertically aligned on the ceiling, so the minimal path is 9 feet.
+
+Yes, that makes sense. So, the shortest path is 9 feet.
+
+Wait, but in the problem, the geck is on the opposite side wall, so perhaps the geck is on the front wall, but the problem states it's on the back wall. Wait, no, the problem says the geck is on the opposite side wall, which would be the front wall, but the problem states it's on the back wall. Wait, the problem says, "the geck is on a side wall (10 feet by 8 feet) (one foot from the ceiling and one foot from the back wall), one foot from the floor and one foot from the front wall." Wait, so it's on the back wall, which is the opposite side wall from the front wall.
+
+Wait, no, the side walls are front and back, left and right. So, the geck is on the back wall, which is the opposite side from the front wall.
+
+Wait, so the geck is on the back wall, which is 1 foot from the ceiling and 1 foot from the back wall, so x=11, y=9, z=7. The fly is on the front wall, which is 1 foot from the front wall and 1 foot from the floor, so x=11, y=0, z=7. So, they are vertically aligned on the ceiling, so the minimal path is 9 feet.
+
+So, the answer is 9 feet, which is sqrt(81) feet.
+
+Wait, but the problem says "the length of the shortest path", so 9 feet is the answer.
+
+Wait, but in the initial problem, the room is 12 feet long, which is the length. So, perhaps I made a mistake in considering the x-coordinate. Wait, in the room, the x-axis is the length, so 12 feet, y-axis is width, 10 feet, z-axis is height, 8 feet.
+
+Wait, so the geck is on the back wall, which is at x=11, y=9, z=7. The fly is on the front wall, which is at x=11, y=0, z=7. So, yes, they are vertically aligned on the ceiling, so the minimal path is 9 feet.
+
+Wait, but then, in the problem, the geck is on the back wall, and the fly is on the front wall, so the minimal path is 9 feet.
+
+Wait, but then, if that's the case, why does the problem say the shortest path is expressed as the square root of something? Because 9 is a perfect square.
+
+Wait, perhaps I made a mistake in the coordinate system. Let me double-check.
+
+Wait, in the problem, the room is 12 feet long, 10 feet wide, and 8 feet tall. The geck is on the back wall, which is 1 foot from the ceiling and 1 foot from the back wall. So, in terms of coordinates, if the back wall is at y=10, then the geck is 1 foot from the ceiling (y=8) and 1 foot from the back wall (y=10). So, y=8 is 2 feet from the ceiling, which contradicts the problem statement. Wait, wait, that can't be.
+
+Wait, perhaps I got the coordinate system wrong. Let me define the coordinate system with y=0 at the floor, y=10 at the ceiling, x=0 at the west wall, x=12 at the east wall, and z=0 at the floor, z=8 at the ceiling.
+
+Wait, so the geck is on the back wall, which is at y=10, so 1 foot from the ceiling is y=9, and 1 foot from the back wall is y=11. But the back wall is at y=10, so being 1 foot from the back wall would mean x=11 in the x-direction, which is outside the room because the room is 12 feet long. Wait, that can't be right because the room is only 12 feet long, so x can't be 11 in the x-direction. Wait, perhaps I got the coordinate system wrong.
+
+Wait, maybe the back wall is at x=0, so the geck is 1 foot from the ceiling (z=8) and 1 foot from the back wall (x=0). So, x=1, and z=7. Then, the fly is on the front wall, which is at x=12, 1 foot from the front wall (x=12) and 1 foot from the floor (z=0). So, x=12, z=7. So, the geck is at (1,9,7), and the fly is at (12,0,7). The straight line distance is sqrt( (12-1)^2 + (0-9)^2 + (7-7)^2 ) = sqrt(121 + 81 + 0) = sqrt(202), which is approximately 14.21 feet.
+
+Wait, that's a longer path, but perhaps the minimal path is 14.21 feet. But that contradicts the earlier thought that the minimal path is 9 feet.
+
+Wait, perhaps I need to reconcile these two perspectives. If the geck is on the back wall, at y=10, and 1 foot from the ceiling (z=8), so y=9, and 1 foot from the back wall (x=0), so x=1. Then, the fly is on the front wall, which is at x=12, 1 foot from the front wall and 1 foot from the floor, so z=0, y=0. So, the geck is at (1,9,7), and the fly is at (12,0,7). The straight line distance is sqrt(11^2 + 9^2) = sqrt(121 + 81) = sqrt(202) ≈ 14.21 feet.
+
+Alternatively, if the geck is on the back wall, at y=10, 1 foot from ceiling (z=8), so z=7, and 1 foot from the back wall (x=0), so x=1. Then, the fly is on the front wall, at x=12, z=7, y=0. So, the geck is at (1,10,7), and the fly is at (12,0,7). The straight line distance is sqrt(11^2 + 10^2) = sqrt(121 + 100) = sqrt(221) ≈ 14.866 feet.
+
+Wait, but the problem says the geck is on the back wall, one foot from the ceiling and one foot from the back wall, and the fly is on the opposite side wall, one foot from the floor and one foot from the front wall. So, if the back wall is at y=10, then being 1 foot from the ceiling (z=8) and 1 foot from the back wall (x=0) would place the geck at (1,10,7). The fly is on the front wall, which would be at x=12, 1 foot from the front wall and 1 foot from the floor (z=0), so it's at (12,0,7). So, the straight line distance is sqrt( (12-1)^2 + (0-10)^2 ) = sqrt(121 + 100) = sqrt(221) ≈ 14.866 feet.
+
+But that's the same as before, which is longer than the 9 feet I previously thought. So, perhaps I was wrong earlier.
+
+Wait, but in this coordinate system, the geck is at (1,10,7), and the fly is at (12,0,7). The straight line distance is sqrt(221), which is approximately 14.866 feet. So, that's longer than 9 feet.
+
+Wait, but this seems contradictory because I thought the geck was on the back wall, at y=10, and the fly was on the front wall, at x=12, but their positions are such that the straight line is longer.
+
+Wait, perhaps the minimal path is indeed 14.866 feet, which is sqrt(221). But that contradicts my earlier thought that the minimal path was 9 feet.
+
+Wait, perhaps I made a mistake in the coordinate system. Maybe the back wall is at x=0, so the geck is at x=1, z=7, y=10. The fly is on the front wall, which is at x=12, z=7, y=0. So, the straight line distance is sqrt( (12-1)^2 + (0-10)^2 ) = sqrt(121 + 100) = sqrt(221) ≈ 14.866 feet.
+
+So, that's more than 9 feet. So, perhaps the minimal path is 14.866 feet, which is sqrt(221). So, the answer is sqrt(221) feet.
+
+Wait, but in that case, the problem says the geck is on the side wall, one foot from the ceiling and one foot from the back wall, and the fly is on the opposite side wall, one foot from the floor and one foot from the front wall. So, in this coordinate system, the geck is at (1,10,7), and the fly is at (12,0,7), so the distance is sqrt(11^2 + 10^2) = sqrt(221).
+
+Wait, but 11^2 is 121, 10^2 is 100, so 121 + 100 = 221, so sqrt(221) is the minimal distance.
+
+Wait, so the length of the shortest path is sqrt(221) feet.
+
+Wait, but I'm not sure if that's the minimal path. Maybe there's a shorter path by going across the ceiling and the front wall.
+
+Wait, so perhaps unfolding the walls into a plane, the geck's path can be represented as a straight line in that plane. So, if we unfold the back wall and the front wall into a single plane, then the geck's path is a straight line from (1,10,7) to (12,0,7) in that plane, which is sqrt(11^2 + 10^2) = sqrt(221).
+
+Alternatively, if we unfold the ceiling and the front wall into a plane, the geck's path is a straight line from (1,10,7) to (12,0,7) in that plane, which is the same distance.
+
+Wait, so that seems consistent. So, the minimal distance is sqrt(221) feet.
+
+Wait, but the problem says the geck is on the side wall, which is 10 feet by 8 feet, so the back wall is 10 feet wide, 8 feet tall, so in this coordinate system, the geck is at (1,10,7), and the fly is at (12,0,7). So, the distance is sqrt( (12-1)^2 + (0-10)^2 ) = sqrt(121 + 100) = sqrt(221). So, that's the minimal path.
+
+So, the answer is sqrt(221) feet, which is approximately 14.866 feet.
+
+Wait, but in my initial thought, I thought the minimal path was 9 feet, but that was based on a different coordinate system. So, perhaps I made a mistake in the coordinate system.
+
+Wait, to clarify, the room is 12 feet long, 10 feet wide, and 8 feet tall. The geck is on the back wall, which is 10 feet wide and 8 feet tall. The front wall is on the opposite side, so it's 12 feet long, 10 feet wide, and 8 feet tall.
+
+The geck is on the back wall, 1 foot from the ceiling (so at z=7) and 1 foot from the back wall (so at x=1). The fly is on the front wall, 1 foot from the front wall (x=12) and 1 foot from the floor (z=7). So, the geck is at (1,10,7), and the fly is at (12,0,7). The straight line distance is sqrt( (12-1)^2 + (0-10)^2 ) = sqrt(121 + 100) = sqrt(221).
+
+Wait, that seems correct.
+
+Wait, but then why did I think it was 9 feet? Because I misapplied the coordinate system. So, in reality, the minimal path is sqrt(221) feet, which is approximately 14.866 feet.
+
+Wait, but the problem says the geck is on the opposite side wall, so the front wall is at x=12, and the back wall is at x=0. So, the geck is at x=1, and the fly is at x=12, so the distance is 11 feet apart in the x-direction, and 10 feet apart in the y-direction, so sqrt(11^2 + 10^2) = sqrt(221).
+
+So, the minimal path is sqrt(221) feet, which is approximately 14.866 feet.
+
+Wait, but that contradicts my initial thought that it was 9 feet. So, I think I made a mistake in assigning the coordinates.
+
+Therefore, the minimal path is sqrt(221) feet, so the answer is sqrt(221).
+
+Wait, but let me verify this again. The geck is at (1,10,7), the fly is at (12,0,7). The straight line distance is sqrt( (12-1)^2 + (0-10)^2 ) = sqrt(121 + 100) = sqrt(221).
+
+So, the minimal path is sqrt(221) feet.
+
+Wait, but let me think again. Is there a shorter path by going across the ceiling?
+
+Wait, if I unfold the ceiling and the front wall into a single plane, then the geck's path is a straight line from (1,10,7) to (11,0,8), which is sqrt(10^2 + 1^2) = sqrt(101) ≈ 10.05 feet.
+
+Wait, but that can't be, because the fly is on the front wall. So, the geck can't walk through the walls. Wait, perhaps I'm overcomplicating it.
+
+Wait, perhaps the minimal path is to go from the geck to the ceiling, then to the fly. So, the distance would be 9 feet up the ceiling (from z=7 to z=8) and then 1 foot down the front wall (from x=1 to x=12). So, total distance is 9 + 1 = 10 feet. But that's a longer path.
+
+Wait, alternatively, if I unfold the ceiling and the front wall into a single plane, the distance from (1,10,7) to (11,0,8) is sqrt( (11 - 1)^2 + (0 - 10)^2 + (8 - 7)^2 ) = sqrt(100 + 100 + 1) = sqrt(201) ≈ 14.177 feet. But that's longer than the previous path.
+
+Wait, perhaps the minimal path is indeed sqrt(221) feet, which is approximately 14.866 feet.
+
+Wait, to confirm, let's calculate the straight line distance in the unfolded plane.
+
+If we unfold the back wall and the ceiling into a single plane, then the geck's position is at (1,10), and the fly's position is at (11,0). So, the straight line distance is sqrt( (11 - 1)^2 + (0 - 10)^2 ) = sqrt(100 + 100) = sqrt(200) ≈ 14.142 feet.
+
+Wait, but that's only if we unfold the back wall and the ceiling. Alternatively, if we unfold the back wall and the front wall, the distance is sqrt( (12 - 1)^2 + (0 - 10)^2 ) = sqrt(121 + 100) = sqrt(221) ≈ 14.866 feet.
+
+Wait, so it depends on which walls I unfold. The minimal path is the smallest of these possibilities, which is sqrt(221) feet.
+
+Wait, but perhaps the minimal path is 9 feet, but that's only if I consider the ceiling and front wall as a single plane, which is not possible because the fly is on the front wall. So, I think the minimal path is sqrt(221) feet.
+
+Wait, but in the problem, the geck is on the back wall, 1 foot from the ceiling and 1 foot from the back wall, so it's at (1,10,7). The fly is on the front wall, 1 foot from the front wall and 1 foot from the floor, so it's at (12,0,7). So, the minimal path is sqrt( (12 - 1)^2 + (0 - 10)^2 ) = sqrt(121 + 100) = sqrt(221). So, the answer is sqrt(221) feet.
+
+Wait, but I'm confused because in my initial coordinate system, I thought the minimal path was 9 feet, but that was based on a different placement. So, perhaps the correct answer is sqrt(221) feet.
+
+Wait, but let me check the problem again. The geck is on the side wall, which is 10 feet by 8 feet. It's 1 foot from the ceiling and 1 foot from the back wall. So, in terms of the coordinate system, that would be x=1, z=7, y=10. The fly is on the opposite side wall, 1 foot from the floor and 1 foot from the front wall. So, x=12, z=7, y=0. So, the geck is at (1,10,7), the fly is at (12,0,7). The straight line distance is sqrt( (12 - 1)^2 + (0 - 10)^2 ) = sqrt(121 + 100) = sqrt(221).
+
+So, the minimal path is sqrt(221) feet.
+
+Wait, but I think the answer is 9 feet because the geck can walk straight across the ceiling and then down the front wall, but that might not be possible because the front wall is a wall. Wait, no, the geck can't walk through the walls, so it must go around them.
+
+Wait, perhaps the minimal path is 9 feet, but that's only possible if the geck can walk around the back wall, but the problem says it's on the side wall. So, the minimal path is 9 feet if it's on the same plane, but that's not possible because the fly is on the opposite side wall.
+
+Wait, I'm getting more confused. I think I need to make a conclusion.
+
+After considering all possibilities, I think the minimal path is sqrt(221) feet, so the answer is sqrt(221).
+
+Wait, but let me verify one more time. The geck is at (1,10,7), the fly is at (12,0,7). So, the straight line distance is sqrt( (12-1)^2 + (0-10)^2 ) = sqrt(121 + 100) = sqrt(221). So, yes, that's correct.
+
+Therefore, the shortest path is sqrt(221) feet.
+
+Wait, but the problem says the geck is on the side wall, which is 10 feet by 8 feet. So, the coordinates are x from 0 to 10, y from 0 to 8, z from 0 to 8. Wait, so the back wall is at x=0, the geck is at x=1, z=7, y=10. The front wall is at x=10, but the room is only 12 feet long, so x=10 is at the end. Wait, no, the room is 12 feet long, so x can be from 0 to 12. So, the front wall is at x=12, but the room is only 12 feet long, so x=12 is the end. So, the front wall is at x=12, but the geck is at x=1, so the distance between x=1 and x=12 is 11 feet. So, the straight line distance is sqrt(11^2 + 10^2) = sqrt(121 + 100) = sqrt(221). So, yes, that's correct.
+
+So, the answer is sqrt(221) feet.
+
+Wait, but 221 is 13*17, so sqrt(221) can't be simplified further, so that's the answer.
+
+Wait, but in the problem, the geck is on the side wall, which is 10 feet by 8 feet. Wait, is the side wall 10 feet by 8 feet, so in my coordinate system, the back wall is 10 feet wide, the front wall is 12 feet long, and the ceiling is 8 feet tall, and the floor is 8 feet tall.
+
+Wait, but in any case, the coordinates are x from 0 to 12, y from 0 to 8, z from 0 to 8. So, the geck is at (1,10,7), the fly is at (12,0,7). So, the straight line distance is sqrt(11^2 + 10^2) = sqrt(221). So, that's the minimal path.
+
+Therefore, the answer is sqrt(221) feet.
+
+Wait, but sqrt(221) is approximately 14.866 feet, which is longer than the 9 feet I thought before, which was incorrect because of the coordinate system. So, the correct minimal path is sqrt(221) feet.
+
+Wait, but wait, in the initial problem, the geck is on the side wall, which is 10 feet by 8 feet, so the back wall is 10 feet wide, so x=0 to x=10, y=0 to y=8, z=0 to z=8. The front wall is at x=10 to x=12, y=0 to y=8, z=0 to z=8. So, the geck is on the back wall at (1,10,7), and the fly is on the front wall at (12,0,7). The straight line distance is sqrt( (12-1)^2 + (0-10)^2 ) = sqrt(121 + 100) = sqrt(221).
+
+So, yes, that's correct.
+
+Therefore, the length of the shortest path is sqrt(221) feet.
+</think>
+
+The geck is on the side wall, 1 foot from the ceiling and 1 foot from the back wall, so its position is at (x=1, y=10, z=7). The fly is on the opposite side wall, 1 foot from the floor and 1 foot from the front wall, so its position is at (x=12, y=0, z=7). To find the shortest path from the geck to the fly, we consider the straight line distance in the unfolded plane. The distance is calculated as:
+
+\[
+\sqrt{(12 - 1)^2 + (0 - 10)^2} = \sqrt{121 + 100} = \sqrt{221}
+\]
+
+Thus, the length of the shortest path is \(\boxed{\sqrt{221}}\) feet.
