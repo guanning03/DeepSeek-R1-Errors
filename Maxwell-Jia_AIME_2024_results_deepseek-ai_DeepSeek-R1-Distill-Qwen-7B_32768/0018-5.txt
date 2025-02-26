@@ -1,0 +1,988 @@
+Tokens: 26874.6
+
+Question:
+Let $b \geq 2$ be an integer. Call a positive integer $n$ $b$\textit{-eautiful} if it has exactly two digits when expressed in base $b$, and these two digits sum to $\sqrt{n}$. For example, $81$ is $13$-eautiful because $81=\underline{6}\underline{3}_{13}$ and $6+3=\sqrt{81}$. Find the least integer $b \geq 2$ for which there are more than ten $b$-eautiful integers.
+
+Correct Answer:
+We write the base-$b$ two-digit integer as $\left( xy \right)_b$. Thus, this number satisfies 
+$\left( x + y \right)^2 = b x + y$ with $x \in \left\{ 1, 2, \cdots , b-1 \right\}$ and $y \in \left\{ 0, 1, \cdots , b - 1 \right\}$.
+The above conditions imply $\left( x + y \right)^2 < b^2$. Thus, $x + y \leq b - 1$.
+The above equation can be reorganized as 
+$\left( x + y \right) \left( x + y - 1 \right) = \left( b - 1 \right) x$.
+Denote $z = x + y$ and $b' = b - 1$. Thus, we have 
+$z \left( z - 1 \right) = b' x , \hspace{1cm} (1)$ where $z \in \left\{ 2, 3, \cdots , b' \right\}$ and $x \in \left\{ 1, 2, \cdots , b' \right\}$.
+Next, for each $b'$, we solve Equation (1).
+We write $b'$ in the prime factorization form as $b' = \Pi_{i=1}^n p_i^{k_i}$. Let $\left(A, \bar A \right)$ be any ordered partition of $\left\{ 1, 2, \cdots , n \right\}$ (we allow one set to be empty). Denote $P_A = \Pi_{i \in A} p_i^{k_i}$ and $P_{\bar A} = \Pi_{i \in \bar A} p_i^{k_i}$.
+Because ${\rm gcd} \left( z, z-1 \right) = 1$, there must exist such an ordered partition, such that $P_A | z$ and $P_{\bar A} | z-1$.
+Next, we prove that for each ordered partition $\left( A, \bar A \right)$, if a solution of $z$ exists, then it must be unique.
+Suppose there are two solutions of $z$ under partition $\left( A, \bar A \right)$: $z_1 = c_1 P_A$, $z_1 - 1 = d_1 P_{\bar A}$, and $z_2 = c_2 P_A$, $z_2 - 1 = d_2 P_{\bar A}$. W.L.O.G., assume $c_1 < c_2$. Hence, we have 
+$\left( c_2 - c_1 \right) P_A = \left( d_2 - d_1 \right) P_{\bar A}.$
+Because ${\rm gcd} \left( P_A, P_{\bar A} \right) = 1$ and $c_1 < c_2$, there exists a positive integer $m$, such that $c_2 = c_1 + m P_{\bar A}$ and $d_2 = d_1 + m P_A$. Thus, $z_2=z_1+mP_{A}P_{\bar A}=z_1+mb^{'}>b^{'}$.
+However, recall $z_2 \leq b'$. We get a contradiction. Therefore, under each ordered partition for $b'$, the solution of $z$ is unique.
+Note that if $b'$ has $n$ distinct prime factors, the number of ordered partitions is $2^n$. Therefore, to find a $b'$ such that the number of solutions of $z$ is more than 10, the smallest $n$ is 4.
+With $n = 4$, the smallest number is $2 \cdot 3 \cdot 5 \cdot 7 = 210$. Now, we set $b' = 210$ and check whether the number of solutions of $z$ under this $b'$ is more than 10.
+We can easily see that all ordered partitions (except $A = \emptyset$) guarantee feasible solutions of $z$. Therefore, we have found a valid $b'$. Therefore, $b = b' + 1 = \boxed{\textbf{(211)}}$.
+
+Gold:
+\textbf{(211)}
+
+Wrong Prediction:
+211
+
+Wrong Answer:
+Alright, so I came across this problem about something called "b-eautiful" numbers. Let me try to wrap my head around it step by step. The problem says:
+
+"Let \( b \geq 2 \) be an integer. Call a positive integer \( n \) \( b \)-eautiful if it has exactly two digits when expressed in base \( b \), and these two digits sum to \( \sqrt{n} \). For example, \( 81 \) is \( 13 \)-eautiful because \( 81 = \underline{6}\underline{3}_{13} \) and \( 6 + 3 = \sqrt{81} \). Find the least integer \( b \geq 2 \) for which there are more than ten \( b \)-eautiful integers."
+
+First, let's make sure I understand the definition correctly. A number \( n \) is \( b \)-eautiful if two conditions are satisfied:
+
+1. When \( n \) is written in base \( b \), it has exactly two digits. So, in base \( b \), \( n \) is represented as \( \underline{d_1}\underline{d_0}_b \), where \( d_1 \) and \( d_0 \) are digits in base \( b \). Importantly, \( d_1 \) can't be zero because it's a two-digit number.
+
+2. The sum of these two digits \( d_1 + d_0 \) equals \( \sqrt{n} \).
+
+The example given is \( 81 \) in base \( 13 \). Let's verify that:
+
+- \( 81 \) in base \( 13 \) is written as \( 6 \times 13 + 3 = 81 \), so the digits are \( 6 \) and \( 3 \).
+- The sum of these digits is \( 6 + 3 = 9 \).
+- \( \sqrt{81} = 9 \), so it checks out.
+
+Got it. Now, the task is to find the smallest base \( b \) (starting from 2) such that there are more than ten \( b \)-eautiful numbers.
+
+Let me think about how to approach this.
+
+First, let's express \( n \) in terms of base \( b \). If \( n \) has exactly two digits in base \( b \), then it can be written as:
+
+\[ n = d_1 \times b + d_0 \]
+
+where \( d_1 \) and \( d_0 \) are digits in base \( b \), so \( 0 \leq d_0 < b \) and \( 1 \leq d_1 < b \).
+
+Additionally, according to the problem, the sum of the digits \( d_1 + d_0 \) equals \( \sqrt{n} \). Therefore, we can write:
+
+\[ d_1 + d_0 = \sqrt{n} \]
+
+But since \( n = d_1 b + d_0 \), we can substitute:
+
+\[ d_1 + d_0 = \sqrt{d_1 b + d_0} \]
+
+Let me square both sides to eliminate the square root:
+
+\[ (d_1 + d_0)^2 = d_1 b + d_0 \]
+
+Expanding the left-hand side:
+
+\[ d_1^2 + 2 d_1 d_0 + d_0^2 = d_1 b + d_0 \]
+
+Let me rearrange the equation to bring all terms to one side:
+
+\[ d_1^2 + 2 d_1 d_0 + d_0^2 - d_1 b - d_0 = 0 \]
+
+Hmm, this seems a bit complicated. Maybe there's a better way to think about it.
+
+Alternatively, let's denote \( s = d_1 + d_0 \). Then, \( s = \sqrt{n} \), so \( n = s^2 \). Also, since \( n = d_1 b + d_0 \), we have:
+
+\[ s^2 = d_1 b + d_0 \]
+
+But since \( s = d_1 + d_0 \), we can write \( d_0 = s - d_1 \). Substituting back into the equation:
+
+\[ s^2 = d_1 b + (s - d_1) \]
+\[ s^2 = d_1 (b - 1) + s \]
+
+Let's rearrange this:
+
+\[ s^2 - s = d_1 (b - 1) \]
+\[ d_1 = \frac{s^2 - s}{b - 1} \]
+
+Since \( d_1 \) must be an integer (it's a digit in base \( b \)), the right-hand side must be an integer. That is, \( b - 1 \) must divide \( s^2 - s \).
+
+Also, we know that \( d_1 \) and \( d_0 \) are digits in base \( b \), so \( 1 \leq d_1 < b \) and \( 0 \leq d_0 < b \). Since \( d_0 = s - d_1 \), we have:
+
+\[ 0 \leq s - d_1 < b \]
+\[ s - d_1 \geq 0 \implies s \geq d_1 \]
+\[ s - d_1 < b \implies s < d_1 + b \]
+
+But since \( s = d_1 + d_0 \) and \( d_0 < b \), \( s \) can be at most \( d_1 + (b - 1) \). Therefore, \( s \leq d_1 + b - 1 \).
+
+Given that, let's think about the possible values of \( s \). Since \( n = s^2 \), and \( n \) is a two-digit number in base \( b \), \( n \) must satisfy:
+
+\[ b \leq n < b^2 \]
+
+So,
+
+\[ b \leq s^2 < b^2 \]
+\[ \sqrt{b} \leq s < b \]
+
+Since \( s \) is an integer, \( s \) can range from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \).
+
+So, for each base \( b \), \( s \) can take integer values from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \). For each such \( s \), we can compute \( d_1 = \frac{s^2 - s}{b - 1} \) and check if \( d_1 \) is an integer and whether \( d_0 = s - d_1 \) is a valid digit (i.e., \( 0 \leq d_0 < b \)).
+
+Therefore, for each \( b \), the number of \( b \)-eautiful numbers is equal to the number of integers \( s \) in \( [\lceil \sqrt{b} \rceil, b - 1] \) such that \( b - 1 \) divides \( s^2 - s \), and \( d_1 = \frac{s^2 - s}{b - 1} \) satisfies \( 1 \leq d_1 < b \) and \( 0 \leq d_0 = s - d_1 < b \).
+
+Our goal is to find the smallest \( b \) such that the number of such \( s \) is greater than 10.
+
+So, perhaps the strategy is:
+
+1. For each base \( b \), iterate \( s \) from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \).
+2. For each \( s \), check if \( (s^2 - s) \) is divisible by \( b - 1 \).
+3. If yes, compute \( d_1 = (s^2 - s)/(b - 1) \).
+4. Check if \( d_1 \) is in \( [1, b - 1] \) and \( d_0 = s - d_1 \) is in \( [0, b - 1] \).
+5. Count the number of such valid \( s \) for each \( b \).
+6. Find the smallest \( b \) where this count exceeds 10.
+
+This seems like a solid plan, but it might be computationally intensive if done naively, especially for large \( b \). However, since we need the least \( b \geq 2 \) with more than ten \( b \)-eautiful numbers, perhaps we can find a pattern or derive a formula instead of checking each base one by one.
+
+Let me analyze the equation:
+
+\[ d_1 = \frac{s^2 - s}{b - 1} \]
+
+Since \( d_1 \) must be an integer, \( (s^2 - s) \) must be divisible by \( (b - 1) \). So, \( (b - 1) \) divides \( s(s - 1) \).
+
+Note that \( s \) and \( s - 1 \) are consecutive integers, so they are coprime. Therefore, \( b - 1 \) must divide either \( s \) or \( s - 1 \), or some combination of factors from both.
+
+Wait, actually, since \( s \) and \( s - 1 \) are coprime, the factors of \( s(s - 1) \) are the product of the factors of \( s \) and the factors of \( s - 1 \). So, if \( b - 1 \) divides \( s(s - 1) \), the prime factors of \( b - 1 \) must be a subset of the union of prime factors of \( s \) and \( s - 1 \).
+
+But that might not directly help. Maybe another approach.
+
+Let me rearrange the equation:
+
+\[ s^2 - s = k (b - 1) \]
+
+where \( k = d_1 \), which is an integer between 1 and \( b - 1 \).
+
+So, for each \( b \), the number of \( s \) is equal to the number of integers \( k \) such that \( s^2 - s \) is divisible by \( b - 1 \), leading to \( s \) being an integer in the range \( [\lceil \sqrt{b} \rceil, b - 1] \).
+
+Alternatively, think of it as:
+
+For a given \( b \), \( k = d_1 = \frac{s^2 - s}{b - 1} \), so \( s^2 - s \) must be a multiple of \( b - 1 \). So, for each \( b \), the number of possible \( s \) is equal to the number of \( k \) such that \( s^2 - s = k (b - 1) \), and \( s \) is within the required range.
+
+This seems a bit abstract. Maybe plugging in some small \( b \) to see the pattern.
+
+Let me test for \( b = 2 \):
+
+- \( b = 2 \), so \( b - 1 = 1 \).
+- \( s \) ranges from \( \lceil \sqrt{2} \rceil = 2 \) to \( 1 \). Wait, that's not possible since 2 > 1. So, no \( s \) exists. Therefore, number of \( b \)-eautiful numbers is 0.
+
+Similarly, \( b = 3 \):
+
+- \( b - 1 = 2 \).
+- \( s \) ranges from \( \lceil \sqrt{3} \rceil = 2 \) to \( 2 \) (since \( b - 1 = 2 \), so \( s < 3 \)).
+- So \( s = 2 \).
+- \( d_1 = (2^2 - 2)/2 = (4 - 2)/2 = 1 \).
+- \( d_0 = 2 - 1 = 1 \).
+- Check if \( d_0 = 1 < 3 \). Yes.
+- So, \( n = 1 \times 3 + 1 = 4 \), and \( 1 + 1 = 2 = \sqrt{4} \). So, 4 is 3-eautiful.
+- Number of \( b \)-eautiful numbers is 1.
+
+Continuing this way, let me compute for \( b = 4 \):
+
+- \( b - 1 = 3 \).
+- \( s \) ranges from \( \lceil \sqrt{4} \rceil = 2 \) to \( 3 \).
+- So \( s = 2 \) and \( s = 3 \).
+- For \( s = 2 \): \( d_1 = (4 - 2)/3 = 2/3 \). Not integer. Disregard.
+- For \( s = 3 \): \( d_1 = (9 - 3)/3 = 6/3 = 2 \).
+- Check: \( d_0 = 3 - 2 = 1 \). Valid.
+- So, \( n = 2 \times 4 + 1 = 9 \), and \( 2 + 1 = 3 = \sqrt{9} \). So, 9 is 4-eautiful.
+- Number of \( b \)-eautiful numbers is 1.
+
+Wait, so \( b = 4 \) also has only one \( b \)-eautiful number. Interesting.
+
+Wait, but \( s = 2 \) gave \( d_1 = 2/3 \), which is not integer, so it's invalid. So, only \( s = 3 \) works.
+
+Moving on to \( b = 5 \):
+
+- \( b - 1 = 4 \).
+- \( s \) ranges from \( \lceil \sqrt{5} \rceil = 3 \) to \( 4 \).
+- \( s = 3 \):
+  - \( d_1 = (9 - 3)/4 = 6/4 = 1.5 \). Not integer.
+- \( s = 4 \):
+  - \( d_1 = (16 - 4)/4 = 12/4 = 3 \).
+  - \( d_0 = 4 - 3 = 1 \). Valid.
+  - So, \( n = 3 \times 5 + 1 = 16 \), and \( 3 + 1 = 4 = \sqrt{16} \). So, 16 is 5-eautiful.
+- Number of \( b \)-eautiful numbers: 1.
+
+Hmm, same as before. Let's do \( b = 6 \):
+
+- \( b - 1 = 5 \).
+- \( s \) ranges from \( \lceil \sqrt{6} \rceil = 3 \) to \( 5 \).
+- Let's check each \( s \):
+  - \( s = 3 \):
+    - \( d_1 = (9 - 3)/5 = 6/5 = 1.2 \). Not integer.
+  - \( s = 4 \):
+    - \( d_1 = (16 - 4)/5 = 12/5 = 2.4 \). Not integer.
+  - \( s = 5 \):
+    - \( d_1 = (25 - 5)/5 = 20/5 = 4 \).
+    - \( d_0 = 5 - 4 = 1 \). Valid.
+    - \( n = 4 \times 6 + 1 = 25 \), \( 4 + 1 = 5 = \sqrt{25} \). So, 25 is 6-eautiful.
+- Number of \( b \)-eautiful numbers: 1.
+
+Hmm, so maybe for each \( b \), there is only one \( s \) that works? But wait, let's check \( b = 13 \), as in the example.
+
+For \( b = 13 \):
+
+- \( b - 1 = 12 \).
+- \( s \) ranges from \( \lceil \sqrt{13} \rceil = 4 \) to \( 12 \).
+- Let's check \( s = 6 \):
+  - \( d_1 = (36 - 6)/12 = 30/12 = 2.5 \). Not integer.
+- \( s = 3 \):
+  - Wait, \( s \) starts from 4, so no.
+Wait, the example says 81 is 13-eautiful, which is \( 63_{13} \). So, \( s = 6 + 3 = 9 \).
+So, \( s = 9 \):
+  - \( d_1 = (81 - 9)/12 = 72/12 = 6 \).
+  - \( d_0 = 9 - 6 = 3 \). Valid.
+  - So, 81 is 13-eautiful. So, \( s = 9 \) works.
+
+But are there more \( s \) for \( b = 13 \)?
+
+Let me check \( s = 6 \):
+  - \( d_1 = (36 - 6)/12 = 30/12 = 2.5 \). Not integer.
+
+\( s = 4 \):
+  - \( d_1 = (16 - 4)/12 = 12/12 = 1 \).
+  - \( d_0 = 4 - 1 = 3 \). Valid.
+  - \( n = 1 \times 13 + 3 = 16 \). \( 1 + 3 = 4 \), \( \sqrt{16} = 4 \). So, 16 is 13-eautiful.
+
+\( s = 5 \):
+  - \( d_1 = (25 - 5)/12 = 20/12 ≈ 1.666 \). Not integer.
+
+\( s = 7 \):
+  - \( d_1 = (49 - 7)/12 = 42/12 = 3.5 \). Not integer.
+
+\( s = 8 \):
+  - \( d_1 = (64 - 8)/12 = 56/12 ≈ 4.666 \). Not integer.
+
+\( s = 9 \):
+  - As before, \( d_1 = 6 \), valid.
+
+\( s = 10 \):
+  - \( d_1 = (100 - 10)/12 = 90/12 = 7.5 \). Not integer.
+
+\( s = 11 \):
+  - \( d_1 = (121 - 11)/12 = 110/12 ≈ 9.166 \). Not integer.
+
+\( s = 12 \):
+  - \( d_1 = (144 - 12)/12 = 132/12 = 11 \).
+  - \( d_0 = 12 - 11 = 1 \). Valid.
+  - \( n = 11 \times 13 + 1 = 143 + 1 = 144 \). \( 11 + 1 = 12 = \sqrt{144} \). So, 144 is 13-eautiful.
+
+So, for \( b = 13 \), \( s = 4, 9, 12 \) work, giving three \( b \)-eautiful numbers: 16, 81, and 144.
+
+Wait, so \( b = 13 \) has three \( b \)-eautiful numbers. So, the number of \( b \)-eautiful numbers isn't necessarily one for each \( b \). It can vary.
+
+So, perhaps we can find a formula or a way to calculate the number of solutions for each \( b \) more efficiently.
+
+Looking back at the equation:
+
+\[ s^2 - s = k(b - 1) \]
+
+where \( k = d_1 \) must be integer, \( 1 \leq k < b \), and \( d_0 = s - k \) must satisfy \( 0 \leq d_0 < b \).
+
+Therefore, \( s^2 - s \) must be divisible by \( b - 1 \), and the quotient \( k = (s^2 - s)/(b - 1) \) must be an integer between 1 and \( b - 1 \). Also, \( s - k \) must be non-negative and less than \( b \).
+
+So, for a given \( b \), the number of \( b \)-eautiful numbers is equal to the number of integers \( s \) in \( [\lceil \sqrt{b} \rceil, b - 1] \) such that \( b - 1 \) divides \( s(s - 1) \), and \( k = s(s - 1)/(b - 1) \) is an integer between 1 and \( b - 1 \), and \( s - k \) is between 0 and \( b - 1 \).
+
+This is still a bit abstract, but perhaps if we can find \( s \) such that \( s(s - 1) \) is a multiple of \( b - 1 \), and then check whether \( k = s(s - 1)/(b - 1) \) is within the required range.
+
+Alternatively, perhaps note that \( b - 1 \) must divide \( s(s - 1) \). Since \( s \) and \( s - 1 \) are coprime, \( b - 1 \) must divide either \( s \) or \( s - 1 \), or some combination, but given that they are coprime, it's necessary that \( b - 1 \) is a product of factors from \( s \) and \( s - 1 \).
+
+Wait, maybe another approach: Let’s denote \( m = b - 1 \). Then, the equation becomes:
+
+\[ d_1 = \frac{s^2 - s}{m} \]
+
+So, for each \( m \), we can find all \( s \) in \( [\lceil \sqrt{m + 1} \rceil, m] \) such that \( m \) divides \( s(s - 1) \), and \( d_1 = (s^2 - s)/m \) is an integer between 1 and \( m \), and \( d_0 = s - d_1 \) is between 0 and \( m \).
+
+So, perhaps for each \( m \), the number of \( s \) is the number of divisors of \( m \) that are in the range \( [\lceil \sqrt{m + 1} \rceil, m] \), but I'm not sure.
+
+Wait, let's think differently. Let's rearrange the equation:
+
+\[ s^2 - s = m k \]
+
+where \( m = b - 1 \), \( k = d_1 \), \( 1 \leq k \leq m \), and \( s \) is an integer such that \( s \geq \lceil \sqrt{m + 1} \rceil \) and \( s < m + 1 \).
+
+This is a quadratic in \( s \):
+
+\[ s^2 - s - m k = 0 \]
+
+Solving for \( s \):
+
+\[ s = \frac{1 \pm \sqrt{1 + 4 m k}}{2} \]
+
+Since \( s \) must be positive, we take the positive root:
+
+\[ s = \frac{1 + \sqrt{1 + 4 m k}}{2} \]
+
+For \( s \) to be integer, \( 1 + 4 m k \) must be a perfect square, say \( t^2 \), so:
+
+\[ t^2 = 1 + 4 m k \]
+\[ t^2 - 1 = 4 m k \]
+\[ (t - 1)(t + 1) = 4 m k \]
+
+Since \( t - 1 \) and \( t + 1 \) are two consecutive even numbers (as \( t \) is odd), their product is divisible by 4. So, \( 4 m k \) must be expressed as the product of two consecutive even integers.
+
+This seems like a promising route. Let's denote:
+
+Let \( t - 1 = 2 a \) and \( t + 1 = 2 a + 2 \), so \( (2 a)(2 a + 2) = 4 m k \), which simplifies to:
+
+\[ 4 a(a + 1) = 4 m k \]
+\[ a(a + 1) = m k \]
+
+So, \( a(a + 1) = m k \). Therefore, \( m \) must divide \( a(a + 1) \). Since \( a \) and \( a + 1 \) are coprime, \( m \) must be a product of factors from \( a \) and \( a + 1 \).
+
+But \( a \) and \( a + 1 \) are consecutive integers, so they are coprime, meaning that \( m \) must be a divisor of \( a(a + 1) \). Therefore, for each \( m \), we can find all pairs \( (a, a + 1) \) such that \( a(a + 1) \) is a multiple of \( m \), and then \( k = a(a + 1)/m \) must be an integer.
+
+Hence, for each \( m \), the number of \( k \) is equal to the number of ways \( a(a + 1) \) can be written as \( m k \), which relates to the number of divisors of \( m \).
+
+Wait, maybe that's a bit abstract as well. Perhaps let's consider specific values.
+
+Suppose \( m = 12 \), which corresponds to \( b = 13 \). Then, \( a(a + 1) = 12 k \).
+
+We need to find integers \( a \) and \( k \) such that \( a(a + 1) \) is divisible by 12.
+
+Let me list the possible \( a \) values:
+
+Since \( s = [ \lceil \sqrt{13} \rceil, 12 ] = [4, 12] \). So, \( s \) is from 4 to 12. Therefore, \( a = (t - 1)/2 \), where \( t = 2 s - 1 \).
+
+Wait, maybe I'm complicating this. Let me go back.
+
+Given \( m = 12 \), we have:
+
+\( a(a + 1) = 12 k \)
+
+We need to find integers \( a \geq 1 \) such that \( a(a + 1) \) is divisible by 12, and \( k = a(a + 1)/12 \) must be an integer.
+
+Also, since \( s \) must be within [4, 12], and \( s = (1 + t)/2 \), where \( t = \sqrt{1 + 4 m k} \), so \( t = \sqrt{1 + 48 k} \). Therefore, \( 1 + 48 k \) must be a perfect square, say \( t^2 \).
+
+So, \( t^2 = 1 + 48 k \). Let me find \( t \) such that \( t^2 \equiv 1 \mod 48 \). The squares modulo 48: since 48 = 16 * 3, and squares mod 16 are 0,1,4,9, and squares mod 3 are 0,1. So, a square mod 48 must be 0,1,16,25.
+
+Therefore, \( t^2 \equiv 1 \mod 48 \) implies \( t \equiv \pm1 \mod 24 \). So, \( t = 24 n \pm 1 \) for some integer \( n \).
+
+So, let's compute \( t = 24 n \pm 1 \) and check if \( k = (t^2 - 1)/48 \) yields integer \( k \) such that \( s = (1 + t)/2 \) is within [4,12].
+
+Let’s test small \( n \):
+
+For \( n = 1 \):
+- \( t = 24*1 - 1 = 23 \)
+- \( k = (23^2 - 1)/48 = (529 - 1)/48 = 528/48 = 11 \)
+- \( s = (1 + 23)/2 = 24/2 = 12 \)
+- Check \( s = 12 \) is within [4,12]. Yes.
+- \( k = 11 \), which is ≤ 12.
+
+So, this gives \( s = 12 \), which we already found earlier (n = 144).
+
+For \( n = 1 \):
+- \( t = 24*1 + 1 = 25 \)
+- \( k = (25^2 - 1)/48 = (625 - 1)/48 = 624/48 = 13 \)
+- \( s = (1 + 25)/2 = 26/2 = 13 \)
+- But \( s \) must be ≤ 12, so discard.
+
+For \( n = 0 \):
+- \( t = 24*0 + 1 = 1 \)
+- \( k = (1 - 1)/48 = 0 \). But \( k \geq 1 \), so discard.
+
+For \( n = 2 \):
+- \( t = 24*2 -1 = 47 \)
+- \( k = (47^2 - 1)/48 = (2209 - 1)/48 = 2208/48 = 46 \)
+- \( s = (1 + 47)/2 = 24 \)
+- \( s = 24 > 12 \), so discard.
+
+Similarly, higher \( n \) will give higher \( t \) and \( s \), which are outside the required range.
+
+So, for \( m = 12 \), we get only one valid \( s \) beyond what we had before? Wait, no, earlier when \( m = 12 \), we had \( s = 4, 9, 12 \). So, why did we get only one solution here?
+
+Wait, maybe the method is missing some solutions because \( a(a + 1) = m k \) can have multiple factorizations. Perhaps \( m \) divides \( a(a + 1) \), but \( m \) can be factored in multiple ways.
+
+Wait, another approach: If \( m = 12 \), the equation \( a(a + 1) = 12 k \) must hold. So, \( a(a + 1) \) must be a multiple of 12. So, \( a \) can be such that \( a \) is a multiple of 3 or 4, or \( a + 1 \) is.
+
+Let me list possible \( a \) from 1 upwards and see if \( a(a + 1) \) is divisible by 12:
+
+- \( a = 3 \): \( 3*4 = 12 \). So, \( k = 1 \). Then, \( s = (1 + \sqrt{1 + 4*12*1})/2 = (1 + \sqrt{49})/2 = (1 + 7)/2 = 4 \). So, \( s = 4 \), which is valid.
+- \( a = 8 \): \( 8*9 = 72 \). \( k = 72/12 = 6 \). Then, \( s = (1 + \sqrt{1 + 4*12*6})/2 = (1 + \sqrt{1 + 288})/2 = (1 + 17)/2 = 9 \). So, \( s = 9 \), valid.
+- \( a = 11 \): \( 11*12 = 132 \). \( k = 132/12 = 11 \). Then, \( s = (1 + \sqrt{1 + 4*12*11})/2 = (1 + \sqrt{1 + 528})/2 = (1 + 23)/2 = 12 \). So, \( s = 12 \), valid.
+
+These correspond to \( s = 4, 9, 12 \), which we already found manually.
+
+So, for \( m = 12 \), we have three solutions for \( s \): 4, 9, 12, corresponding to \( k = 1, 6, 11 \). Therefore, \( b = 13 \) has three \( b \)-eautiful numbers.
+
+So, going back to the general case, perhaps for a given \( m = b - 1 \), the number of \( b \)-eautiful numbers is equal to the number of integers \( a \) such that \( a(a + 1) \) is divisible by \( m \), and then \( s \) is determined by \( s = (1 + \sqrt{1 + 4 m k})/2 \), which must be integer.
+
+But this seems a bit too abstract. Maybe instead, the number of \( b \)-eautiful numbers corresponds to the number of ways \( m \) can divide \( a(a + 1) \), which relates to the number of divisors of \( m \). But perhaps it's more complicated.
+
+Wait, perhaps instead of trying to find an exact formula, we can note that each \( b \)-eautiful number corresponds to a solution of \( s^2 - s = m k \), with \( 1 \leq k \leq m \). So, for each \( b \), the number of solutions is equal to the number of \( k \) such that \( s^2 - s \) is divisible by \( m \), and \( s \) is in the range \( [\lceil \sqrt{m + 1} \rceil, m] \).
+
+Alternatively, it's equivalent to the number of \( k \) in \( 1 \leq k \leq m \) such that \( k \) divides \( s^2 - s \) for some \( s \) in the range.
+
+This is still a bit abstract, but maybe another way: For each \( b \), the number of \( b \)-eautiful numbers is equal to the number of divisors \( k \) of \( s(s - 1) \) for some \( s \) in \( [\lceil \sqrt{b} \rceil, b - 1] \), such that \( d_1 = k \), \( d_0 = s - k \), and \( 1 \leq k < b \).
+
+Wait, perhaps the key is to note that for each \( b \), \( m = b - 1 \), and the equation \( s^2 - s = m k \) must hold. So, for each \( m \), the number of solutions \( s \) is equal to the number of \( k \) such that \( s = \frac{1 + \sqrt{1 + 4 m k}}{2} \) is integer, and \( s \) is within the required range.
+
+So, to count the number of \( b \)-eautiful numbers, we can iterate over \( k \) from 1 to \( m \) and check if \( 1 + 4 m k \) is a perfect square. If it is, compute \( s \) and check if it's within the required range.
+
+Therefore, the number of \( b \)-eautiful numbers is equal to the number of integers \( k \) between 1 and \( m \) such that \( 1 + 4 m k \) is a perfect square, and the corresponding \( s = (1 + \sqrt{1 + 4 m k})/2 \) is an integer in \( [\lceil \sqrt{m + 1} \rceil, m] \).
+
+Given that, perhaps for each \( b \), we can compute the number of \( b \)-eautiful numbers by counting the number of \( k \) such that \( 1 + 4 m k \) is a perfect square, and \( s \) is in the required range.
+
+This seems manageable, but for the problem at hand, we need to find the minimal \( b \) such that the number of \( b \)-eautiful numbers exceeds 10. So, perhaps we can write an equation or find a pattern.
+
+Wait, another observation: For each \( b \), the number of \( b \)-eautiful numbers is equal to the number of pairs \( (d_1, d_0) \) in base \( b \) such that:
+
+1. \( d_1 + d_0 = \sqrt{n} \), where \( n = d_1 b + d_0 \).
+2. \( d_1 \) and \( d_0 \) are digits in base \( b \), so \( 1 \leq d_1 < b \) and \( 0 \leq d_0 < b \).
+
+But since \( n = d_1 b + d_0 = (d_1 + d_0)^2 \), we can write:
+
+\[ d_1 b + d_0 = (d_1 + d_0)^2 \]
+
+Let’s denote \( s = d_1 + d_0 \), so \( n = s^2 \), and \( s^2 = d_1 b + d_0 \).
+
+But \( d_0 = s - d_1 \), so substituting:
+
+\[ s^2 = d_1 b + (s - d_1) \]
+\[ s^2 = d_1 (b - 1) + s \]
+\[ d_1 = \frac{s^2 - s}{b - 1} \]
+
+So, as before, \( d_1 \) must be integer, so \( b - 1 \) divides \( s^2 - s \). Also, \( d_1 \) must satisfy \( 1 \leq d_1 < b \), and \( d_0 = s - d_1 \) must satisfy \( 0 \leq d_0 < b \). Therefore, \( s - d_1 \geq 0 \) implies \( d_1 \leq s \), and \( s - d_1 < b \) implies \( d_1 > s - b \). But since \( d_1 \geq 1 \), this gives \( \max(1, s - b + 1) \leq d_1 \leq \min(b - 1, s) \).
+
+But since \( s^2 = d_1 b + d_0 \) and \( s = d_1 + d_0 \), so \( s^2 = b d_1 + (s - d_1) \), which simplifies to \( s^2 = (b - 1) d_1 + s \), which leads back to \( d_1 = (s^2 - s)/(b - 1) \).
+
+Therefore, for each \( b \), the number of \( b \)-eautiful numbers is equal to the number of integers \( s \) in \( [\lceil \sqrt{b} \rceil, b - 1] \) such that \( (s^2 - s) \) is divisible by \( b - 1 \), and \( d_1 = (s^2 - s)/(b - 1) \) is an integer in \( [1, b - 1] \), and \( d_0 = s - d_1 \) is in \( [0, b - 1] \).
+
+So, perhaps for each \( b \), we can find the number of such \( s \). But since this is getting too abstract, maybe let's look for a pattern or a way to compute it more efficiently.
+
+Suppose we denote \( m = b - 1 \). Then, the condition is \( m \) divides \( s(s - 1) \). So, \( s(s - 1) \equiv 0 \mod m \). Since \( s \) and \( s - 1 \) are coprime, \( m \) must divide either \( s \) or \( s - 1 \) or their product in a way that their factors combine to make \( m \).
+
+But \( m \) can be factored into coprime parts. Let’s say \( m = d e \), where \( d \) divides \( s \) and \( e \) divides \( s - 1 \). Because \( d \) and \( e \) are coprime, by the Chinese Remainder Theorem, there exists a unique solution modulo \( m \).
+
+Therefore, for each factor pair \( (d, e) \) of \( m \) such that \( d e = m \) and \( \gcd(d, e) = 1 \), there exists a unique \( s \) modulo \( m \) such that \( s \equiv 0 \mod d \) and \( s \equiv 1 \mod e \). So, each coprime factor pair gives a unique solution \( s \) modulo \( m \).
+
+Therefore, the number of solutions \( s \) modulo \( m \) is equal to the number of coprime factor pairs \( (d, e) \) of \( m \). Since each coprime factor pair corresponds to a distinct solution modulo \( m \), the number of solutions is equal to \( 2^{\omega(m)} \), where \( \omega(m) \) is the number of distinct prime factors of \( m \). Wait, no, actually, the number of coprime factor pairs is \( 2^{\omega(m)} \), but since each pair is unordered, it's \( 2^{\omega(m) - 1} \). Hmm, not sure.
+
+Wait, perhaps it's more precise to note that for each prime factor of \( m \), it can go to \( d \) or \( e \), but since \( d \) and \( e \) are coprime, each prime must divide exactly one of \( d \) or \( e \). Therefore, the number of coprime factorizations is \( 2^{\omega(m)} \). So, for example, if \( m \) is prime, it has two factorizations: \( (1, m) \) and \( (m, 1) \).
+
+But in our case, \( s \) must be in the range \( [\lceil \sqrt{b} \rceil, b - 1] \). So, each solution \( s \) modulo \( m \) will give a unique solution in each block of \( m \) numbers.
+
+Therefore, the number of solutions \( s \) in the interval \( [\lceil \sqrt{b} \rceil, b - 1] \) is roughly equal to the number of solutions modulo \( m \) multiplied by the number of times the block fits into the interval. But this is getting too vague.
+
+Wait, perhaps it's better to note that for each \( m = b - 1 \), the number of \( b \)-eautiful numbers is equal to the number of divisors \( d \) of \( m \) such that \( d \) and \( m/d \) are coprime, and \( s \equiv 0 \mod d \), \( s \equiv 1 \mod m/d \). Each such pair \( (d, m/d) \) gives a unique solution for \( s \), and hence a unique \( b \)-eautiful number.
+
+But I'm not sure if this is correct.
+
+Wait, perhaps it's useful to note that for each \( m \), the number of such \( s \) is equal to the number of divisors \( t \) of \( m \) such that \( t \) and \( m/t \) are coprime, because for each such \( t \), we can set \( d = t \) and \( e = m/t \), leading to a solution \( s \) modulo \( m \).
+
+But perhaps I'm overcomplicating it.
+
+Wait, going back to the quadratic equation, \( s = [1 + \sqrt{1 + 4 m k}]/2 \). For each \( m \), the number of \( k \) that makes \( 1 + 4 m k \) a square is equal to the number of \( s \) such that \( s^2 - s \) is divisible by \( m \). So, perhaps for each \( m \), the number of \( s \) is equal to the number of square roots of 1 modulo \( 4 m \). Wait, no, not exactly.
+
+Alternatively, perhaps for each \( m \), the number of \( k \) is equal to the number of divisors of \( m \). Because for each divisor \( d \) of \( m \), if \( s \equiv 0 \mod d \) and \( s \equiv 1 \mod m/d \), then \( s \) is a solution.
+
+Wait, maybe it's better to consider specific examples.
+
+Let me take \( m = 12 \). Then, the number of coprime factor pairs \( (d, e) \) is equal to the number of ways to partition the prime factors of 12 into two sets. The prime factors of 12 are 2 and 3. So, each prime can go to either \( d \) or \( e \).
+
+Therefore, the number of coprime factor pairs is \( 2^2 = 4 \). But since \( (d, e) \) and \( (e, d) \) are considered the same, it's actually 2 unique pairs: (1,12), (3,4), (4,3), (12,1). Wait, no, for coprime pairs, (1,12) and (12,1) are considered different if we are counting ordered pairs. But in our case, since \( d \) and \( e \) are just factors, maybe unordered.
+
+Wait, in our earlier example with \( m = 12 \), we found three solutions for \( s \): 4, 9, and 12. But according to the coprime factor pairs, we should have 4 solutions. So, perhaps my initial thought was wrong.
+
+Wait, the coprime factor pairs of 12 are (1,12), (3,4), (4,3), (12,1). So, four ordered pairs. Each of these gives a unique solution modulo 12.
+
+So, for each coprime ordered pair \( (d, e) \), there's a unique solution \( s \) modulo \( m \). So, for \( m = 12 \), we should have four solutions for \( s \) modulo 12.
+
+But in our case, \( s \) is in the range \( [\lceil \sqrt{13} \rceil, 12] \), which is [4, 12]. So, s ranges from 4 to 12, inclusive.
+
+So, let's compute the four solutions modulo 12:
+
+1. For \( (d, e) = (1, 12) \):
+   - Solve \( s \equiv 0 \mod 1 \) (always true) and \( s \equiv 1 \mod 12 \).
+   - Solutions are \( s \equiv 1 \mod 12 \). So, \( s = 1, 13, 25, ... \). Within [4,12], \( s = 1 \) is too low, next is 13, which is outside. So, no solution here.
+
+2. For \( (d, e) = (3, 4) \):
+   - Solve \( s \equiv 0 \mod 3 \) and \( s \equiv 1 \mod 4 \).
+   - Find \( s \) such that \( s = 3k \) and \( 3k \equiv 1 \mod 4 \).
+   - \( 3k \equiv 1 \mod 4 \) implies \( k \equiv 3^{-1} \mod 4 \). Since \( 3*3 = 9 ≡ 1 mod 4 \), so \( k ≡ 3 mod 4 \).
+   - Therefore, \( k = 3 + 4m \), so \( s = 3*(3 + 4m) = 9 + 12m \).
+   - Within [4,12], \( s = 9 \).
+
+3. For \( (d, e) = (4, 3) \):
+   - Solve \( s \equiv 0 \mod 4 \) and \( s \equiv 1 \mod 3 \).
+   - \( s = 4k \), and \( 4k ≡ 1 mod 3 \).
+   - \( 4 ≡ 1 mod 3 \), so \( k ≡ 1 mod 3 \).
+   - \( k = 1 + 3m \), so \( s = 4*(1 + 3m) = 4 + 12m \).
+   - Within [4,12], \( s = 4 \) and \( s = 16 \) (outside). So, \( s = 4 \).
+
+4. For \( (d, e) = (12, 1) \):
+   - Solve \( s \equiv 0 \mod 12 \) and \( s \equiv 1 \mod 1 \).
+   - \( s ≡ 0 mod 12 \), so \( s = 12, 24, ... \).
+   - Within [4,12], \( s = 12 \).
+
+So, the solutions are \( s = 4, 9, 12 \). Wait, but where is the fourth solution? It should be there because there are four coprime factor pairs.
+
+Wait, maybe I missed one. Let's see:
+
+Wait, in the first case, we had no solution because \( s = 1 \) is too low. So, only three solutions in total. But according to the number of coprime factor pairs, we should have four solutions. Hmm, perhaps the fourth solution is outside the range.
+
+Wait, the four solutions modulo 12 are \( s = 1, 4, 9, 12 \). So, within [4,12], we have \( s = 4, 9, 12 \). So, three solutions, as found earlier.
+
+Therefore, for each \( m \), the number of solutions modulo \( m \) is equal to the number of coprime factor pairs of \( m \). However, the number of solutions in the specific range \( [\lceil \sqrt{m + 1} \rceil, m] \) may be less.
+
+But this seems to suggest that the number of \( b \)-eautiful numbers is related to the number of coprime factor pairs of \( m = b - 1 \). Therefore, if \( m \) has more coprime factor pairs, we get more \( b \)-eautiful numbers.
+
+Therefore, to maximize the number of \( b \)-eautiful numbers, we need \( m = b - 1 \) to have as many coprime factor pairs as possible.
+
+So, \( m \) should be a number with many coprime factor pairs. Numbers with more prime factors would have more coprime factor pairs.
+
+Wait, for example, \( m \) being a power of 2: 2, 4, 8, 16, etc. For \( m = 2 \), coprime factor pairs: (1,2), (2,1). So, two pairs. For \( m = 4 \), coprime factor pairs: (1,4), (4,1). So, two pairs. For \( m = 8 \), same: (1,8), (8,1). So, two pairs. So, not so good.
+
+If \( m \) is a product of two distinct primes, say \( m = p q \), where \( p \) and \( q \) are primes, then the coprime factor pairs are (1, pq), (p, q), (q, p), (pq, 1). So, four pairs.
+
+Therefore, for such \( m \), we can get four solutions modulo \( m \). Therefore, if \( m \) is a product of two distinct primes, we can get more solutions.
+
+So, perhaps \( m \) being a product of two distinct primes will yield more \( b \)-eautiful numbers.
+
+Wait, let's test this with \( m = 15 \) (which is 3*5). The coprime factor pairs are (1,15), (3,5), (5,3), (15,1). So, four pairs.
+
+So, for \( m = 15 \), \( b = 16 \), the number of \( b \)-eautiful numbers would be four solutions modulo 15. Let's check if all four solutions lie within the required range.
+
+But first, let's compute the solutions:
+
+1. For \( (d, e) = (1,15) \):
+   - Solve \( s \equiv 0 \mod 1 \) and \( s \equiv 1 \mod 15 \).
+   - \( s = 1 + 15k \). Within \( [\lceil \sqrt{16} \rceil = 4, 15] \), \( s = 16 \) is out, so no solution.
+
+2. For \( (d, e) = (3,5) \):
+   - Solve \( s \equiv 0 \mod 3 \) and \( s \equiv 1 \mod 5 \).
+   - So, \( s = 3k \) and \( 3k ≡ 1 mod 5 \).
+   - \( 3k ≡ 1 mod 5 \) => \( k ≡ 2 mod 5 \) (since 3*2=6≡1 mod5).
+   - So, \( k = 2 + 5m \), so \( s = 3*(2 + 5m) = 6 + 15m \).
+   - Within [4,15], \( s = 6 \).
+
+3. For \( (d, e) = (5,3) \):
+   - Solve \( s ≡ 0 mod 5 \) and \( s ≡ 1 mod 3 \).
+   - \( s = 5k \), \( 5k ≡ 1 mod 3 \).
+   - \( 5 ≡ 2 mod 3 \), so \( 2k ≡ 1 mod 3 \) => \( k ≡ 2 mod 3 \).
+   - So, \( k = 2 + 3m \), \( s = 5*(2 + 3m) = 10 + 15m \).
+   - Within [4,15], \( s = 10 \).
+
+4. For \( (d, e) = (15,1) \):
+   - Solve \( s ≡ 0 mod 15 \) and \( s ≡ 1 mod 1 \).
+   - \( s = 15k \).
+   - Within [4,15], \( s = 15 \).
+
+So, the solutions are \( s = 6, 10, 15 \). Wait, only three. But we had four coprime factor pairs.
+
+Wait, perhaps the fourth solution is \( s = 1 \), which is too low. So, in the range [4,15], we have \( s = 6, 10, 15 \). So, three solutions.
+
+Hmm, so even though there are four coprime factor pairs, only three solutions fall into the required range. So, perhaps for \( m = 15 \), \( b = 16 \), there are three \( b \)-eautiful numbers.
+
+Wait, let me check:
+
+- For \( s = 6 \): \( d_1 = (36 - 6)/15 = 30/15 = 2 \), \( d_0 = 6 - 2 = 4 \). So, \( n = 2*16 + 4 = 36 \), which is 6^2. Correct.
+- For \( s = 10 \): \( d_1 = (100 - 10)/15 = 90/15 = 6 \), \( d_0 = 10 - 6 = 4 \). So, \( n = 6*16 + 4 = 100 \), which is 10^2. Correct.
+- For \( s = 15 \): \( d_1 = (225 - 15)/15 = 210/15 = 14 \), \( d_0 = 15 - 14 = 1 \). So, \( n = 14*16 + 1 = 224 + 1 = 225 \), which is 15^2. Correct.
+
+So, three solutions. So, for \( m = 15 \), \( b = 16 \), we have three \( b \)-eautiful numbers. So, it's less than four because one solution is too low.
+
+Therefore, perhaps to maximize the number of \( b \)-eautiful numbers, we need \( m \) such that all coprime factor pair solutions \( s \) fall into the range \( [\lceil \sqrt{b} \rceil, b - 1] \).
+
+Alternatively, we can try to find \( m \) such that \( s \) for each coprime factor pair is in that range. So, \( s \) must be at least \( \lceil \sqrt{m + 1} \rceil \) and at most \( m \).
+
+Wait, another thought: If \( m \) is a factorial, for example, \( m = 6 \), which is 2*3. Then, the coprime factor pairs are (1,6), (2,3), (3,2), (6,1). So, four pairs.
+
+Compute the solutions for \( m = 6 \):
+
+1. \( (d, e) = (1,6) \):
+   - \( s ≡ 0 mod 1 \), \( s ≡ 1 mod 6 \). So, \( s = 1, 7, 13, ... \). Within [3,6], \( s = 1 \) is too low, next is 7, which is outside. So, no solution.
+
+2. \( (d, e) = (2,3) \):
+   - \( s ≡ 0 mod 2 \), \( s ≡ 1 mod 3 \).
+   - \( s = 2k \), \( 2k ≡ 1 mod 3 \) => \( k ≡ 2 mod 3 \).
+   - \( k = 2 + 3m \), so \( s = 4 + 6m \).
+   - Within [3,6], \( s = 4 \).
+
+3. \( (d, e) = (3,2) \):
+   - \( s ≡ 0 mod 3 \), \( s ≡ 1 mod 2 \).
+   - \( s = 3k \), \( 3k ≡ 1 mod 2 \) => \( k ≡ 1 mod 2 \).
+   - \( k = 1 + 2m \), so \( s = 3 + 6m \).
+   - Within [3,6], \( s = 3 \).
+
+4. \( (d, e) = (6,1) \):
+   - \( s ≡ 0 mod 6 \), \( s ≡ 1 mod 1 \).
+   - \( s = 6k \).
+   - Within [3,6], \( s = 6 \).
+
+Therefore, solutions: \( s = 3, 4, 6 \). So, three solutions, same as before.
+
+But in this case, \( b = 7 \). Let's check if these correspond to three \( b \)-eautiful numbers:
+
+- \( s = 3 \): \( d_1 = (9 - 3)/6 = 1 \), \( d_0 = 3 - 1 = 2 \). \( n = 1*7 + 2 = 9 \), which is 3^2.
+- \( s = 4 \): \( d_1 = (16 - 4)/6 = 12/6 = 2 \), \( d_0 = 4 - 2 = 2 \). \( n = 2*7 + 2 = 16 \), which is 4^2.
+- \( s = 6 \): \( d_1 = (36 - 6)/6 = 30/6 = 5 \), \( d_0 = 6 - 5 = 1 \). \( n = 5*7 + 1 = 36 \), which is 6^2.
+
+So, three \( b \)-eautiful numbers for \( b = 7 \).
+
+Wait, so regardless of \( m \), we seem to have three solutions when \( m \) is 6 or 15 or other similar numbers. So, perhaps the number of solutions is three for certain \( m \).
+
+But we need a \( b \) with more than ten \( b \)-eautiful numbers. So, perhaps we need a higher \( b \) where \( m = b -1 \) is a product of more primes, leading to more coprime factor pairs.
+
+Wait, let me think about \( m \) as a product of more primes. For example, \( m = 30 = 2*3*5 \). Then, the number of coprime factor pairs would be higher.
+
+Wait, actually, the number of coprime factor pairs would be \( 2^k \), where \( k \) is the number of distinct prime factors. So, for \( m \) with \( k \) distinct prime factors, number of coprime factor pairs is \( 2^k \). For example, \( m = 2*3*5*7 \), which has four distinct prime factors, would have \( 2^4 = 16 \) coprime factor pairs.
+
+But since each coprime factor pair leads to a unique solution \( s \), modulo \( m \). So, for \( m = 30 \), we have 16 coprime factor pairs, so 16 solutions modulo 30.
+
+But since \( s \) is in the range \( [\lceil \sqrt{31} \rceil = 6, 30] \), the number of solutions in that range depends on how many of the 16 solutions fall into [6,30].
+
+But let's see for \( m = 30 \):
+
+Each coprime factor pair \( (d, e) \) where \( d \) and \( e \) are coprime and \( d*e = 30 \).
+
+The coprime factor pairs are:
+
+1. (1,30)
+2. (2,15)
+3. (3,10)
+4. (5,6)
+5. (6,5)
+6. (10,3)
+7. (15,2)
+8. (30,1)
+
+Wait, but 2 and 15 are coprime, 3 and 10 are coprime, 5 and 6 are coprime, and their reverses. So, total 8 coprime factor pairs.
+
+Wait, hold on: for \( m = 30 \), which has prime factors 2, 3, 5. The number of coprime factor pairs is \( 2^3 = 8 \). So, 8 solutions modulo 30.
+
+So, each coprime factor pair:
+
+1. (1,30):
+   - \( s \equiv 0 \mod 1 \), \( s \equiv 1 \mod 30 \)
+   - \( s = 1 + 30k \). Within [6,30], \( s = 31, 61, ... \). None.
+
+2. (2,15):
+   - \( s \equiv 0 \mod 2 \), \( s \equiv 1 \mod 15 \)
+   - Solve \( s = 2k \), \( 2k ≡ 1 mod 15 \)
+   - \( 2k ≡ 1 mod 15 \) => \( k ≡ 8 mod 15 \)
+   - \( k = 8 + 15m \), \( s = 16 + 30m \). Within [6,30], \( s = 16 \).
+
+3. (3,10):
+   - \( s ≡ 0 mod 3 \), \( s ≡ 1 mod 10 \)
+   - \( s = 3k \), \( 3k ≡ 1 mod 10 \)
+   - \( 3k ≡ 1 mod 10 \) => \( k ≡ 7 mod 10 \)
+   - \( k = 7 + 10m \), \( s = 21 + 30m \). Within [6,30], \( s = 21 \).
+
+4. (5,6):
+   - \( s ≡ 0 mod 5 \), \( s ≡ 1 mod 6 \)
+   - \( s = 5k \), \( 5k ≡ 1 mod 6 \)
+   - \( 5k ≡ 1 mod 6 \) => \( k ≡ 5 mod 6 \)
+   - \( k = 5 + 6m \), \( s = 25 + 30m \). Within [6,30], \( s = 25 \).
+
+5. (6,5):
+   - \( s ≡ 0 mod 6 \), \( s ≡ 1 mod 5 \)
+   - \( s = 6k \), \( 6k ≡ 1 mod 5 \)
+   - \( 6k ≡ 1 mod 5 \) => \( k ≡ 1 mod 5 \)
+   - \( k = 1 + 5m \), \( s = 6 + 30m \). Within [6,30], \( s = 6 \).
+
+6. (10,3):
+   - \( s ≡ 0 mod 10 \), \( s ≡ 1 mod 3 \)
+   - \( s = 10k \), \( 10k ≡ 1 mod 3 \)
+   - \( 10k ≡ 1 mod 3 \) => \( k ≡ 1 mod 3 \)
+   - \( k = 1 + 3m \), \( s = 10 + 30m \). Within [6,30], \( s = 10 \).
+
+7. (15,2):
+   - \( s ≡ 0 mod 15 \), \( s ≡ 1 mod 2 \)
+   - \( s = 15k \), \( 15k ≡ 1 mod 2 \)
+   - \( 15k ≡ 1 mod 2 \) => \( k ≡ 1 mod 2 \)
+   - \( k = 1 + 2m \), \( s = 15 + 30m \). Within [6,30], \( s = 15 \).
+
+8. (30,1):
+   - \( s ≡ 0 mod 30 \), \( s ≡ 1 mod 1 \)
+   - \( s = 30k \)
+   - Within [6,30], \( s = 30 \).
+
+So, the solutions are \( s = 6, 10, 15, 16, 21, 25 \). So, six solutions. Therefore, for \( m = 30 \), \( b = 31 \), the number of \( b \)-eautiful numbers is six.
+
+But this is still less than ten. Hmm.
+
+Wait, so maybe we need \( m \) to be a number with more coprime factor pairs. Let's try \( m = 24 \), which is 2^3*3. The number of coprime factor pairs is 4? Wait, no.
+
+Wait, for \( m = 24 \), which factors are 2^3*3. The number of coprime factor pairs is equal to the number of ways to partition the prime factors. So, since 24 has two distinct prime factors (2 and 3), the number of coprime factor pairs is 2^2 = 4.
+
+Wait, but 24 is 2^3*3, so it's not square-free. So, the number of coprime factor pairs would still be four?
+
+Wait, maybe not. Let me compute:
+
+The number of coprime factor pairs \( (d, e) \) where \( d*e = 24 \) and \( \gcd(d, e) = 1 \).
+
+The possible coprime pairs:
+
+1. (1,24)
+2. (3,8)
+3. (8,3)
+4. (24,1)
+
+So, four pairs.
+
+Therefore, for \( m = 24 \), \( b = 25 \), number of \( b \)-eautiful numbers would be four.
+
+Check:
+
+1. \( (d, e) = (1,24) \):
+   - \( s ≡ 0 mod 1 \), \( s ≡ 1 mod 24 \). \( s = 1,25,49,... \). Within [5,24], \( s = 25 \).
+
+2. \( (d, e) = (3,8) \):
+   - \( s ≡ 0 mod 3 \), \( s ≡ 1 mod 8 \).
+   - Solve \( s = 3k \), \( 3k ≡ 1 mod 8 \).
+   - \( 3k ≡ 1 mod 8 \) => \( k ≡ 3^{-1} mod 8 \). Since \( 3*3 = 9 ≡ 1 mod 8 \), so \( k ≡ 3 mod 8 \).
+   - \( k = 3 + 8m \), \( s = 9 + 24m \). Within [5,24], \( s = 9 \).
+
+3. \( (d, e) = (8,3) \):
+   - \( s ≡ 0 mod 8 \), \( s ≡ 1 mod 3 \).
+   - Solve \( s = 8k \), \( 8k ≡ 1 mod 3 \).
+   - \( 8k ≡ 2k ≡ 1 mod 3 \) => \( k ≡ 2 mod 3 \).
+   - \( k = 2 + 3m \), \( s = 16 + 24m \). Within [5,24], \( s = 16 \).
+
+4. \( (d, e) = (24,1) \):
+   - \( s ≡ 0 mod 24 \), \( s ≡ 1 mod 1 \).
+   - \( s = 24k \).
+   - Within [5,24], \( s = 24 \).
+
+So, the solutions are \( s = 9, 16, 24 \). Wait, only three. Hmm.
+
+Wait, but s = 25 is outside of the range [5,24], so only three solutions.
+
+Wait, so perhaps for \( m = 24 \), we get three \( b \)-eautiful numbers.
+
+Wait, perhaps I need a better strategy.
+
+Alternatively, perhaps instead of trying to compute for specific \( b \), I can consider that each \( b \)-eautiful number corresponds to a solution of \( s^2 - s = m k \), with \( s \in [\lceil \sqrt{b} \rceil, b - 1] \).
+
+Therefore, for each \( b \), the number of \( b \)-eautiful numbers is equal to the number of integers \( s \) in that interval for which \( s^2 - s \) is divisible by \( m = b - 1 \).
+
+Thus, for \( b \) to have more than ten \( b \)-eautiful numbers, \( m = b - 1 \) must have at least eleven solutions \( s \) in the interval \( [\lceil \sqrt{b} \rceil, b - 1] \).
+
+Therefore, to maximize the number of solutions, \( m \) must have many divisors, and the quadratic \( s^2 - s \) must be divisible by \( m \). So, perhaps \( m \) is a factorial or a highly composite number.
+
+Alternatively, another thought: For \( s^2 - s \) to be divisible by \( m \), \( s \) must be congruent to 0 or 1 modulo each prime power dividing \( m \).
+
+Therefore, if \( m \) is a product of small primes, then the number of solutions \( s \) modulo \( m \) is larger.
+
+Therefore, perhaps \( m \) is a factorial number. For example, \( m = 6! = 720 \). Then, \( b = 721 \). But this might lead to a very large number of solutions.
+
+But perhaps we can find a smaller \( m \) with enough prime factors to give us more than ten solutions.
+
+Wait, another approach: The number of \( b \)-eautiful numbers is equal to the number of integer points \( s \) in the range \( [\lceil \sqrt{b} \rceil, b - 1] \) such that \( s^2 - s \) is divisible by \( m = b - 1 \).
+
+Therefore, for each \( s \), \( s^2 - s \equiv 0 mod m \). So, \( s(s - 1) \equiv 0 mod m \). Therefore, \( s \equiv 0 mod p \) or \( s \equiv 1 mod p \) for each prime \( p \) dividing \( m \).
+
+Therefore, the number of such \( s \) is equal to the number of solutions to the congruence \( s \equiv 0 \) or \( 1 mod p \) for each prime \( p \) dividing \( m \).
+
+Thus, by the Chinese Remainder Theorem, for each prime power \( p^k \) dividing \( m \), we have two choices: \( s \equiv 0 mod p^k \) or \( s \equiv 1 mod p^k \). So, the total number of solutions modulo \( m \) is \( 2^{\omega(m)} \), where \( \omega(m) \) is the number of distinct prime factors of \( m \).
+
+Therefore, for each \( m \), the number of solutions \( s \) modulo \( m \) is \( 2^{\omega(m)} \). Therefore, the number of solutions in the range \( [\lceil \sqrt{b} \rceil, b - 1] \) is roughly \( \frac{2^{\omega(m)}}{m} \times (b - \sqrt{b}) \).
+
+But since \( m = b - 1 \), it's roughly \( \frac{2^{\omega(m)}}{m} \times (m + 1 - \sqrt{m + 1}) \approx \frac{2^{\omega(m)}}{m} \times m = 2^{\omega(m)} \).
+
+Therefore, to have more than ten solutions, we need \( 2^{\omega(m)} > 10 \). So, \( \omega(m) \geq 4 \), since \( 2^4 = 16 > 10 \).
+
+Therefore, \( m \) must have at least four distinct prime factors, so that \( 2^{\omega(m)} \geq 16 \), which would mean approximately sixteen solutions, but since only a subset fall into the required range, perhaps we need \( m \) with more factors.
+
+Wait, but \( 2^{\omega(m)} \) is the number of solutions modulo \( m \). So, the actual number of solutions in the range is roughly \( \frac{2^{\omega(m)}}{m} \times m = 2^{\omega(m)} \). But this is only an approximation.
+
+Wait, no, actually, the number of solutions in the range is approximately \( \frac{2^{\omega(m)}}{m} \times (b - \sqrt{b}) \). Since \( b = m + 1 \), it's roughly \( \frac{2^{\omega(m)}}{m} \times m = 2^{\omega(m)} \). So, to have more than ten solutions, \( 2^{\omega(m)} > 10 \), so \( \omega(m) \geq 4 \).
+
+Therefore, \( m \) needs to be a number with at least four distinct prime factors. So, the smallest such \( m \) is \( 2*3*5*7 = 210 \). Therefore, \( b = 211 \).
+
+But this would lead to \( b = 211 \) with \( m = 210 \), which is a product of four distinct primes. So, \( 2^{\omega(m)} = 16 \), so approximately sixteen solutions, but only a subset fall into the required range.
+
+So, perhaps we can try \( m = 210 \), \( b = 211 \), and compute the number of \( b \)-eautiful numbers.
+
+But this seems tedious, but let's try.
+
+Compute the number of solutions \( s \) in the range \( [\lceil \sqrt{211} \rceil, 210] = [15, 210] \).
+
+The number of solutions is equal to the number of \( s \) such that \( s \equiv 0 \) or \( 1 mod p \) for each prime \( p \) dividing 210.
+
+Primes dividing 210 are 2,3,5,7.
+
+So, the number of solutions modulo 210 is \( 2^4 = 16 \).
+
+Therefore, the solutions are distributed every 210 numbers. So, in the range [15,210], how many multiples of 210? Just one at 210.
+
+But each solution is a combination of congruences. So, for example, \( s \equiv 0 mod 2 \), \( s \equiv 0 mod 3 \), \( s \equiv 0 mod 5 \), \( s \equiv 0 mod 7 \): \( s = 210 \).
+
+Similarly, \( s \equiv 0 mod 2 \), \( s \equiv 0 mod 3 \), \( s \equiv 0 mod 5 \), \( s \equiv 1 mod 7 \): another solution, \( s = 210 - 6 = 204 \).
+
+Wait, but 204 is in [15,210]. Similarly, each of the 16 solutions would be spaced 210 apart, but since our range is 210, we can have multiple solutions.
+
+Wait, actually, in the range [15,210], we can have multiple solutions. For example, each of the 16 solutions is unique modulo 210. So, in the range [1,210], all 16 solutions exist. But since our range starts at 15, we need to check if the first solution is less than 15 or not.
+
+But the smallest solution is when \( s \equiv 0 mod 2,3,5,7 \), which is 0 mod 210. But 0 is not in the range [15,210], so the smallest solution is 210, which is at the end.
+
+Wait, but 210 is in the range. So, in the range [15,210], the solutions are all 16 solutions modulo 210, but shifted.
+
+Wait, actually, no. Since [15,210] includes 210, but 0 mod 210 is 210. So, the solutions are spread throughout the range.
+
+But actually, the 16 solutions correspond to all possible combinations of \( s \equiv 0 \) or \( 1 mod p \) for each prime p. Each solution is unique modulo 210, so in the range [1,210], each solution is unique.
+
+Therefore, in the range [15,210], we have 16 solutions because 210 is included. So, the number of \( b \)-eautiful numbers is 16.
+
+But wait, let's check.
+
+Wait, the number of solutions is 16, but each s must satisfy \( s \geq 15 \). So, how many solutions are >=15?
+
+Since the solutions are spread throughout the 210-block, the number of solutions >=15 is 16 - number of solutions <15.
+
+But the smallest solution is 0 mod 210, which is 210, so all solutions are >=210 or less. Wait, no, that's not correct. Wait, each solution is unique modulo 210, so in the range [1,210], each solution is present once. Therefore, in [15,210], how many solutions are there?
+
+If the smallest solution is at 210, which is included, then in [15,210], all 16 solutions are present. But 210 is only one solution, so it's included.
+
+Wait, actually, each solution is unique modulo 210, so in the range [1,210], there are 16 solutions, each in their unique position. So, in [15,210], we have 16 solutions, but one of them is at 210, which is included. The other solutions are from 1 to 209. So, how many are >=15?
+
+Total solutions in [1,210]: 16.
+
+Solutions less than 15: from 1 to14. So, how many solutions are in [1,14]?
+
+Each solution is unique modulo 210, so the number of solutions in [1,14] is equal to the number of solutions in that interval. Since the solutions are spread throughout, it's possible that some solutions are in [1,14], but not necessarily.
+
+But without specific computation, it's hard to say. However, the key point is that the number of solutions in [15,210] is likely 16 - k, where k is the number of solutions in [1,14].
+
+But since the distribution is uniform, perhaps k is roughly 14*(16)/210 ≈ 14*(16/210) ≈ 14*(8/105) ≈ 14*(8)/105 ≈ 112/105 ≈ 1.06. So, approximately one solution in [1,14].
+
+Therefore, the number of solutions in [15,210] is 16 - 1 = 15.
+
+But since 210 is included, perhaps 16 solutions, one of which is 210, which is in the range. So, the exact number is 16.
+
+But wait, 210 is a solution, but in the range [15,210], it's included. So, how many solutions are in that range? Since the smallest solution is 210, but 210 is included, so the number of solutions is 16, each corresponding to a unique combination of congruences. So, in the range [15,210], all 16 solutions are included, since 15 <= s <=210, and s is in [1,210], so all 16 solutions are in [15,210].
+
+Wait, but actually, the solutions are at s = 210, and s = 210 - k*p, which may be below 15.
+
+Wait, perhaps it's better to model this.
+
+Each solution is given by some combination of 0 or 1 modulo each prime. So, for each combination, we can compute s.
+
+But without calculating each s, it's hard to know exactly how many are in the range. So, in the worst case, all 16 solutions are in the range, but some might be less than 15.
+
+But since the number of solutions in [1,14] is small, perhaps around 1 or 2, the number of solutions in [15,210] is 15 or 16.
+
+But since the number of solutions is 16, which is above ten, so \( b = 211 \) would have more than ten \( b \)-eautiful numbers.
+
+But wait, 211 is quite large. Maybe a smaller \( b \) can also have more than ten solutions.
+
+Wait, let's check for \( m = 210 \), \( b = 211 \), but maybe a smaller \( m \) with \( \omega(m) = 4 \), but I don't think such an \( m \) exists below 210.
+
+Wait, 2*3*5*7 = 210 is the smallest number with four distinct prime factors.
+
+Is there a number smaller than 210 with four distinct prime factors? No, because the primes are the smallest four primes: 2,3,5,7. Any smaller number would have less than four prime factors.
+
+Therefore, \( m = 210 \) is the smallest number with four distinct prime factors. Therefore, \( b = 211 \) is the smallest base where the number of \( b \)-eautiful numbers is 16, which is more than ten.
+
+But wait, earlier when I considered \( m = 30 \), \( b = 31 \), it had six solutions. So, 6 is less than ten, but when \( m = 210 \), \( b = 211 \), it has 16 solutions, which is more than ten.
+
+But perhaps there's a smaller \( m \) with \( \omega(m) = 4 \), but as we saw, there isn't. Therefore, \( m = 210 \) is the smallest \( m \) with four distinct prime factors, leading to \( b = 211 \).
+
+But before concluding, let me check \( m = 105 \). \( m = 105 = 3*5*7 \), which has three distinct primes. So, \( 2^3 = 8 \) solutions modulo 105. Therefore, the number of solutions in the range [sqrt(106) ≈ 10.3, 105] is approximately 8.
+
+But 8 is less than ten, so \( m = 105 \) won't work.
+
+Similarly, \( m = 120 = 2^3*3*5 \), which has three distinct primes, so \( 2^3 = 8 \) solutions.
+
+Wait, so unless \( m \) has four distinct prime factors, the number of solutions is at most 8. So, only when \( m \) has four or more distinct prime factors, we can get more than ten solutions.
+
+Therefore, \( m = 210 \) is the smallest such \( m \), so \( b = 211 \) is the smallest base where the number of \( b \)-eautiful numbers is 16, which is more than ten.
+
+Wait, but is 16 the exact number or approximate? Because in reality, the number of solutions in the range [15,210] is not necessarily exactly 16, as some solutions may fall below 15.
+
+But in the worst case, if all solutions are spread out, only one solution is below 15, as we thought earlier. So, 16 - 1 = 15. So, 15 solutions in [15,210], which is still more than ten.
+
+Therefore, \( b = 211 \) is the minimal base with more than ten \( b \)-eautiful numbers.
+
+But wait, before confirming, let me check \( b = 127 \), which is a prime. Then, \( m = 126 = 2*3^2*7 \), which has three distinct prime factors. So, \( 2^3 = 8 \) solutions. Therefore, it's unlikely to have more than ten solutions.
+
+Similarly, \( b = 128 \), \( m = 127 \), which is prime. Then, \( s^2 - s \equiv 0 mod 127 \) implies \( s(s - 1) \equiv 0 mod 127 \). Therefore, solutions are \( s = 0 mod 127 \) and \( s = 1 mod 127 \). So, in the range [12,127], \( s = 128 \) is outside, so only \( s = 1 \) is within the range. But \( s = 1 \) is less than 12, so no solutions. Therefore, zero \( b \)-eautiful numbers.
+
+Wait, that can't be. Wait, \( m = 127 \), so \( d_1 = (s^2 - s)/127 \). So, if \( s = 128 \), which is \( s^2 - s = 128*127 = 16256 \). So, 16256 /127 = 128, which is \( d_1 = 128 \), \( d_0 = 128 - 127 = 1 \). But \( d_0 = 1 \) is a digit in base 128, which is allowed because digits can be up to 127. So, \( n = 1*128 + 1 = 129 \). Then, \( n = 129 \), which is not a square. Wait, 129 is not a square. So, that doesn't satisfy the condition.
+
+Wait, so perhaps in this case, that solution doesn't count because \( n \) isn't a square. So, actually, for \( b = 128 \), the only \( s \) would be 128, which gives \( n = 129 \), which isn't a square. So, no solutions.
+
+Therefore, \( b = 128 \) gives zero \( b \)-eautiful numbers.
+
+Wait, so perhaps when \( m \) is prime, the number of \( b \)-eautiful numbers is zero or very small.
+
+Therefore, my earlier conclusion that \( b = 211 \) is the minimal base with more than ten \( b \)-eautiful numbers seems correct.
+
+But to be thorough, let me check \( b = 127 \) is prime, so it's not useful. Then, \( b = 126 \), \( m = 125 = 5^3 \). So, prime power. The number of \( b \)-eautiful numbers is the number of solutions \( s \) in [ceil(sqrt(126))=12,125] with \( s^2 - s \equiv 0 mod 125 \).
+
+So, \( s(s - 1) \equiv 0 mod 125 \). So, \( s \equiv 0 mod 125 \) or \( s \equiv 1 mod 125 \). Solutions are \( s = 125 \) and \( s = 126 \). Both are at the upper limit, so \( s = 125 \) and \( s = 126 \).
+
+But \( s = 125 \) is within [12,125], so \( s = 125 \): \( d_1 = (125^2 -125)/125 = (15625 -125)/125 = 15500/125 = 124 \), \( d_0 = 125 -124 = 1 \). So, \( n = 124*126 + 1 = 15624 +1 = 15625 = 125^2 \). So, that's a valid solution.
+
+\( s = 126 \): \( d_1 = (126^2 - 126)/125 = (15876 - 126)/125 = 15750 /125 = 126 \), \( d_0 = 126 - 125 = 1 \). Then, \( n = 126*126 + 1 = 15876 +1 = 15877 \). Is 15877 a square? Let's check sqrt(15877) ≈ 126. So, 126^2 = 15876, so 15877 is not a square. Therefore, only one solution: \( s = 125 \).
+
+Therefore, \( b = 126 \) has only one \( b \)-eautiful number. So, not enough.
+
+Similarly, trying \( b = 120 \), \( m = 119 = 7*17 \). So, two distinct primes, so four solutions modulo 119. So, in the range [11,119], how many solutions?
+
+Solutions are \( s \equiv 0 mod7 \), \( s \equiv1 mod7 \); \( s \equiv0 mod17 \), \( s \equiv1 mod17 \). So, each combination gives a solution. Therefore, four solutions. Each of these solutions would be in the range [11,119], so potentially four \( b \)-eautiful numbers.
+
+But let's compute them.
+
+1. \( s \equiv0 mod7 \), \( s \equiv0 mod17 \): \( s = 0 mod119 \). So, \( s = 119 \), which is within [11,119].
+
+2. \( s \equiv0 mod7 \), \( s \equiv1 mod17 \): Solve \( s = 7k \), \( 7k ≡1 mod17 \). \( 7k ≡1 mod17 \) => \( k ≡ 7^{-1} mod17 \). 7*5=35≡1 mod17, so \( k ≡5 mod17 \). So, \( k = 5 +17m \), \( s = 35 + 119m \). Within [11,119], \( s = 35 \).
+
+3. \( s \equiv1 mod7 \), \( s \equiv0 mod17 \): Solve \( s =17k \), \( 17k ≡1 mod7 \). \( 17 ≡3 mod7 \), so \( 3k ≡1 mod7 \) => \( k ≡5 mod7 \). So, \( k = 5 +7m \), \( s = 85 +119m \). Within [11,119], \( s =85 \).
+
+4. \( s \equiv1 mod7 \), \( s ≡1 mod17 \): Solve \( s =1 mod7 \), \( s=1 mod17 \). So, \( s=1 mod119 \). So, \( s=1 \), which is less than 11. So, no solution.
+
+Therefore, the solutions are \( s=35,85,119 \). So, three solutions. Therefore, \( b = 120 \) has three \( b \)-eautiful numbers.
+
+So, still less than ten.
+
+Therefore, going back, the minimal \( b \) with more than ten \( b \)-eautiful numbers seems to be \( b = 211 \). But let's check \( b = 211 \) in more depth.
+
+So, \( m = 210 \), \( b = 211 \). The number of \( b \)-eautiful numbers is equal to the number of solutions \( s \) in [15,210] to \( s^2 - s \equiv0 mod210 \).
+
+As computed earlier, modulo 210, the solutions are 16 in number, each corresponding to a unique combination of congruences. Since 210 is a multiple of 2,3,5,7, the solutions are spread throughout the range [1,210]. Therefore, in the range [15,210], each solution is present except for the ones below 15.
+
+Assuming that the solutions are spread out, the number of solutions in [15,210] is 16 - k, where k is the number of solutions below 15. Since the minimal solution is 0 mod210, which is 210, included in the range. Then, the next solutions are 210 - p, where p is a prime factor.
+
+So, 210 -2=208, 210-3=207, 210-5=205, 210-7=203. So, four solutions below 210 but above 15.
+
+Wait, but if the solutions are generated by combinations, each solution is unique. So, the number of solutions below 15 is probably small.
+
+But perhaps, in reality, each solution is a unique number in [1,210], so in the range [15,210], we have 16 solutions, but one is exactly 210, and the other 15 are spread between 1 and 209. So, how many of them fall below 15?
+
+Well, if the solutions are spread, it's possible that only a few fall below 15. For example, if the smallest solution is 1, but 1 is below 15. Then, next solutions could be, say, 2, 3, etc., but depending on the combinations.
+
+But without exact computation, it's hard to tell.
+
+Alternatively, perhaps a better approach is to note that the number of \( b \)-eautiful numbers is equal to \( 2^{\omega(m)} \), which is the number of solutions modulo \( m \). Since \( m = 210 \) has \( \omega(m) = 4 \), the number of solutions is \( 16 \). But in the range [15,210], all 16 solutions are present, except perhaps the trivial solution at 0, which is 210. So, 16 solutions, all within [15,210], so 16 \( b \)-eautiful numbers.
+
+But earlier, we saw that with \( m = 30 \), \( b = 31 \), we had six solutions in the range, and with \( m = 210 \), \( b = 211 \), we have 16 solutions.
+
+Therefore, \( b = 211 \) is the minimal base where the number of \( b \)-eautiful numbers is 16, which is more than ten.
+
+Wait, but earlier when I computed \( b = 31 \), \( m = 30 \), \( \omega(m) = 3 \), \( 2^3 = 8 \) solutions modulo 30, but only six were in the range [6,30], which is less than 8. So, perhaps in the case of \( m = 210 \), the number of solutions in [15,210] is 16, which is more than ten.
+
+Therefore, the minimal \( b \) is 211.
+
+But wait, 211 is quite a large base. Maybe I made a wrong assumption. Let me think.
+
+Wait, the problem says "the least integer \( b \geq 2 \)", so it doesn't restrict \( b \) to be a prime or anything. So, 211 is a valid base.
+
+But perhaps there is a base smaller than 211 with more than ten \( b \)-eautiful numbers.
+
+Wait, let me think: The number of solutions is \( 2^{\omega(m)} \). So, to get more than ten solutions, \( 2^{\omega(m)} \geq 11 \). So, \( \omega(m) \geq 4 \), since \( 2^4 = 16 \).
+
+Therefore, the minimal \( m \) with \( \omega(m) =4 \) is 210, as it's the product of the first four primes. So, \( b = 211 \) is the minimal base.
+
+Hence, I think the answer is \( \boxed{211} \).
+
+**Final Answer**
+\boxed{211}
+</think>
+
+To find the least integer \( b \geq 2 \) for which there are more than ten \( b \)-eautiful integers, we need to analyze the conditions under which a number \( n \) is \( b \)-eautiful. A number \( n \) is \( b \)-eautiful if it has exactly two digits in base \( b \) and these digits are equal to the square root of \( n \).
+
+Given a base \( b \), a number \( n \) is \( b \)-eautiful if it can be expressed as \( n = d_1 \times b + d_0 \) where \( d_1 = d_0 = \sqrt{n} \). This leads to the equation \( n = d^2 \) and \( n = d \times b + d \), which simplifies to \( d^2 = d(b + 1) \). Therefore, \( d = b + 1 \) or \( d = 0 \). Since \( d \) must be a digit, it must be less than \( b \), leading to \( b + 1 \) being a digit, which is not possible. Thus, we need to consider the quadratic equation \( s^2 - s = k \times b \) where \( k \) is a factor of \( b \).
+
+The number of solutions \( s \) to this equation modulo \( b - 1 \) is crucial. For a base \( b \), the number of solutions is determined by the number of ways to factor \( b \) into coprime pairs, leading to the number of solutions being \( 2^{\omega(b-1)} \), where \( \omega(b-1) \) is the number of distinct prime factors of \( b - 1 \).
+
+To have more than ten \( b \)-eautiful numbers, we need \( 2^{\omega(b-1)} > 10 \). This requires \( \omega(b-1) \geq 4 \), meaning \( b - 1 \) must have at least four distinct prime factors. The smallest such number is 210, leading to \( b = 211 \).
+
+Thus, the least integer \( b \geq 2 \) for which there are more than ten \( b \)-eautiful integers is \( \boxed{211} \).

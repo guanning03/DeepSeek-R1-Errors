@@ -1,0 +1,1259 @@
+Tokens: 26874.6
+
+Question:
+Let $b \geq 2$ be an integer. Call a positive integer $n$ $b$\textit{-eautiful} if it has exactly two digits when expressed in base $b$, and these two digits sum to $\sqrt{n}$. For example, $81$ is $13$-eautiful because $81=\underline{6}\underline{3}_{13}$ and $6+3=\sqrt{81}$. Find the least integer $b \geq 2$ for which there are more than ten $b$-eautiful integers.
+
+Correct Answer:
+We write the base-$b$ two-digit integer as $\left( xy \right)_b$. Thus, this number satisfies 
+$\left( x + y \right)^2 = b x + y$ with $x \in \left\{ 1, 2, \cdots , b-1 \right\}$ and $y \in \left\{ 0, 1, \cdots , b - 1 \right\}$.
+The above conditions imply $\left( x + y \right)^2 < b^2$. Thus, $x + y \leq b - 1$.
+The above equation can be reorganized as 
+$\left( x + y \right) \left( x + y - 1 \right) = \left( b - 1 \right) x$.
+Denote $z = x + y$ and $b' = b - 1$. Thus, we have 
+$z \left( z - 1 \right) = b' x , \hspace{1cm} (1)$ where $z \in \left\{ 2, 3, \cdots , b' \right\}$ and $x \in \left\{ 1, 2, \cdots , b' \right\}$.
+Next, for each $b'$, we solve Equation (1).
+We write $b'$ in the prime factorization form as $b' = \Pi_{i=1}^n p_i^{k_i}$. Let $\left(A, \bar A \right)$ be any ordered partition of $\left\{ 1, 2, \cdots , n \right\}$ (we allow one set to be empty). Denote $P_A = \Pi_{i \in A} p_i^{k_i}$ and $P_{\bar A} = \Pi_{i \in \bar A} p_i^{k_i}$.
+Because ${\rm gcd} \left( z, z-1 \right) = 1$, there must exist such an ordered partition, such that $P_A | z$ and $P_{\bar A} | z-1$.
+Next, we prove that for each ordered partition $\left( A, \bar A \right)$, if a solution of $z$ exists, then it must be unique.
+Suppose there are two solutions of $z$ under partition $\left( A, \bar A \right)$: $z_1 = c_1 P_A$, $z_1 - 1 = d_1 P_{\bar A}$, and $z_2 = c_2 P_A$, $z_2 - 1 = d_2 P_{\bar A}$. W.L.O.G., assume $c_1 < c_2$. Hence, we have 
+$\left( c_2 - c_1 \right) P_A = \left( d_2 - d_1 \right) P_{\bar A}.$
+Because ${\rm gcd} \left( P_A, P_{\bar A} \right) = 1$ and $c_1 < c_2$, there exists a positive integer $m$, such that $c_2 = c_1 + m P_{\bar A}$ and $d_2 = d_1 + m P_A$. Thus, $z_2=z_1+mP_{A}P_{\bar A}=z_1+mb^{'}>b^{'}$.
+However, recall $z_2 \leq b'$. We get a contradiction. Therefore, under each ordered partition for $b'$, the solution of $z$ is unique.
+Note that if $b'$ has $n$ distinct prime factors, the number of ordered partitions is $2^n$. Therefore, to find a $b'$ such that the number of solutions of $z$ is more than 10, the smallest $n$ is 4.
+With $n = 4$, the smallest number is $2 \cdot 3 \cdot 5 \cdot 7 = 210$. Now, we set $b' = 210$ and check whether the number of solutions of $z$ under this $b'$ is more than 10.
+We can easily see that all ordered partitions (except $A = \emptyset$) guarantee feasible solutions of $z$. Therefore, we have found a valid $b'$. Therefore, $b = b' + 1 = \boxed{\textbf{(211)}}$.
+
+Gold:
+\textbf{(211)}
+
+Wrong Prediction:
+211
+
+Wrong Answer:
+Alright, I have this problem about b-eautiful numbers. Let me try to understand what it's asking.
+
+So, given an integer b ≥ 2, a positive integer n is called b-eautiful if two conditions are satisfied:
+1. When n is expressed in base b, it has exactly two digits. That means in base b, n is written as "xy"_b, where x and y are digits in base b.
+2. The sum of these two digits x + y equals the square root of n.
+
+An example is given: 81 is 13-eautiful because in base 13, 81 is written as "63"_13, and 6 + 3 = 9, which is the square root of 81.
+
+The task is to find the least integer b ≥ 2 for which there are more than ten b-eautiful integers.
+
+Okay, so first, let me formalize this a bit.
+
+In base b, a two-digit number "xy"_b is equal to x*b + y in decimal. So, n = x*b + y.
+
+We are told that x + y = sqrt(n). So, substituting n, we have x + y = sqrt(x*b + y).
+
+Let me write this down:
+
+x + y = sqrt(x*b + y).
+
+If I square both sides to eliminate the square root, I get:
+
+(x + y)^2 = x*b + y.
+
+Expanding the left side:
+
+x^2 + 2xy + y^2 = x*b + y.
+
+Let me rearrange the equation:
+
+x^2 + 2xy + y^2 - x*b - y = 0.
+
+Hmm, that's a quadratic in terms of x and y. Maybe I can rearrange it to group terms:
+
+x^2 + (2y - b)x + (y^2 - y) = 0.
+
+This is a quadratic equation in x. Since x and y are digits in base b, they must satisfy 0 ≤ x, y < b. Also, since it's a two-digit number, x must be at least 1 (can't have leading zero). So, x is in 1 to b-1, and y is in 0 to b-1.
+
+So, for each base b, I can consider x and y in their respective ranges and count how many pairs (x, y) satisfy the equation x^2 + (2y - b)x + (y^2 - y) = 0.
+
+Alternatively, maybe I can think of it another way.
+
+Let me express the equation again:
+
+x + y = sqrt(x*b + y).
+
+Let me denote s = x + y. Then, s = sqrt(n), so n = s^2.
+
+But n is also equal to x*b + y. So,
+
+s^2 = x*b + y.
+
+But s = x + y, so substituting,
+
+(x + y)^2 = x*b + y.
+
+Which is the same as before.
+
+So, s^2 = x*b + y, and s = x + y. So, we have two equations:
+
+1. s = x + y
+2. s^2 = x*b + y
+
+Let me subtract the first equation from the second:
+
+s^2 - s = x*b + y - (x + y) = x*(b - 1).
+
+So, s^2 - s = x*(b - 1).
+
+Therefore, x = (s^2 - s)/(b - 1).
+
+Since x must be an integer (as it's a digit), (s^2 - s) must be divisible by (b - 1). So, (s^2 - s) ≡ 0 mod (b - 1).
+
+Also, since x is a digit in base b, x must satisfy 1 ≤ x ≤ b - 1.
+
+So, for each base b, we can consider possible s such that s = x + y, where x and y are digits, so s can range from x + y = 1 + 0 = 1 up to (b - 1) + (b - 1) = 2b - 2.
+
+But n = s^2, and n must be a two-digit number in base b, so n must satisfy b ≤ n ≤ b^2 - 1.
+
+Because the smallest two-digit number in base b is 10_b = b, and the largest is (b-1)(b) + (b-1) = b^2 - 1.
+
+Therefore, n is between b and b^2 - 1, so s^2 is in [b, b^2 - 1], which implies s is in [ceil(sqrt(b)), floor(sqrt(b^2 - 1))].
+
+Since sqrt(b^2 - 1) is just less than b, so s ranges from ceil(sqrt(b)) to b - 1. Wait, no:
+
+Wait, sqrt(b^2 -1) is approximately b - 0.5, so floor(sqrt(b^2 -1)) = b -1.
+
+Similarly, sqrt(b) is greater than or equal to sqrt(2) when b=2, which is about 1.414. So, s starts at floor(sqrt(b)) + 1? Wait, actually, s must be at least sqrt(b), since n is at least b. So s must be at least ceil(sqrt(b)).
+
+Therefore, s ranges from ceil(sqrt(b)) to b -1.
+
+So, for each base b, s can range from ceil(sqrt(b)) to b -1.
+
+Given that, and x = (s^2 - s)/(b -1), we can note that x must be an integer between 1 and b -1, and y = s - x must be between 0 and b -1.
+
+Therefore, for each b, we can iterate over s from ceil(sqrt(b)) to b -1, compute x = (s^2 - s)/(b -1), check if x is integer, 1 ≤ x ≤ b -1, and then compute y = s - x, check if 0 ≤ y ≤ b -1. If all conditions are satisfied, then (x, y) is a valid pair, and n = s^2 is a b-eautiful number.
+
+So, the idea is, for each b, count the number of s in [ceil(sqrt(b)), b -1] such that (s^2 - s) is divisible by (b -1), and x = (s^2 - s)/(b -1) is between 1 and b -1, and y = s - x is between 0 and b -1.
+
+This seems a bit involved, but maybe we can find a pattern or a way to express s in terms of b.
+
+Let me rearrange x = (s^2 - s)/(b -1). So, x = s(s -1)/(b -1). Since x must be integer, (b -1) must divide s(s -1). So, (b -1) divides s(s -1).
+
+Now, s and s -1 are consecutive integers, so they are coprime. Therefore, (b -1) must divide either s or s -1, but since s and s -1 are coprime, the factors of (b -1) must be split between s and s -1.
+
+Wait, maybe that's too abstract. Perhaps it's better to think in terms of congruence.
+
+For x to be integer, (s^2 - s) must be divisible by (b -1). So, s^2 ≡ s mod (b -1). Therefore, s(s -1) ≡ 0 mod (b -1). Since s and s -1 are coprime, this implies that (b -1) divides s or (b -1) divides (s -1). Wait, is that correct? Because if two coprime numbers multiply to a multiple of m, then m must divide one of them? That's not necessarily true.
+
+Wait, no. If two coprime numbers multiply to a multiple of m, then m divides their product, but since they are coprime, m must divide one of them. Yeah, that's a theorem. So, since s and s -1 are coprime, if their product is divisible by (b -1), then (b -1) must divide s or (b -1) must divide (s -1).
+
+Therefore, either s ≡ 0 mod (b -1) or s ≡ 1 mod (b -1).
+
+Therefore, s must be congruent to 0 or 1 modulo (b -1). So, s ≡ 0 or 1 mod (b -1).
+
+But s is in [ceil(sqrt(b)), b -1], so let's see what that implies.
+
+Case 1: s ≡ 0 mod (b -1). Then s = k*(b -1), where k is a positive integer. But s ≤ b -1, so k can only be 1. Therefore, s = b -1.
+
+Case 2: s ≡ 1 mod (b -1). Then s = m*(b -1) + 1, where m is a non-negative integer. But s ≤ b -1, so m must be 0, leading to s = 1.
+
+Wait, but if m = 0, then s = 1.
+
+But s must be at least ceil(sqrt(b)). For b ≥ 2, sqrt(b) is at least sqrt(2) ≈ 1.414, so ceil(sqrt(b)) is at least 2. Therefore, s cannot be 1 in this case because s must be at least 2 when b ≥ 2.
+
+Therefore, s ≡ 1 mod (b -1) implies s = 1, but since s ≥ ceil(sqrt(b)) ≥ 2, this is impossible. Therefore, the only possible s is s = b -1, which is ≡ 0 mod (b -1).
+
+Wait, but that seems restrictive. So, for each base b, the only possible s is b -1.
+
+But let's test this with the example given: b =13, n=81.
+
+In base 13, 81 is written as "63", so s = 6 + 3 = 9. But 9 ≠ 12 (which is b -1). So, this contradicts our earlier conclusion.
+
+Therefore, my reasoning must have a mistake.
+
+Wait, perhaps because s can be greater than b -1? But no, when n is a two-digit number in base b, n must be less than b^2, so sqrt(n) can be up to b*sqrt(b). Hmm, but sqrt(n) is s, so s can be up to sqrt(b^2 -1) ≈ b.
+
+Wait, in the example, b=13, s=9, which is 9 < 13 -1=12. So, s can be less than b -1.
+
+Therefore, my earlier conclusion that s must be 0 or 1 mod (b -1) might not hold because s can be in a lower range.
+
+Wait, perhaps I made a mistake in the congruence.
+
+Wait, let me go back. The condition is that (b -1) divides s(s -1). Since s and s -1 are coprime, (b -1) must divide either s or s -1.
+
+But in the example, s=9, b=13, so b -1=12.
+
+Does 12 divide 9 or 8? 12 doesn't divide 9 or 8. Wait, but in the example, 9^2 -9 =81 -9=72. 72 divided by 12 is 6, which is x. So, 72 is divisible by 12, but 12 doesn't divide 9 or 8. Hmm, that seems conflicting with the earlier reasoning.
+
+So, my mistake was assuming that because s and s -1 are coprime, (b -1) must divide s or s -1. But that's not necessarily the case. Instead, (b -1) must divide their product, but since they are coprime, the factors of (b -1) must be distributed between s and s -1.
+
+Therefore, it's possible that (b -1) has factors f1 and f2 such that f1 divides s and f2 divides s -1, where f1*f2 = b -1.
+
+Therefore, s ≡ 0 mod f1 and s ≡ 1 mod f2.
+
+This is similar to the Chinese Remainder Theorem.
+
+So, to find s such that s ≡ 0 mod f1 and s ≡ 1 mod f2, where f1*f2 = b -1, and f1, f2 are positive integers.
+
+Therefore, the number of solutions s in [ceil(sqrt(b)), b -1] depends on the number of factor pairs (f1, f2) of (b -1).
+
+This seems complicated, but maybe we can think of it as s must satisfy s ≡ 1 mod (b -1), but that's the same as s=1 + k*(b -1), but s must be less than or equal to b -1, so only s=1 is possible, which is not in the required range. Wait, no, that's not correct because s can be less than b -1.
+
+Alternatively, perhaps s needs to satisfy s ≡ 1 mod d, where d is a divisor of (b -1). Hmm, maybe.
+
+Wait, maybe it's better to think in terms of possible divisors.
+
+Let me formalize:
+
+Given that (b -1) divides s(s -1), and since s and s -1 are coprime, every prime factor of (b -1) must divide either s or s -1.
+
+Therefore, for each prime p dividing (b -1), p divides s or p divides s -1.
+
+Therefore, s ≡ 0 or 1 mod p for each prime p dividing (b -1).
+
+But since this has to hold for all prime factors, s must satisfy s ≡ 0 or 1 mod p for each p | (b -1).
+
+Thus, by the Chinese Remainder Theorem, the number of solutions s modulo (b -1) is 2^k, where k is the number of distinct prime factors of (b -1).
+
+But since we are dealing with s in [ceil(sqrt(b)), b -1], the number of solutions would be roughly (b -1)/ (b -1) * 2^k = 2^k. Hmm, not exactly, but it suggests that the number of s is related to the number of distinct prime factors of (b -1).
+
+But maybe this is getting too abstract. Let me try a different approach.
+
+Given that s^2 = x*b + y, and s = x + y, so y = s - x. Substituting into the first equation:
+
+s^2 = x*b + (s - x)
+
+So,
+
+s^2 = x*b + s - x
+
+Rearranging:
+
+s^2 - s = x*(b -1)
+
+So, x = (s^2 - s)/(b -1)
+
+Therefore, as before, x must be integer, so (s^2 - s) must be divisible by (b -1). So, (s^2 - s) ≡ 0 mod (b -1).
+
+Which can be written as s(s -1) ≡ 0 mod (b -1).
+
+Since s and s -1 are consecutive integers, they are coprime, so (b -1) must divide either s or s -1.
+
+But wait, this is the same as before. So, if (b -1) divides s, then s = k*(b -1), but since s < b, only k=1 is possible, so s = b -1.
+
+Alternatively, if (b -1) divides s -1, then s = m*(b -1) + 1.
+
+But s must be at least ceil(sqrt(b)), which for b ≥ 2, is at least 2.
+
+So, for each base b, s can be either b -1 or m*(b -1) +1, where m is such that s is within [ceil(sqrt(b)), b -1].
+
+But m*(b -1) +1 ≤ b -1 implies m=0, which gives s=1, but s ≥ ceil(sqrt(b)) ≥ 2, so s=1 is invalid.
+
+Therefore, the only possible s is s = b -1.
+
+But wait, in the example, b=13, s=9, which is less than 12. So, this contradicts the conclusion.
+
+But in the example, b=13, s=9, so s(s -1)=9*8=72, which is divisible by b -1=12, since 72/12=6. So, in this case, s=9, which is not b -1=12, but s=9 is still a solution because 12 divides 72.
+
+So, my previous reasoning that s must be 0 or 1 mod (b -1) is not entirely correct. It's not that s must be 0 or 1 mod (b -1), but rather that (b -1) must divide s(s -1). Since s and s -1 are coprime, each prime factor of (b -1) must divide either s or s -1.
+
+Therefore, s must satisfy s ≡ 0 mod d or s ≡ 1 mod d, where d is a divisor of (b -1). However, this is for each prime power divisor. So, s must satisfy a set of congruences.
+
+This is getting complex. Maybe I can think of it in terms of the equation s(s -1) ≡ 0 mod (b -1). So, for each base b, we can compute the number of s in [ceil(sqrt(b)), b -1] such that s(s -1) ≡ 0 mod (b -1).
+
+Alternatively, maybe it's better to fix s and compute b. But the problem is to find b such that there are more than ten b-eautiful numbers, i.e., more than ten s satisfying the conditions for a given b.
+
+Wait, but for each b, the number of s's is equal to the number of x's because each s corresponds to exactly one n, which is s^2. But in the example, s=9 gives n=81, which is b-eautiful. So, for each s, there is exactly one n. Therefore, the number of b-eautiful numbers is equal to the number of valid s's.
+
+Therefore, the problem reduces to, for each base b, count the number of integers s in [ceil(sqrt(b)), b -1] such that (s^2 - s) is divisible by (b -1), and x = (s^2 - s)/(b -1) is between 1 and b -1, and y = s - x is between 0 and b -1.
+
+Given that, perhaps the number of solutions s is equal to the number of divisors of (b -1), but I'm not sure.
+
+Wait, in the example, b=13, b -1=12. Let's see:
+
+s=9: 9*8=72, which is 12*6. So, x=6, y=3, which is valid.
+
+So, 72 is divisible by 12, so s=9 is a solution.
+
+Are there other s's in [ceil(sqrt(13))=4, 12] such that s(s -1) divisible by 12.
+
+Let's check s=4: 4*3=12, which is divisible by 12. Then x=12/12=1. Then y=4 -1=3. So, n=1*13 +3=16. Then sqrt(16)=4, which is equal to x + y=1+3=4. So, n=16 is also a 13-eautiful number.
+
+Similarly, s=5: 5*4=20. 20/12 is not integer, so no.
+
+s=6: 6*5=30. 30/12=2.5, not integer.
+
+s=7: 7*6=42. 42/12=3.5, not integer.
+
+s=8: 8*7=56. 56/12≈4.666, not integer.
+
+s=9: 9*8=72. 72/12=6, so x=6, y=3. So, n=6*13 +3=81, which is the example.
+
+s=10: 10*9=90. 90/12=7.5, not integer.
+
+s=11: 11*10=110. 110/12≈9.166, not integer.
+
+s=12: 12*11=132. 132/12=11. So, x=11, y=12 -11=1. So, n=11*13 +1=143 +1=144. sqrt(144)=12, which is x + y=11 +1=12. So, n=144 is also a 13-eautiful number.
+
+So, for b=13, s=4,9,12. So, three values of s, which correspond to n=16,81,144.
+
+Therefore, three b-eautiful numbers for b=13.
+
+So, in this case, b=13 has three b-eautiful numbers. The problem asks for the least b where there are more than ten such numbers.
+
+So, perhaps for each b, the number of b-eautiful numbers is equal to the number of divisors of (b -1). Wait, in the case of b=13, b -1=12, which has divisors:1,2,3,4,6,12. So, 6 divisors.
+
+But we saw that only s=4,9,12 were valid. So, three s's. So, the number of s's is not directly equal to the number of divisors.
+
+Wait, but maybe for each divisor d of (b -1), there's a corresponding s. Let's see.
+
+Given that, for each d | (b -1), can we find s such that s ≡0 mod d or s ≡1 mod d?
+
+But I'm not sure.
+
+Alternatively, for each base b, the number of solutions s is equal to the number of solutions to s(s -1) ≡0 mod (b -1) in the range [ceil(sqrt(b)), b -1].
+
+Which can be calculated by considering the prime factors of (b -1).
+
+Suppose (b -1) factors into primes as p1^k1 * p2^k2 *...* pn^kn.
+
+Then, by the Chinese Remainder Theorem, the number of solutions s modulo (b -1) is 2^m, where m is the number of distinct prime factors of (b -1). Because for each prime, s ≡0 or 1 mod pi, independently.
+
+But in our case, s is restricted to [ceil(sqrt(b)), b -1], so the number of solutions is roughly 2^m / (b -1) * (b -1 - ceil(sqrt(b)) +1). Hmm, not exactly.
+
+Wait, in the case of b=13, b -1=12, which has two distinct prime factors: 2 and 3. So, m=2, so number of solutions is 4. But in reality, we had three solutions: s=4,9,12. Hmm, not quite matching.
+
+Wait, in b=13, s=4,9,12. Let me check:
+
+s=4: 4≡0 mod 4, 4≡1 mod 3
+
+s=9: 9≡1 mod 4, 9≡0 mod 3
+
+s=12:12≡0 mod 4, 12≡0 mod 3.
+
+But wait, s=12: 12≡0 mod 4 and 3, so s=0 mod 12.
+
+But s=12 is in the range [4,12].
+
+So, the four solutions would be:
+
+1. s≡0 mod 4 and s≡0 mod 3: s=12
+
+2. s≡0 mod 4 and s≡1 mod 3: Let's solve s≡0 mod4, s≡1 mod3.
+
+Looking for s: 4k ≡1 mod3 => k≡1 mod3, so k=3m +1, so s=4*(3m +1)=12m +4.
+
+In the range [4,12], m=0: s=4
+
+m=1: s=16 >12, so only s=4.
+
+3. s≡1 mod4 and s≡0 mod3:
+
+s=4k +1, s≡0 mod3.
+
+4k +1 ≡0 mod3 => 4k ≡-1 mod3 => k≡1 mod3.
+
+So, k=3m +1, s=4*(3m +1)+1=12m +5.
+
+In the range [4,12], m=0: s=5, which is not in [4,12] because s=5 is in the range.
+
+Wait, s=5 is in [4,12], but 5*4=20, 5*4=20, 20/12 is not integer. So, s=5 is not a solution.
+
+Wait, but according to the equation, s=5 should satisfy s(s -1)=5*4=20, which is not divisible by 12.
+
+So, maybe the issue is that s has to satisfy s ≡0 or1 mod each prime power, but in the case of s=5, it's 1 mod4 and 2 mod3. So, doesn't satisfy the condition.
+
+So, in the range [4,12], only s=4 and s=12 satisfy s≡0 mod4 and s≡0 mod3, but s=5 is not a solution.
+
+Hmm, this is getting complicated.
+
+Alternatively, maybe I can consider that for each base b, the number of s is equal to the number of divisors of (b -1) multiplied by 2, but subtracted by something. But not sure.
+
+Alternatively, maybe for each base b, the number of s is equal to the number of solutions to s(s -1) ≡0 mod (b -1), which is equal to the number of solutions to s ≡0 or1 mod each prime power dividing (b -1).
+
+Which is a standard inclusion-exclusion principle.
+
+But maybe it's better to compute for small b and see a pattern.
+
+Let me start with small b and compute the number of b-eautiful numbers.
+
+Start with b=2:
+
+b=2: two-digit numbers in base 2 are 10_2=2, 11_2=3.
+
+Check if they are b-eautiful:
+
+n=2: "10"_2, x=1, y=0. x+y=1+0=1. sqrt(2)≈1.414≠1. So, not b-eautiful.
+
+n=3: "11"_2, x=1, y=1. x+y=2. sqrt(3)≈1.732≠2. Not b-eautiful.
+
+So, b=2 has 0 b-eautiful numbers.
+
+b=3:
+
+Two-digit numbers: 10_3=3, 11_3=4, 12_3=5.
+
+Check each:
+
+n=3: "10"_3, x=1, y=0. x+y=1. sqrt(3)≈1.732≠1.
+
+n=4: "11"_3, x=1, y=1. x+y=2. sqrt(4)=2. So, yes, b=3 has 1 b-eautiful number.
+
+n=5: "12"_3, x=1, y=2. x+y=3. sqrt(5)≈2.236≠3.
+
+So, only n=4 is b-eautiful for b=3.
+
+b=4:
+
+Two-digit numbers: 10_4=4, 11_4=5, 12_4=6, 13_4=7.
+
+Check each:
+
+n=4: "10"_4, x=1, y=0. x+y=1. sqrt(4)=2≠1.
+
+n=5: "11"_4, x=1, y=1. x+y=2. sqrt(5)≈2.236≠2.
+
+n=6: "12"_4, x=1, y=2. x+y=3. sqrt(6)≈2.449≠3.
+
+n=7: "13"_4, x=1, y=3. x+y=4. sqrt(7)≈2.645≠4.
+
+So, b=4 has 0 b-eautiful numbers.
+
+Wait, that's odd. Wait, did I compute correctly?
+
+Wait, n=7 in base 4 is "13", so x=1, y=3, x+y=4. sqrt(7)≈2.645≠4.
+
+So, no, indeed, no b-eautiful numbers for b=4.
+
+b=5:
+
+Two-digit numbers: 10_5=5, 11_5=6, 12_5=7, 13_5=8, 14_5=9.
+
+Check each:
+
+n=5: "10"_5, x=1, y=0. x+y=1. sqrt(5)≈2.236≠1.
+
+n=6: "11"_5, x=1, y=1. x+y=2. sqrt(6)≈2.449≠2.
+
+n=7: "12"_5, x=1, y=2. x+y=3. sqrt(7)≈2.645≠3.
+
+n=8: "13"_5, x=1, y=3. x+y=4. sqrt(8)≈2.828≠4.
+
+n=9: "14"_5, x=1, y=4. x+y=5. sqrt(9)=3≠5.
+
+So, b=5 has 0 b-eautiful numbers.
+
+b=6:
+
+Two-digit numbers: 10_6=6, 11_6=7, 12_6=8, 13_6=9, 14_6=10, 15_6=11.
+
+Check each:
+
+n=6: "10"_6, x=1, y=0. x+y=1≠sqrt(6).
+
+n=7: "11"_6, x=1, y=1. x+y=2≠sqrt(7).
+
+n=8: "12"_6, x=1, y=2. x+y=3≠sqrt(8).
+
+n=9: "13"_6, x=1, y=3. x+y=4≠sqrt(9)=3.
+
+n=10: "14"_6, x=1, y=4. x+y=5≠sqrt(10)≈3.162.
+
+n=11: "15"_6, x=1, y=5. x+y=6≠sqrt(11)≈3.316.
+
+So, b=6 has 0 b-eautiful numbers.
+
+b=7:
+
+Two-digit numbers: 10_7=7, 11_7=8, 12_7=9, 13_7=10, 14_7=11, 15_7=12, 16_7=13.
+
+Check each:
+
+n=7: "10"_7, x=1, y=0. x+y=1≠sqrt(7).
+
+n=8: "11"_7, x=1, y=1. x+y=2≠sqrt(8).
+
+n=9: "12"_7, x=1, y=2. x+y=3≠sqrt(9)=3. So, n=9 is b-eautiful.
+
+n=10: "13"_7, x=1, y=3. x+y=4≠sqrt(10)≈3.162.
+
+n=11: "14"_7, x=1, y=4. x+y=5≠sqrt(11)≈3.316.
+
+n=12: "15"_7, x=1, y=5. x+y=6≠sqrt(12)≈3.464.
+
+n=13: "16"_7, x=1, y=6. x+y=7≠sqrt(13)≈3.605.
+
+So, only n=9 is b-eautiful for b=7.
+
+b=8:
+
+Two-digit numbers: 10_8=8, 11_8=9, 12_8=10, 13_8=11, 14_8=12, 15_8=13, 16_8=14, 17_8=15.
+
+Check each:
+
+n=8: "10"_8, x=1, y=0. x+y=1≠sqrt(8).
+
+n=9: "11"_8, x=1, y=1. x+y=2≠sqrt(9)=3.
+
+n=10: "12"_8, x=1, y=2. x+y=3≠sqrt(10)≈3.162.
+
+n=11: "13"_8, x=1, y=3. x+y=4≠sqrt(11)≈3.316.
+
+n=12: "14"_8, x=1, y=4. x+y=5≠sqrt(12)≈3.464.
+
+n=13: "15"_8, x=1, y=5. x+y=6≠sqrt(13)≈3.605.
+
+n=14: "16"_8, x=1, y=6. x+y=7≠sqrt(14)≈3.741.
+
+n=15: "17"_8, x=1, y=7. x+y=8≠sqrt(15)≈3.872.
+
+So, b=8 has 0 b-eautiful numbers.
+
+b=9:
+
+Two-digit numbers: 10_9=9, 11_9=10, 12_9=11, 13_9=12, 14_9=13, 15_9=14, 16_9=15, 17_9=16, 18_9=17.
+
+Check each:
+
+n=9: "10"_9, x=1, y=0. x+y=1≠sqrt(9)=3.
+
+n=10: "11"_9, x=1, y=1. x+y=2≠sqrt(10)≈3.162.
+
+n=11: "12"_9, x=1, y=2. x+y=3≠sqrt(11)≈3.316.
+
+n=12: "13"_9, x=1, y=3. x+y=4≠sqrt(12)≈3.464.
+
+n=13: "14"_9, x=1, y=4. x+y=5≠sqrt(13)≈3.605.
+
+n=14: "15"_9, x=1, y=5. x+y=6≠sqrt(14)≈3.741.
+
+n=15: "16"_9, x=1, y=6. x+y=7≠sqrt(15)≈3.872.
+
+n=16: "17"_9, x=1, y=7. x+y=8≠sqrt(16)=4. So, n=16 is b-eautiful.
+
+n=17: "18"_9, x=1, y=8. x+y=9≠sqrt(17)≈4.123.
+
+So, only n=16 is b-eautiful for b=9.
+
+b=10:
+
+Two-digit numbers: 10_10=10, 11_10=11, ..., 99_10=99.
+
+But checking each is time-consuming, but let's see if n=16 is b-eautiful for b=10.
+
+n=16: "16"_10, x=1, y=6. x+y=7. sqrt(16)=4≠7. So, not b-eautiful.
+
+Wait, in the earlier case, for b=9, n=16 is b-eautiful because x+y=1+6=7≠sqrt(16)=4. So, it's not.
+
+Wait, earlier n=16 was b=13, which worked because x+y=9, which equals sqrt(16)=4. Wait, no. Wait, in b=13, n=16 is "13"_13, x=1, y=3, x+y=4, which equals sqrt(16)=4. So, that worked.
+
+But in base 10, n=16 is "16", so x=1, y=6. x+y=7≠sqrt(16)=4. So, not b-eautiful.
+
+So, moving on, let's check other n's for b=10.
+
+n=25: "25"_10, x=2, y=5. x+y=7≠sqrt(25)=5.
+
+n=36: "36"_10, x=3, y=6. x+y=9≠sqrt(36)=6.
+
+n=49: "49"_10, x=4, y=9. x+y=13≠7.
+
+Wait, but sqrt(49)=7. So, x+y=13≠7. Not b-eautiful.
+
+Wait, maybe n=36: "36", x=3, y=6, x+y=9≠6.
+
+Wait, is there any b-eautiful number for b=10?
+
+Let's check n=25: x=2, y=5. 2+5=7≠5.
+
+n=81: "81"_10, x=8, y=1. x+y=9. sqrt(81)=9. So, n=81 is b-eautiful.
+
+So, for b=10, n=81 is b-eautiful.
+
+Any others?
+
+n=100: But wait, n=100 is a three-digit number in base 10. So, not considered.
+
+Wait, but wait, n=81 is a two-digit number in base 10, so yes, it is considered. So, b=10 has at least one b-eautiful number.
+
+Wait, let's see if there are others.
+
+n=16: x=1, y=6. 1+6=7≠4. So, no.
+
+n=25: 2+5=7≠5.
+
+n=36: 3+6=9≠6.
+
+n=49:4+9=13≠7.
+
+n=64:6+4=10≠8.
+
+n=81:8+1=9=9. So, that works.
+
+n=100: three-digit, so ignore.
+
+So, only n=81 is b-eautiful for b=10.
+
+So, b=10 has 1 b-eautiful number.
+
+Wait, so far, the bases with b-eautiful numbers are b=3 (1), b=7 (1), b=9 (1), b=10 (1). Wait, no, for b=3, n=4 is b-eautiful, which is "11"_3. Then, for b=7, n=9 is b-eautiful, which is "13"_7. For b=9, n=16 is b-eautiful, which is "17"_9. For b=10, n=81 is b-eautiful, which is "81"_10.
+
+Wait, that seems inconsistent. So, maybe I need to look for more.
+
+Wait, let me go to b=12.
+
+b=12:
+
+Two-digit numbers: 10_12=12, 11_12=13, ..., up to 11_{12}=13_{10}... Wait, no, in base 12, two-digit numbers go from 10_{12}=12_{10} to BB_{12}=143_{10}.
+
+But let's look for n where n is a two-digit number in base 12, and x + y = sqrt(n).
+
+Let me check n=16: "14"_12, x=1, y=4. x+y=5, sqrt(16)=4≠5.
+
+n=25: "21"_12, x=2, y=1. x+y=3, sqrt(25)=5≠3.
+
+n=36: "30"_12, x=3, y=0. x+y=3≠6.
+
+n=49: "41"_12, x=4, y=1. x+y=5≠7.
+
+n=64: "54"_12, x=5, y=4. x+y=9≠8.
+
+n=81: "69"_12, x=6, y=9. x+y=15≠9.
+
+n=100: "84"_12, x=8, y=4. x+y=12≠10.
+
+n=121: "A1"_12, but that's three digits.
+
+Wait, is there a b-eautiful number?
+
+Wait, n=25: "21"_12, x=2, y=1. x+y=3≠sqrt(25)=5.
+
+n=16: x+y=5≠4.
+
+Wait, n=49: x+y=5≠7.
+
+Wait, n=25 is still not working.
+
+Wait, n=100: "84"_12, x=8, y=4. x+y=12≠10.
+
+Hmm, not working.
+
+Wait, maybe n=144: "100"_12, but that's three digits.
+
+Wait, maybe n=169: "117"_12, x=1, y=1, z=7. x+y=2≠13.
+
+Wait, not working.
+
+Wait, maybe n=225: "159"_12, x=1, y=5, z=9. x+y=6≠15.
+
+Hmm, not working.
+
+Wait, maybe n=100 is too big, but n=16: x+y=5≠4.
+
+Wait, perhaps in base 12, there are no b-eautiful numbers? Or maybe I need to check lower n.
+
+Wait, n=4: "4"_12, which is single-digit, so not considered.
+
+n=9: "9"_12, same.
+
+n=16: "14"_12, which is two-digit, but x+y=5≠4.
+
+Wait, is there any n where x + y = sqrt(n) in base 12?
+
+Let me think algebraically.
+
+For base 12, n = x*12 + y, and x + y = sqrt(n). So,
+
+sqrt(x*12 + y) = x + y.
+
+Square both sides:
+
+x*12 + y = (x + y)^2.
+
+So,
+
+(x + y)^2 -12x - y = 0.
+
+Which is,
+
+x^2 + 2xy + y^2 -12x - y = 0.
+
+Hmm, quadratic in x and y.
+
+Let me rearrange:
+
+x^2 + (2y -12)x + (y^2 - y) = 0.
+
+Treat this as a quadratic in x:
+
+x = [-(2y -12) ± sqrt((2y -12)^2 - 4*(y^2 - y))]/2.
+
+Compute discriminant:
+
+D = (2y -12)^2 - 4*(y^2 - y) = 4y² -48y +144 -4y² +4y = (-44y +144).
+
+So,
+
+x = [12 -2y ± sqrt(-44y +144)] /2.
+
+So, sqrt(-44y +144) must be integer. Let me denote sqrt(-44y +144) = k, integer.
+
+So,
+
+k² = -44y +144
+
+Thus,
+
+44y = 144 -k²
+
+So,
+
+y = (144 -k²)/44.
+
+Since y must be an integer between 0 and 11, let's find k such that 144 -k² is divisible by 44, and y is in [0,11].
+
+So, 144 -k² ≡0 mod44.
+
+Which implies k² ≡144 mod44.
+
+144 mod44: 44*3=132, 144-132=12, so 144≡12 mod44.
+
+So, k²≡12 mod44.
+
+Looking for k such that k² ≡12 mod44.
+
+Let me compute squares modulo 44:
+
+k:0-43.
+
+Compute k² mod44:
+
+Note that 44=4*11.
+
+Compute k² mod4 and mod11, then use Chinese Remainder Theorem.
+
+Compute k² ≡12 mod44.
+
+First, 12 mod4=0, so k²≡0 mod4. Thus, k must be even.
+
+Second, 12 mod11=1, so k²≡1 mod11.
+
+Solutions to k²≡1 mod11: k≡1 or 10 mod11.
+
+Thus, k must be even, and k≡1 or10 mod11.
+
+So, possible k's are numbers congruent to 1 or 10 mod11, and even.
+
+So, k can be:
+
+From 0 to sqrt(144)=12.
+
+So, k can be 0,1,...,12.
+
+But k² must be ≤144, so k≤12.
+
+So, possible k's:
+
+k=0: k²=0≡0≠12 mod44.
+
+k=1:1≡1≠0 mod4.
+
+k=2:4≡4≠0.
+
+k=3:9≡9≠0.
+
+k=4:16≡16≠0.
+
+k=5:25≡25≠0.
+
+k=6:36≡36≠0.
+
+k=7:49≡49-44=5≡5≠0.
+
+k=8:64≡64-44=20≡20≠0.
+
+k=9:81≡81-2*44=81-88=-7≡37≠0.
+
+k=10:100≡100-2*44=12≡12 mod44. So, k=10 satisfies k²≡12 mod44.
+
+k=11:121≡121-2*44=121-88=33≡33≠0.
+
+k=12:144≡12 mod44. So, k=12 also satisfies k²≡12 mod44.
+
+So, k=10 and k=12.
+
+So, compute y for k=10:
+
+y=(144 -100)/44=44/44=1.
+
+y=1.
+
+Then, x = [12 -2*1 ±10]/2.
+
+So, two possibilities:
+
+x=(12 -2 +10)/2=20/2=10,
+
+x=(12 -2 -10)/2=0/2=0.
+
+But x must be at least1, so x=10.
+
+So, x=10, y=1.
+
+n =10*12 +1=121.
+
+Check x + y=10 +1=11. sqrt(121)=11. So, n=121 is b-eautiful.
+
+Another solution for k=12:
+
+y=(144 -144)/44=0/44=0.
+
+Then, x=(12 -2*0 ±12)/2.
+
+So,
+
+x=(12 +12)/2=12,
+
+x=(12 -12)/2=0.
+
+But x must be at least1 and less than12, so x=12 is invalid, x=0 invalid. So, only x=10, y=1 is valid.
+
+Thus, for b=12, only n=121 is b-eautiful.
+
+So, b=12 has 1 b-eautiful number.
+
+Wait, but in b=13, we had 3 b-eautiful numbers. Maybe I need to check higher bases.
+
+Wait, perhaps the number of b-eautiful numbers increases as b increases, so maybe the minimal b is somewhere around 13 or higher.
+
+Wait, let me think of another approach.
+
+From the equation:
+
+x + y = sqrt(x*b + y)
+
+Let me denote s = x + y.
+
+Then,
+
+s^2 = x*b + y
+
+But y = s - x, so:
+
+s^2 = x*b + s - x
+
+Rearranged:
+
+s^2 - s = x*(b -1)
+
+Thus,
+
+x = (s^2 - s)/(b -1)
+
+Therefore, for x to be integer, (s^2 - s) must be divisible by (b -1). So, (b -1) divides s(s -1).
+
+Which is similar to before.
+
+Moreover, since x and y are digits in base b, x must be in [1, b -1], and y must be in [0, b -1].
+
+So, from x = (s^2 - s)/(b -1), we have:
+
+1 ≤ (s^2 - s)/(b -1) ≤ b -1
+
+Thus,
+
+(s^2 - s) ≥ b -1
+
+and
+
+(s^2 - s) ≤ (b -1)^2
+
+So,
+
+b -1 ≤ s^2 - s ≤ (b -1)^2
+
+Let me denote d = b -1, so d ≥1.
+
+Thus,
+
+d ≤ s^2 - s ≤ d^2
+
+So, s^2 - s must be between d and d², inclusive.
+
+So,
+
+d ≤ s² -s ≤ d²
+
+Which can be written as,
+
+s² - s - d ≥0,
+
+and
+
+s² - s - d² ≤0.
+
+So, solving for s in terms of d.
+
+First inequality:
+
+s² - s - d ≥0
+
+Solutions are s ≤ (1 - sqrt(1 +4d))/2 or s ≥ (1 + sqrt(1 +4d))/2.
+
+Since s is positive, we consider s ≥ (1 + sqrt(1 +4d))/2.
+
+Second inequality:
+
+s² -s -d² ≤0
+
+Solutions are (1 - sqrt(1 +4d²))/2 ≤ s ≤ (1 + sqrt(1 +4d²))/2.
+
+Again, s is positive, so s ≤ (1 + sqrt(1 +4d²))/2.
+
+Thus, the range for s is:
+
+ceil[(1 + sqrt(1 +4d))/2] ≤ s ≤ floor[(1 + sqrt(1 +4d²))/2]
+
+But since d = b -1, and b ≥2, d ≥1.
+
+So, for each d, we can compute the possible s's.
+
+Now, for each base b, d = b -1, we can compute the number of s in that range such that s(s -1) is divisible by d.
+
+Moreover, since x = (s² -s)/d must be integer and satisfy x ≤d and y =s -x ≤d.
+
+So, for each d, the number of s's such that s(s -1) divisible by d, and x and y within digit limits.
+
+Therefore, the number of b-eautiful numbers for base b is equal to the number of s in the range given above such that d divides s(s -1).
+
+Hence, to maximize the number of b-eautiful numbers, we need a d with many divisors, since s(s -1) must be divisible by d.
+
+So, d should be a number with many divisors, as for each divisor, there might be an s.
+
+But s also has to lie in a specific range.
+
+Wait, but s has to satisfy both s ≥ (1 + sqrt(1 +4d))/2 and s ≤ (1 + sqrt(1 +4d²))/2.
+
+So, the number of s's depends on the number of divisors of d, and the overlap of s in the required range.
+
+Alternatively, maybe the number of b-eautiful numbers is equal to the number of divisors of d in the range [something], but I'm not exactly sure.
+
+Alternatively, perhaps the number of s's is equal to the number of ways to factor d into two numbers, (s) and (s -1), but s and s -1 are coprime.
+
+Wait, s and s -1 are coprime, so for d to divide s(s -1), d must be a product of two coprime numbers, one dividing s and the other dividing s -1.
+
+So, the number of ways to write d as d1*d2, where d1 divides s and d2 divides s -1, and d1 and d2 are coprime.
+
+Therefore, the number of such s is equal to the number of divisors of d, considering the factorizations into coprime pairs.
+
+Wait, for each divisor d1 of d, co-prime to d/d1, we can set s ≡0 mod d1 and s ≡1 mod d/d1.
+
+By Chinese Remainder Theorem, each such pair (d1, d/d1) gives a unique solution for s modulo d.
+
+Therefore, the number of solutions s modulo d is equal to the number of ways to factor d into two coprime factors, which is 2^{k}, where k is the number of distinct prime factors of d.
+
+Therefore, the number of solutions s modulo d is 2^{k}, where k is the number of distinct prime factors of d.
+
+But s must lie in a specific range, as per the inequalities above.
+
+Therefore, the number of solutions s in the range [ceil((1 + sqrt(1 +4d))/2), floor((1 + sqrt(1 +4d²))/2)] is roughly 2^{k} per period.
+
+But since s must be positive, and the range is roughly proportional to sqrt(d²)=d, the number of solutions s is approximately 2^{k}.
+
+But this is a rough estimate.
+
+Therefore, to maximize the number of b-eautiful numbers, which is equal to the number of s's, we need d to have as many distinct prime factors as possible.
+
+So, d should be a number with many small prime factors, which would maximize 2^{k}.
+
+Hence, the minimal d with high number of distinct prime factors.
+
+For example, d=12=2^2*3, has two distinct prime factors, so k=2, so 2^{2}=4 solutions.
+
+Wait, let's check for d=12.
+
+Wait, earlier for d=12, b=13, and s=4,9,12.
+
+Wait, but in that case, s=4,9,12: three solutions.
+
+Hmm, which is less than 2^{2}=4.
+
+Wait, maybe my reasoning is incorrect.
+
+Wait, if d=12, then the number of co-prime factor pairs is more.
+
+Wait, d=12, which can be factored into (1,12), (3,4), (4,3), (12,1). But since 3 and4 are coprime, and 4 and3 are coprime. So, the number of co-prime factor pairs is four.
+
+But when considering s, each co-prime pair (d1, d2) gives a unique solution modulo d.
+
+Therefore, the number of solutions s modulo d is four.
+
+Thus, in the range of s from ceil[(1 + sqrt(1 +4d))/2] to floor[(1 + sqrt(1 +4d²))/2], the number of solutions s would be approximately four.
+
+But in our case, for d=12, we found three solutions: s=4,9,12.
+
+Wait, which is close to four. So, maybe it's four solutions.
+
+But in the earlier case, we have s=4,9,12, but s=16 is outside the range.
+
+Wait, maybe the exact number is four, but some solutions lie outside the required range.
+
+So, for d=12, the number of s's is four, but only three lie within the range.
+
+So, perhaps, in general, the number of b-eautiful numbers is equal to the number of co-prime factor pairs, which is 2^{k}, where k is the number of distinct prime factors of d.
+
+But some of these may lie outside the required range.
+
+Hence, the minimal base b where this number exceeds ten would require d= b -1 to have a sufficiently high number of distinct prime factors.
+
+But let me think. For d=2^k, the number of co-prime factor pairs is small, only two: (1,d) and (d,1). So, the number of solutions s is two.
+
+But for d with more prime factors, the number of solutions s increases.
+
+To get more than ten b-eautiful numbers, we need d= b -1 to have a number of solutions s exceeding ten.
+
+Given that, for d=2^k, we get two solutions s, which is too small.
+
+But for d with more prime factors, say d=2*3*5*7, which has four prime factors, the number of co-prime factor pairs is 2^4=16, so 16 solutions s modulo d.
+
+But in the range, depending on d, perhaps only some of these s's lie within the required range.
+
+But for d=2*3*5*7=210, which is quite large.
+
+Wait, the number of solutions s is 2^{k} where k is the number of distinct prime factors of d.
+
+So, to get more than ten b-eautiful numbers, we need 2^{k} >10.
+
+Since 2^4=16>10, so k=4. Thus, d needs to have four distinct prime factors.
+
+So, the minimal d with four distinct prime factors is d=2*3*5*7=210.
+
+Therefore, b= d +1=211.
+
+But that seems too large. Maybe I'm miscalculating.
+
+Wait, the number of solutions s modulo d is 2^{k}, but in reality, each co-prime factor pair (d1, d2) where d1*d2=d, gives a unique solution s modulo d.
+
+So, for each such solution, s can be written as s ≡0 mod d1 and s≡1 mod d2, or vice versa.
+
+Therefore, for each co-prime factor pair, you get one solution.
+
+So, the number of solutions s modulo d is equal to the number of co-prime factor pairs, which is 2^{k}, where k is the number of distinct prime factors.
+
+Therefore, for d=2*3*5*7=210, which has four distinct prime factors, the number of solutions s modulo d is 16.
+
+But in reality, the number of solutions s is equal to the number of co-prime factor pairs, which is 2^{k}, but since each pair is counted twice (d1, d2) and (d2, d1), we need to adjust.
+
+Wait, actually, for each unordered pair {d1, d2}, there are two ordered pairs.
+
+But in our case, each ordered pair gives a unique solution.
+
+Therefore, the number of solutions s modulo d is 2^{k}, which for k=4 is16.
+
+So, for d=210, the number of solutions s modulo d is16.
+
+Now, the range for s is:
+
+ceil[(1 + sqrt(1 +4d))/2] ≤ s ≤ floor[(1 + sqrt(1 +4d²))/2]
+
+Compute for d=210:
+
+Compute lower bound:
+
+sqrt(1 +4*210)=sqrt(1 +840)=sqrt(841)=29.
+
+Thus,
+
+(1 +29)/2=15.
+
+Upper bound:
+
+sqrt(1 +4*210²)=sqrt(1 +4*44100)=sqrt(1 +176400)=sqrt(176401)=420.000...something.
+
+(1 +420)/2=210.5.
+
+So, s must be in [15,210]. Since s is positive integer, s can be from15 up to210.
+
+But s needs to satisfy s(s -1) divisible by d=210.
+
+Each solution s modulo210 corresponds to a unique s in this range.
+
+Therefore, as we have16 solutions s modulo210, so in the range [15,210], all16 solutions lie within, so n=16 solutions.
+
+Wait, but this seems high.
+
+Wait, but for each solution s modulo210, s is unique in the range [15,210], so the number of solutions is16.
+
+But since s must be at least15 and less than or equal to210, and s can take16 distinct values.
+
+Therefore, for d=210, which gives b=211, the number of b-eautiful numbers is16, which is more than10.
+
+But is211 the minimal such base?
+
+Wait, because 210 is the minimal d with four distinct prime factors.
+
+But maybe a smaller d with k=4? Wait, 210 is the minimal d with four distinct prime factors. So, d=210 is the minimal.
+
+But let me check if for d=2^3*3*5=120, which has four prime factors (2,3,5), but with exponents. So, the number of co-prime factor pairs would still be 2^3=8, since k=3.
+
+Similarly, for d=2^2*3*5=60, which has k=3.
+
+So, k=3 gives 8 solutions s modulo d.
+
+Therefore, to get more than ten b-eautiful numbers, we need k=4, which gives16 solutions s.
+
+Therefore, the minimal d is210, so minimal b=211.
+
+But wait, before concluding, perhaps I can check d=30=2*3*5, which has k=3.
+
+So, the number of solutions s is8.
+
+Let me see:
+
+For d=30, b=31.
+
+So, s must satisfy:
+
+30 ≤ s² -s ≤900.
+
+s² - s -30 ≥0.
+
+s² - s -900 ≤0.
+
+Solving s² -s -30=0:
+
+s=(1 + sqrt(1 +120))/2=(1 + sqrt(121))/2=(1 +11)/2=6.
+
+s² -s -900=0:
+
+s=(1 + sqrt(1 +3600))/2=(1 + sqrt(3601))/2=(1 +60.008)/2≈30.5.
+
+So, s ranges from6 to30.
+
+So, s in [6,30].
+
+Number of s with s(s -1) divisible by30.
+
+Number of such s's is equal to number of co-prime factor pairs of30, which is 2^3=8.
+
+Therefore, there are8 solutions s in [6,30].
+
+So, for d=30, b=31, there are8 b-eautiful numbers.
+
+Similarly, for d=210, which is2*3*5*7, k=4, we get16 solutions s in [15,210], so n=16 b-eautiful numbers.
+
+Wait, but 16 is more than10, which is the required number.
+
+But is there a d between30 and210 with more than10 solutions s?
+
+Wait, d=60=2^2*3*5, which hask=3, so8 solutions s.
+
+Similarly, d=120=2^3*3*5, which also hask=3, so8 solutions s.
+
+d=210=2*3*5*7, which hask=4, so16 solutions s.
+
+Therefore, to get more than10 b-eautiful numbers, base b must have d=b -1 withk≥4.
+
+Thus, minimal d=210, so minimal b=211.
+
+But wait, is there a smaller d withk=4?
+
+Wait, 210 is the smallest number with four distinct prime factors.
+
+Numbers like 165=3*5*11, but 165 is smaller than210? No, 165 is165, which is less than210.
+
+Wait, 165 is3*5*11, which has three prime factors, so k=3.
+
+Thus, for d=165, the number of s's is2^3=8.
+
+So, for d=165, b=166, which gives8 solutions s in [something], so n=8, which is less than10.
+
+Similarly, d=210 is the first d with four distinct prime factors.
+
+Therefore, the minimal b is211.
+
+But wait, let me confirm with d=105=3*5*7, which has three prime factors. So, number of solutions s is8.
+
+But in the range:
+
+For d=105,
+
+Lower bound: (1 + sqrt(1 +420))/2=(1 +20.5)/2≈10.75.
+
+Upper bound: (1 + sqrt(1 +4*105²))/2=(1 + sqrt(1 +44100))/2=(1 +210)/2=105.5.
+
+So, s ranges from11 to105.
+
+s(s-1) must be divisible by105.
+
+Number of solutions s is8.
+
+So, n=8.
+
+Therefore, for b=106, we have8 b-eautiful numbers.
+
+Similarly, for d=126=2*3^2*7, which hask=3, so8 solutions s.
+
+So, n=8.
+
+Thus, until d=210, the number of solutions s is8, which is less than10. Only when d=210, we get16 solutions s, which is more than10.
+
+Therefore, minimal b is211.
+
+But before confirming, let me check d=210, b=211.
+
+s ranges from15 to210.
+
+Number of b-eautiful numbers is16.
+
+So, that's 16>10, which satisfies the condition.
+
+But is there a smaller d with more than10 solutions?
+
+Wait, for d=168=2^3*3*7, which hask=3, so8 solutions s.
+
+Similarly, for d=198=2*3^2*11, which hask=3, so8 solutions s.
+
+So, no, the minimal d with four distinct prime factors is210, so minimal b=211.
+
+Therefore, the least integer b≥2 is211.
+
+But wait, hold on, is d=210 indeed the minimal d with four distinct prime factors?
+
+Wait, number d=2*3*5*7=210, yes.
+
+But number d=2*3*5*7=210 is the smallest number with four distinct prime factors.
+
+Wait, number d=2*3*5*7=210.
+
+But 2*3*5*7=210.
+
+Wait, 2*3*5=30, which has three prime factors.
+
+So, 210 is the minimal d with four.
+
+Therefore, yes, minimal b=211.
+
+Therefore, the answer is\boxed{211}.
+
+**Final Answer**
+\boxed{211}
+</think>
+
+To solve the problem, we need to find the least integer \( b \geq 2 \) for which there are more than ten \( b \)-eautiful integers. A number \( n \) is called \( b \)-eautiful if it has exactly two digits in base \( b \) and these two digits sum to \( \sqrt{n} \).
+
+1. **Understanding the Problem**:
+   - A two-digit number in base \( b \) can be expressed as \( n = x \cdot b + y \) where \( x \) and \( y \) are digits in base \( b \).
+   - The sum of these digits \( x + y \) must equal \( \sqrt{n} \).
+   - This leads to the equation \( x + y = \sqrt{x \cdot b + y} \).
+
+2. **Deriving the Equation**:
+   - Squaring both sides, we get \( (x + y)^2 = x \cdot b + y \).
+   - Rearranging, we find \( x \cdot (b - 1) = y \cdot (b - 1) \) when considering the equation modulo \( b - 1 \).
+
+3. **Analyzing the Equation**:
+   - The equation \( s^2 - s = x \cdot (b - 1) \) must hold, where \( s = x + y \).
+   - This implies \( x = \frac{s^2 - s}{b - 1} \) must be an integer.
+
+4. **Finding the Number of Solutions**:
+   - The number of solutions \( s \) depends on the number of divisors of \( b - 1 \).
+   - For \( b \)-eautiful numbers to exceed ten, \( b - 1 \) must have a sufficient number of distinct prime factors.
+
+5. **Conclusion**:
+   - The minimal \( b - 1 \) with four distinct prime factors is 210 (since 210 = 2 * 3 * 5 * 7).
+   - Therefore, the minimal \( b \) is 211, which gives more than ten \( b \)-eautiful numbers.
+
+Thus, the least integer \( b \geq 2 \) for which there are more than ten \( b \)-eautiful integers is \(\boxed{211}\).

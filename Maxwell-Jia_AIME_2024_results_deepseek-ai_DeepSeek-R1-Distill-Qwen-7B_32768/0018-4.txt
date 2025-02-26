@@ -1,0 +1,1412 @@
+Tokens: 26874.6
+
+Question:
+Let $b \geq 2$ be an integer. Call a positive integer $n$ $b$\textit{-eautiful} if it has exactly two digits when expressed in base $b$, and these two digits sum to $\sqrt{n}$. For example, $81$ is $13$-eautiful because $81=\underline{6}\underline{3}_{13}$ and $6+3=\sqrt{81}$. Find the least integer $b \geq 2$ for which there are more than ten $b$-eautiful integers.
+
+Correct Answer:
+We write the base-$b$ two-digit integer as $\left( xy \right)_b$. Thus, this number satisfies 
+$\left( x + y \right)^2 = b x + y$ with $x \in \left\{ 1, 2, \cdots , b-1 \right\}$ and $y \in \left\{ 0, 1, \cdots , b - 1 \right\}$.
+The above conditions imply $\left( x + y \right)^2 < b^2$. Thus, $x + y \leq b - 1$.
+The above equation can be reorganized as 
+$\left( x + y \right) \left( x + y - 1 \right) = \left( b - 1 \right) x$.
+Denote $z = x + y$ and $b' = b - 1$. Thus, we have 
+$z \left( z - 1 \right) = b' x , \hspace{1cm} (1)$ where $z \in \left\{ 2, 3, \cdots , b' \right\}$ and $x \in \left\{ 1, 2, \cdots , b' \right\}$.
+Next, for each $b'$, we solve Equation (1).
+We write $b'$ in the prime factorization form as $b' = \Pi_{i=1}^n p_i^{k_i}$. Let $\left(A, \bar A \right)$ be any ordered partition of $\left\{ 1, 2, \cdots , n \right\}$ (we allow one set to be empty). Denote $P_A = \Pi_{i \in A} p_i^{k_i}$ and $P_{\bar A} = \Pi_{i \in \bar A} p_i^{k_i}$.
+Because ${\rm gcd} \left( z, z-1 \right) = 1$, there must exist such an ordered partition, such that $P_A | z$ and $P_{\bar A} | z-1$.
+Next, we prove that for each ordered partition $\left( A, \bar A \right)$, if a solution of $z$ exists, then it must be unique.
+Suppose there are two solutions of $z$ under partition $\left( A, \bar A \right)$: $z_1 = c_1 P_A$, $z_1 - 1 = d_1 P_{\bar A}$, and $z_2 = c_2 P_A$, $z_2 - 1 = d_2 P_{\bar A}$. W.L.O.G., assume $c_1 < c_2$. Hence, we have 
+$\left( c_2 - c_1 \right) P_A = \left( d_2 - d_1 \right) P_{\bar A}.$
+Because ${\rm gcd} \left( P_A, P_{\bar A} \right) = 1$ and $c_1 < c_2$, there exists a positive integer $m$, such that $c_2 = c_1 + m P_{\bar A}$ and $d_2 = d_1 + m P_A$. Thus, $z_2=z_1+mP_{A}P_{\bar A}=z_1+mb^{'}>b^{'}$.
+However, recall $z_2 \leq b'$. We get a contradiction. Therefore, under each ordered partition for $b'$, the solution of $z$ is unique.
+Note that if $b'$ has $n$ distinct prime factors, the number of ordered partitions is $2^n$. Therefore, to find a $b'$ such that the number of solutions of $z$ is more than 10, the smallest $n$ is 4.
+With $n = 4$, the smallest number is $2 \cdot 3 \cdot 5 \cdot 7 = 210$. Now, we set $b' = 210$ and check whether the number of solutions of $z$ under this $b'$ is more than 10.
+We can easily see that all ordered partitions (except $A = \emptyset$) guarantee feasible solutions of $z$. Therefore, we have found a valid $b'$. Therefore, $b = b' + 1 = \boxed{\textbf{(211)}}$.
+
+Gold:
+\textbf{(211)}
+
+Wrong Prediction:
+2
+
+Wrong Answer:
+Alright, so I need to solve this problem where I have to find the least integer \( b \geq 2 \) such that there are more than ten \( b \)-eautiful integers. Let me try to break this down step by step.
+
+First, let me understand what a \( b \)-eautiful number is. The problem says a positive integer \( n \) is \( b \)-eautiful if two conditions are satisfied:
+
+1. When \( n \) is expressed in base \( b \), it has exactly two digits.
+2. The sum of these two digits equals \( \sqrt{n} \).
+
+The example given is that \( 81 \) is \( 13 \)-eautiful because in base \( 13 \), \( 81 \) is written as \( 63_{13} \) (since \( 6 \times 13 + 3 = 81 \)), and \( 6 + 3 = 9 = \sqrt{81} \).
+
+So, my goal is to find the smallest \( b \) such that there are more than ten \( b \)-eautiful numbers. That means I need to figure out for each base \( b \), how many numbers \( n \) satisfy these two conditions, and find the smallest \( b \) where this count exceeds ten.
+
+Let me think about how to model this mathematically.
+
+First, any two-digit number in base \( b \) can be expressed as \( n = a \times b + c \), where \( a \) and \( c \) are the digits. Since it's a two-digit number, \( a \) must be at least 1 and at most \( b - 1 \), and \( c \) must be between 0 and \( b - 1 \) inclusive.
+
+So, \( a \) can take values from 1 to \( b - 1 \), and \( c \) can take values from 0 to \( b - 1 \). Therefore, the number \( n \) can be written as \( n = ab + c \).
+
+The second condition is that \( a + c = \sqrt{n} \). So, \( a + c = \sqrt{ab + c} \). Let me write that equation down:
+
+\( a + c = \sqrt{ab + c} \)
+
+If I square both sides to eliminate the square root, it becomes:
+
+\( (a + c)^2 = ab + c \)
+
+Expanding the left side:
+
+\( a^2 + 2ac + c^2 = ab + c \)
+
+Let me rearrange this equation:
+
+\( a^2 + 2ac + c^2 - ab - c = 0 \)
+
+Simplify:
+
+\( a^2 + (2c - b)a + (c^2 - c) = 0 \)
+
+Hmm, this is a quadratic equation in terms of \( a \). Let me denote this as:
+
+\( a^2 + (2c - b)a + (c^2 - c) = 0 \)
+
+So, for each \( c \), we can solve for \( a \) in this quadratic equation. But since \( a \) and \( c \) are digits, they must be integers within their respective ranges.
+
+Alternatively, maybe I can express \( n \) in terms of \( a + c \). Let me denote \( s = a + c \). Then, \( n = s^2 \), since \( a + c = \sqrt{n} \). So, each \( n \) must be a perfect square.
+
+So, \( n = s^2 \), and \( s = a + c \). Also, \( n \) must be a two-digit number in base \( b \), so:
+
+\( b \leq n \leq b^2 - 1 \), since the smallest two-digit number in base \( b \) is \( 10_b = b \), and the largest is \( (b-1)(b) + (b-1) = b^2 - 1 \).
+
+Therefore, \( b \leq s^2 \leq b^2 - 1 \). Taking square roots, \( \sqrt{b} \leq s \leq \sqrt{b^2 - 1} \).
+
+But \( s \) is an integer, so \( s \) must satisfy:
+
+\( \lceil \sqrt{b} \rceil \leq s \leq \lfloor \sqrt{b^2 - 1} \rfloor \)
+
+But \( \sqrt{b^2 - 1} \) is slightly less than \( b \), so \( \lfloor \sqrt{b^2 - 1} \rfloor = b - 1 \). Therefore, \( s \) can range from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \).
+
+So, for each base \( b \), the possible values of \( s \) are integers from \( \lceil \sqrt{b} \rceil \) up to \( b - 1 \). For each \( s \), we can find pairs \( (a, c) \) such that \( a + c = s \) and \( n = ab + c = s^2 \).
+
+So, for each \( s \), the equation is \( ab + c = s^2 \), with \( a + c = s \).
+
+Let me substitute \( c = s - a \) into the first equation:
+
+\( ab + (s - a) = s^2 \)
+
+Simplify:
+
+\( ab + s - a = s^2 \)
+
+Factor \( a \):
+
+\( a(b - 1) + s = s^2 \)
+
+Therefore:
+
+\( a(b - 1) = s^2 - s \)
+
+So,
+
+\( a = \frac{s^2 - s}{b - 1} \)
+
+Since \( a \) must be an integer between 1 and \( b - 1 \), inclusive, \( \frac{s^2 - s}{b - 1} \) must be an integer in that range.
+
+Therefore, for each \( s \) from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \), we can compute \( a \) as \( \frac{s(s - 1)}{b - 1} \) and check if it is an integer between 1 and \( b - 1 \).
+
+Moreover, \( c = s - a \) must be an integer between 0 and \( b - 1 \). So, \( c \) must satisfy \( 0 \leq s - a \leq b - 1 \).
+
+Given that \( a \) is positive, \( c = s - a \) must be non-negative, so \( a \leq s \).
+
+Since \( a = \frac{s(s - 1)}{b - 1} \), let's write that:
+
+\( \frac{s(s - 1)}{b - 1} \leq s \)
+
+Multiply both sides by \( b - 1 \) (which is positive since \( b \geq 2 \)):
+
+\( s(s - 1) \leq s(b - 1) \)
+
+Divide both sides by \( s \) (since \( s \geq 1 \)):
+
+\( s - 1 \leq b - 1 \)
+
+Which simplifies to:
+
+\( s \leq b \)
+
+But \( s \) is already at most \( b - 1 \), so this condition is automatically satisfied.
+
+Another condition is that \( c = s - a \) must be less than \( b \):
+
+\( c = s - a = s - \frac{s(s - 1)}{b - 1} \leq b - 1 \)
+
+Let me compute \( c \):
+
+\( c = s - \frac{s(s - 1)}{b - 1} = \frac{s(b - 1) - s(s - 1)}{b - 1} = \frac{s(b - 1 - (s - 1))}{b - 1} = \frac{s(b - s)}{b - 1} \)
+
+So, \( c = \frac{s(b - s)}{b - 1} \)
+
+Since \( c \) must be an integer between 0 and \( b - 1 \), inclusive, \( \frac{s(b - s)}{b - 1} \) must be an integer in that range.
+
+So, summarizing:
+
+For each \( s \) from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \):
+
+1. Compute \( a = \frac{s(s - 1)}{b - 1} \). \( a \) must be integer, and \( 1 \leq a \leq b - 1 \).
+2. Compute \( c = \frac{s(b - s)}{b - 1} \). \( c \) must be integer, and \( 0 \leq c \leq b - 1 \).
+
+Therefore, for each \( s \), both \( a \) and \( c \) must be integers within their respective ranges. So, for each \( b \), we can iterate over \( s \) and count the number of valid \( s \) that produce integer \( a \) and \( c \).
+
+So, the number of \( b \)-eautiful numbers is equal to the number of valid \( s \) that satisfy these conditions.
+
+Therefore, to find the least \( b \) with more than ten \( b \)-eautiful numbers, I need to compute for each \( b \) starting from 2 upwards, count the number of \( s \) that satisfy the above conditions, and find the smallest \( b \) where this count exceeds 10.
+
+This seems computational, so perhaps I can look for patterns or mathematical relationships that can help me find \( b \) without having to test each one individually.
+
+Let me first note that \( a = \frac{s(s - 1)}{b - 1} \). Since \( a \) must be an integer, \( b - 1 \) must divide \( s(s - 1) \). Similarly, \( c = \frac{s(b - s)}{b - 1} \) must also be an integer, so \( b - 1 \) must divide \( s(b - s) \).
+
+Therefore, \( b - 1 \) must divide both \( s(s - 1) \) and \( s(b - s) \).
+
+But let's analyze \( s(b - s) \):
+
+\( s(b - s) = sb - s^2 \)
+
+And \( s(s - 1) = s^2 - s \)
+
+So, \( b - 1 \) divides both \( s^2 - s \) and \( sb - s^2 \).
+
+Let me denote \( d = b - 1 \). So, \( d \) divides both \( s^2 - s \) and \( s b - s^2 \).
+
+But \( b = d + 1 \). So, substituting \( b = d + 1 \) into \( s b - s^2 \):
+
+\( s(d + 1) - s^2 = s d + s - s^2 = s d + s(1 - s) \)
+
+But \( d \) divides \( s^2 - s \), so \( d \) divides \( s^2 - s \).
+
+Similarly, \( d \) divides \( s d + s(1 - s) \). Let me write that as:
+
+\( s d + s(1 - s) = s d + s - s^2 = s(d + 1) - s^2 = s b - s^2 \)
+
+But since \( d \) divides both \( s^2 - s \) and \( s b - s^2 \), it must divide their sum or difference.
+
+Let me compute the difference:
+
+\( (s b - s^2) - s(d + 1 - s) = s b - s^2 - s d - s + s^2 = s b - s d - s \)
+
+But \( s b - s d - s = s(b - d - 1) \). Since \( d = b - 1 \), \( b - d - 1 = b - (b - 1) - 1 = 0 \). So, the difference is zero. Hmm, that doesn't help much.
+
+Alternatively, maybe I can consider that \( d \) divides \( s^2 - s \) and \( s b - s^2 \).
+
+Let me express \( s b - s^2 \) as \( s(b - s) \). So, \( d \) divides \( s(b - s) \). Since \( d \) divides \( s(s - 1) \), and \( d \) divides \( s(b - s) \), perhaps there is a relationship here.
+
+Alternatively, perhaps I can use the fact that \( d \) divides \( s(s - 1) \) and \( d \) divides \( s(b - s) \). Since \( d \) divides both, \( d \) must divide any linear combination of these. For example, \( d \) divides \( s(b - s) + k s(s - 1) \) for any integer \( k \).
+
+Let me choose \( k = (b - s) \), then:
+
+\( s(b - s) + (b - s)s(s - 1) = s(b - s)(1 + s - 1) = s(b - s)s = s^2(b - s) \)
+
+But this seems a bit convoluted.
+
+Alternatively, perhaps I can think in terms of the greatest common divisor (GCD). Let me compute \( \gcd(s(s - 1), s(b - s)) \).
+
+Since \( \gcd(s(s - 1), s(b - s)) \) is equal to \( s \times \gcd(s - 1, b - s) \). Because \( s \) is a common factor.
+
+Therefore, \( d \) must divide \( s \times \gcd(s - 1, b - s) \).
+
+But \( d = b - 1 \). So, \( b - 1 \) must divide \( s \times \gcd(s - 1, b - s) \).
+
+This might not be immediately helpful, but perhaps gives some insight.
+
+Alternatively, let's think about \( a = \frac{s(s - 1)}{d} \) and \( c = \frac{s(b - s)}{d} \). Since both \( a \) and \( c \) are integers, it's necessary that \( d \) divides both \( s(s - 1) \) and \( s(b - s) \).
+
+Given that \( d \) and \( s \) might not be coprime, perhaps we can write \( s \) as a multiple of some factor.
+
+Wait, maybe let me fix \( d \) and see how \( s \) varies.
+
+But before that, perhaps I can consider specific values of \( b \) and see how the count of \( b \)-eautiful numbers behaves.
+
+Let me try small bases and see how many \( b \)-eautiful numbers they have.
+
+Starting with \( b = 2 \):
+
+- Base 2: two-digit numbers are 2 and 3 (since in base 2, two-digit numbers go from \( 10_2 = 2 \) to \( 11_2 = 3 \)).
+
+So \( n \) can be 2 or 3.
+
+Let's check if they are \( b \)-eautiful.
+
+First, \( n = 2 \): in base 2, it's \( 10_2 \). So digits are 1 and 0. Sum is 1 + 0 = 1. \( \sqrt{2} \) is approximately 1.414, which is not 1. So 2 is not 2-eautiful.
+
+Next, \( n = 3 \): in base 2, it's \( 11_2 \). Sum of digits is 1 + 1 = 2. \( \sqrt{3} \) is approximately 1.732, which is not equal to 2. So 3 is not 2-eautiful.
+
+So, base 2 has 0 \( b \)-eautiful numbers.
+
+Moving on to \( b = 3 \):
+
+Two-digit numbers in base 3: 3, 4, 5, 6, 7, 8.
+
+Check each:
+
+1. \( n = 3 \): base 3 is \( 10_3 \). Sum of digits: 1 + 0 = 1. \( \sqrt{3} \approx 1.732 \neq 1 \).
+2. \( n = 4 \): base 3 is \( 11_3 \). Sum: 1 + 1 = 2. \( \sqrt{4} = 2 \). So, 4 is 3-eautiful.
+3. \( n = 5 \): base 3 is \( 12_3 \). Sum: 1 + 2 = 3. \( \sqrt{5} \approx 2.236 \neq 3 \).
+4. \( n = 6 \): base 3 is \( 20_3 \). Sum: 2 + 0 = 2. \( \sqrt{6} \approx 2.449 \neq 2 \).
+5. \( n = 7 \): base 3 is \( 21_3 \). Sum: 2 + 1 = 3. \( \sqrt{7} \approx 2.645 \neq 3 \).
+6. \( n = 8 \): base 3 is \( 22_3 \). Sum: 2 + 2 = 4. \( \sqrt{8} \approx 2.828 \neq 4 \).
+
+So, only 4 is 3-eautiful. So, count is 1.
+
+Base 4:
+
+Two-digit numbers: 4 to 15.
+
+I can go through each, but maybe it's time-consuming. Alternatively, perhaps we can find a pattern or formula.
+
+Wait, maybe I can think in terms of \( s \). For a given \( b \), \( s \) ranges from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \).
+
+So, for each \( b \), the number of \( b \)-eautiful numbers is equal to the number of integers \( s \) in that range for which \( d = b - 1 \) divides \( s(s - 1) \) and \( s(b - s) \).
+
+Alternatively, since \( a = \frac{s(s - 1)}{d} \) must be integer, and \( c = \frac{s(b - s)}{d} \) must also be integer.
+
+So, for each \( s \), \( d \) must divide both \( s(s - 1) \) and \( s(b - s) \). Let me consider \( d \) dividing \( s(s - 1) \). Since \( d \) and \( s \) might share a common factor, perhaps \( d \) divides \( s(s - 1) \) and \( s(b - s) \). So, \( d \) divides any linear combination, like \( s(s - 1) + s(b - s) = s(b - 1) \). So, \( d \) divides \( s(b - 1) \). But \( d = b - 1 \), so \( b - 1 \) divides \( s(b - 1) \), which is trivially true. So, that doesn't give us much.
+
+Alternatively, perhaps \( d \) divides \( s(s - 1) \). So, \( b - 1 \) divides \( s(s - 1) \).
+
+Let me denote \( k = b - 1 \). Then, \( k \) divides \( s(s - 1) \). So, \( k \) divides \( s(s - 1) \).
+
+Similarly, \( k \) divides \( s(b - s) = s(k + 1 - s) \). So, \( k \) divides \( s(k + 1 - s) \).
+
+So, \( k \) divides \( s(k + 1 - s) \). Let me write this as \( k \) divides \( s(k + 1 - s) \).
+
+But since \( k \) divides \( s(s - 1) \), and \( k \) divides \( s(k + 1 - s) \), perhaps we can find a relationship.
+
+Alternatively, since \( k \) divides both \( s(s - 1) \) and \( s(k + 1 - s) \), it must divide their combination.
+
+Let me subtract \( s(k + 1 - s) \) from \( s(s - 1) \):
+
+\( s(s - 1) - s(k + 1 - s) = s^2 - s - s k - s + s^2 = 2s^2 - 2s - s k \)
+
+But \( k \) divides \( s(s - 1) \) and \( s(k + 1 - s) \), so \( k \) must divide \( 2s^2 - 2s - s k \).
+
+But \( 2s^2 - 2s - s k = s(2s - 2 - k) \). Since \( k \) divides \( s(s - 1) \), and \( k \) divides \( s(2s - 2 - k) \), perhaps \( k \) divides \( 2s - 2 - k \) multiplied by something. It's getting messy.
+
+Maybe another approach.
+
+Since \( k \) divides \( s(s - 1) \), then \( s(s - 1) \) is a multiple of \( k \). So, \( s \equiv 0 \) or \( 1 \mod k \). But \( s \) is less than \( k \), since \( s \leq b - 1 = k \). Therefore, \( s \) must be either 0 or 1 modulo \( k \). However, since \( s \) is between \( \lceil \sqrt{k + 1} \rceil \) and \( k \), the only possible values where \( s \equiv 0 \) or \( 1 \mod k \) are \( s = 1 \) or \( s = k \). But \( s \) must be at least \( \lceil \sqrt{k + 1} \rceil \), which is at least 2 for \( k \geq 3 \). So, only \( s = 1 \) is possible, but \( s \geq 2 \) for larger \( k \). So, this suggests that \( k \) must divide \( s(s - 1) \) only if \( s = 1 \) or \( s = k \), but for \( s \) in the range \( 2 \) to \( k - 1 \), this might not hold. Therefore, perhaps \( k \) must divide \( s(s - 1) \) for \( s \) in that range only if \( s \) is a multiple of some factor of \( k \).
+
+Wait, maybe I should think in terms of \( s \) and \( k \):
+
+Given \( k \) divides \( s(s - 1) \), then \( s \) and \( s - 1 \) are two consecutive integers, so they are coprime. Therefore, \( k \) must divide the product \( s(s - 1) \), meaning that \( k \) must divide either \( s \) or \( s - 1 \), because \( s \) and \( s - 1 \) are coprime.
+
+But \( s \) is less than \( k \), so \( k \) cannot divide \( s \), unless \( s = 0 \), which it isn't. Therefore, \( k \) must divide \( s - 1 \). So, \( s - 1 \) must be a multiple of \( k \).
+
+But \( s - 1 \) is less than \( k \), because \( s \leq k \). Therefore, the only possibility is \( s - 1 = 0 \), so \( s = 1 \). But as before, \( s \geq 2 \) for \( k \geq 3 \). So, this seems contradictory.
+
+Wait, hold on. If \( k \) divides \( s(s - 1) \), and \( s \) and \( s - 1 \) are coprime, then \( k \) must be 1 because \( s(s - 1) \) is a product of two coprime numbers, so the only divisors would be 1 and the numbers themselves. But \( s(s - 1) \) is less than \( k^2 \), but \( k = b - 1 \geq 2 \). So, perhaps this suggests that only \( k = 1 \) can divide \( s(s - 1) \) if \( s(s - 1) \) is non-trivial.
+
+But \( k = b - 1 \geq 2 \). Therefore, for \( k \geq 2 \), \( s(s - 1) \) must be a multiple of \( k \), but since \( s \) and \( s - 1 \) are coprime, \( k \) must divide either \( s \) or \( s - 1 \). But since \( s \leq k \), \( k \) can't divide \( s \). So, \( k \) must divide \( s - 1 \), but \( s - 1 < k \), so \( s - 1 = 0 \), so \( s = 1 \). But \( s \geq 2 \), so this is impossible.
+
+Wait, that would mean that for \( k \geq 2 \), there are no solutions? But that can't be, because in base 3, we had \( s = 2 \), and the number 4 was 3-eautiful.
+
+Wait, perhaps my reasoning is flawed here.
+
+Wait, let's double-check for base 3. \( b = 3 \), so \( k = 2 \). Then \( s \) ranges from \( \lceil \sqrt{3} \rceil = 2 \) to \( b - 1 = 2 \). So, only \( s = 2 \).
+
+Compute \( a = \frac{2(2 - 1)}{2} = \frac{2 \times 1}{2} = 1 \). So, \( a = 1 \).
+
+Compute \( c = \frac{2(3 - 2)}{2} = \frac{2 \times 1}{2} = 1 \). So, \( c = 1 \).
+
+So, \( n = 1 \times 3 + 1 = 4 \), which is correct. So, in this case, even though \( k = 2 \) didn't divide \( s - 1 = 1 \), because \( s = 2 \), but \( a \) and \( c \) turned out to be integers. So, my previous reasoning was wrong.
+
+Therefore, perhaps my earlier conclusion that \( k \) must divide \( s(s - 1) \) is not sufficient to conclude that \( k \) must divide \( s - 1 \). Because in this case, \( k = 2 \), \( s = 2 \). So, \( k \) divides \( s(s - 1) = 2 \times 1 = 2 \), which it does, because \( 2 \) divides \( 2 \). But also, \( k \) doesn't divide \( s - 1 = 1 \).
+
+So, actually, \( k \) divides \( s(s - 1) \) without necessarily dividing \( s - 1 \). So, my mistake was thinking that because \( s \) and \( s - 1 \) are coprime, \( k \) must divide one or the other, but in reality, \( k \) can have factors that go into \( s \) and \( s - 1 \) in a way that their product is a multiple of \( k \), even though individually they aren't.
+
+Therefore, perhaps another approach is needed. Maybe instead of trying to find a general formula, I can iterate \( s \) for each base \( b \) and check whether \( a \) and \( c \) are integers.
+
+Alternatively, perhaps I can express \( n = s^2 \), and \( n = ab + c \), so \( ab + c = s^2 \). Also, \( a + c = s \). Therefore, substituting \( c = s - a \) into the first equation: \( ab + s - a = s^2 \).
+
+So, \( ab - a = s^2 - s \), which is \( a(b - 1) = s(s - 1) \). Therefore, \( a = \frac{s(s - 1)}{b - 1} \), as before.
+
+Therefore, for each \( s \) from \( \lceil \sqrt{b} \rceil \) to \( b - 1 \), compute \( a = \frac{s(s - 1)}{b - 1} \). If \( a \) is integer and \( c = s - a \) is between 0 and \( b - 1 \), then \( n = ab + c \) is \( b \)-eautiful.
+
+Therefore, for each base \( b \), I can compute the number of such \( s \) where \( a \) is integer and \( c \) is within the required range.
+
+Given that, perhaps I can write a table of bases and count the number of \( b \)-eautiful numbers.
+
+But since I need to find the smallest \( b \) where this count exceeds 10, it might be time-consuming, but perhaps I can find a pattern or a formula.
+
+Wait, note that for each \( s \) in the range \( \lceil \sqrt{b} \rceil \) to \( b - 1 \), \( a = \frac{s(s - 1)}{b - 1} \) must be integer. So, \( b - 1 \) must divide \( s(s - 1) \). So, \( b - 1 \) divides \( s(s - 1) \).
+
+Let me think about how many \( s \) satisfy this.
+
+Since \( s \) and \( s - 1 \) are coprime, \( b - 1 \) must divide either \( s \) or \( s - 1 \), but considering \( s \leq b - 1 \), \( b - 1 \) can't divide \( s \), so it must divide \( s - 1 \).
+
+Wait, but in the case when \( b - 1 \) divides \( s(s - 1) \), because \( s \) and \( s - 1 \) are coprime, \( b - 1 \) must be a product of factors of \( s \) and \( s - 1 \). But since \( s \) and \( s - 1 \) are coprime, each prime factor of \( b - 1 \) must divide either \( s \) or \( s - 1 \).
+
+Therefore, for each prime \( p \) dividing \( b - 1 \), \( p \) must divide either \( s \) or \( s - 1 \).
+
+Therefore, \( s \) must be congruent to 0 or 1 modulo each prime power dividing \( b - 1 \).
+
+This is similar to the Chinese Remainder Theorem. So, the number of possible \( s \) is equal to the number of solutions to the congruence \( s \equiv 0 \) or \( 1 \mod p^k \) for each prime power \( p^k \) dividing \( b - 1 \). But within the range \( \lceil \sqrt{b} \rceil \leq s \leq b - 1 \).
+
+Therefore, the number of \( b \)-eautiful numbers is equal to the number of integers \( s \) in that range satisfying \( s \equiv 0 \) or \( 1 \mod p^k \) for each prime power \( p^k \) dividing \( b - 1 \).
+
+This seems quite abstract, but perhaps it can be used to compute the number of \( s \) for a given \( b \).
+
+Alternatively, perhaps I can note that for each \( b \), the number of \( s \) is equal to the number of divisors of \( b - 1 \) in the range \( [\lceil \sqrt{b} \rceil, b - 1] \). Wait, no, that may not be directly applicable.
+
+Wait, another thought: For each \( s \), \( a = \frac{s(s - 1)}{b - 1} \). So, \( a \) must be integer, which is equivalent to \( s(s - 1) \) being divisible by \( b - 1 \).
+
+So, if I fix \( b - 1 = m \), then \( m \) must divide \( s(s - 1) \) for \( s \) in the range \( [\lceil \sqrt{b} \rceil, b - 1] \).
+
+Therefore, the number of \( s \) is equal to the number of \( s \) in that range such that \( m \) divides \( s(s - 1) \).
+
+But \( s \) and \( s - 1 \) are coprime, so \( m \) must be a product of coprime factors, each dividing either \( s \) or \( s - 1 \).
+
+Therefore, the number of solutions is equal to the number of integers \( s \) in the range where for each prime power \( p^k \) dividing \( m \), \( p^k \) divides \( s \) or \( p^k \) divides \( s - 1 \).
+
+Thus, for each prime power \( p^k \) dividing \( m \), \( s \) must be congruent to 0 or 1 mod \( p^k \).
+
+Therefore, the number of \( s \) is equal to the number of integers \( s \) in \( [\lceil \sqrt{b} \rceil, b - 1] \) satisfying \( s \equiv 0 \) or \( 1 \mod p^k \) for each \( p^k \) dividing \( m \).
+
+This is essentially the inclusion-exclusion principle over the prime factors of \( m \). However, this is getting too abstract for my current level of understanding.
+
+Perhaps, instead of trying to find a general formula, I can consider specific values of \( b \) and compute the number of \( b \)-eautiful numbers.
+
+Let me start with \( b = 13 \) as in the example, since the answer is likely to be a base larger than that.
+
+Wait, no, actually, the example is given for \( b = 13 \), but we need a base where the number of \( b \)-eautiful numbers exceeds 10. So, I need to find the minimal \( b \) such that the number of \( b \)-eautiful numbers is more than 10.
+
+Given that, perhaps the number of \( b \)-eautiful numbers is roughly proportional to the number of divisors of \( b - 1 \). Since \( b - 1 \) is \( m \), and the number of \( s \) is the number of solutions modulo \( m \) in the range.
+
+Alternatively, perhaps the number of solutions is equal to the number of divisors of \( m \) in a certain range.
+
+Wait, another thought: For each \( s \), \( a = \frac{s(s - 1)}{m} \), so \( a \) is integer, so \( m \) divides \( s(s - 1) \). Therefore, \( s \equiv 0 \) or \( 1 \mod m \). But \( s \) is in the range \( [\sqrt{m + 1}, m] \).
+
+So, if \( m \) is such that \( s \equiv 0 \) or \( 1 \mod m \) falls within the range \( [\sqrt{m + 1}, m] \), then \( s = 0 \) or \( s = 1 \) are the only possibilities, but \( s \) must be at least \( \sqrt{m + 1} \). So, \( s = 0 \) is too small, \( s = 1 \) is only 1, which is less than \( \sqrt{m + 1} \) for \( m \geq 3 \). So, perhaps only \( s = 1 \) is too small, and \( s = m \) is the only solution? But \( s = m \) would give \( a = \frac{m(m - 1)}{m} = m - 1 \), which is allowed since \( a \leq m - 1 \). And \( c = m - (m - 1) = 1 \), which is allowed. So, \( n = (m - 1)m + 1 = m^2 - m + 1 \). But \( n \) must be a two-digit number in base \( m \), so \( n \leq m^2 - 1 \). But \( m^2 - m + 1 \leq m^2 - 1 \) is equivalent to \( -m \leq -2 \), which is true for \( m \geq 2 \). So, \( s = m \) gives a valid solution.
+
+But in the example, \( b = 13 \), \( s = 12 \), but the number is \( 63_{13} \), which is \( 6 \times 13 + 3 = 81 \), and \( 81 = 9^2 \), \( s = 9 \). Wait, hold on, that seems inconsistent.
+
+Wait, perhaps my earlier reasoning is flawed. Let me check for \( b = 13 \).
+
+In the example, \( n = 63_{13} = 6 \times 13 + 3 = 81 \). So, \( a = 6 \), \( c = 3 \). Then, \( a + c = 9 \), which is \( \sqrt{81} \). So, \( s = 9 \).
+
+So, for \( b = 13 \), \( s = 9 \). Then, \( a = \frac{9 \times 8}{12} = \frac{72}{12} = 6 \), which is integer. \( c = \frac{9 \times (13 - 9)}{12} = \frac{9 \times 4}{12} = 3 \), which is integer.
+
+So, \( s = 9 \) is an acceptable value. But according to my earlier reasoning, \( s \) must be in \( [\sqrt{13}, 12] \), which is approximately \( [3.605, 12] \). So, \( s = 9 \) is within that range.
+
+So, in this case, \( s = 9 \) is a solution. So, perhaps besides \( s = m \), which gives \( a = m - 1 \) and \( c = 1 \), there can be other \( s \) values in between.
+
+So, perhaps the number of \( b \)-eautiful numbers is equal to the number of divisors of \( m = b - 1 \) in a certain range?
+
+Wait, perhaps it's better to consider the number of solutions \( s \) such that \( s(s - 1) \equiv 0 \mod m \). Since \( m \) divides \( s(s - 1) \), and \( s \) and \( s - 1 \) are coprime, \( m \) must divide \( s \) or \( m \) must divide \( s - 1 \). But since \( s \leq m \), \( m \) can't divide \( s \), so \( m \) must divide \( s - 1 \). Therefore, \( s \equiv 1 \mod m \). But \( s \leq m \), so the only possible \( s \) is \( s = 1 \). But \( s = 1 \) is less than \( \sqrt{m + 1} \), so only \( s = m \) is acceptable?
+
+Wait, but in the example, \( s = 9 \) for \( m = 12 \), which is \( s = m - 3 \). So, that contradicts my earlier thought.
+
+So, my earlier conclusion must be wrong.
+
+Wait, perhaps another approach: Since \( s \) must satisfy \( s(s - 1) \equiv 0 \mod m \), and \( s \) and \( s - 1 \) are coprime, \( m \) must be a product of two coprime factors, each dividing \( s \) and \( s - 1 \) respectively.
+
+But \( s \) and \( s - 1 \) are coprime, so \( m \) must be expressible as \( m = d \times e \), where \( d \) divides \( s \) and \( e \) divides \( s - 1 \). Therefore, \( s \) must be a multiple of \( d \), and \( s \equiv 1 \mod e \).
+
+Given that, for each divisor \( d \) of \( m \), there might be a corresponding \( s = d \) such that \( s \equiv 1 \mod \frac{m}{d} \).
+
+Wait, let's try that.
+
+Suppose \( m = d \times e \), where \( d \) and \( e \) are coprime. Then, \( s \) must be a multiple of \( d \) and \( s \equiv 1 \mod e \). So, \( s = d \times k \), and \( d \times k \equiv 1 \mod e \). Therefore, \( k \equiv d^{-1} \mod e \).
+
+So, for each divisor \( d \) of \( m \), there is a corresponding solution \( s = d \times k \), where \( k \) is the inverse of \( d \) modulo \( e \). But since \( e = m / d \), and \( d \) and \( e \) are coprime, the inverse exists.
+
+Therefore, for each divisor \( d \) of \( m \), there is exactly one solution \( s \) in the range \( 1 \) to \( m \) that satisfies \( s \equiv 0 \mod d \) and \( s \equiv 1 \mod e \). Therefore, the number of solutions \( s \) is equal to the number of divisors \( d \) of \( m \).
+
+But in our case, \( s \) must lie in the range \( [\lceil \sqrt{b} \rceil, b - 1] \), which is \( [\lceil \sqrt{m + 1} \rceil, m] \). Therefore, the number of solutions \( s \) is equal to the number of divisors \( d \) of \( m \) for which the corresponding \( s \) lies in that range.
+
+Thus, the number of \( b \)-eautiful numbers is equal to the number of divisors \( d \) of \( m = b - 1 \) such that the solution \( s = d \times k \) (where \( k \) is the inverse of \( d \) modulo \( m / d \)) lies in \( [\lceil \sqrt{m + 1} \rceil, m] \).
+
+This seems a bit complicated, but perhaps we can use this to compute the number of \( b \)-eautiful numbers for a given \( b \).
+
+Alternatively, perhaps the number of solutions \( s \) is equal to the number of divisors of \( m \) that are less than or equal to \( \sqrt{m} \), but I'm not sure.
+
+Wait, another idea: The number of solutions \( s \) is equal to the number of divisors \( d \) of \( m \) such that \( d \leq \sqrt{m} \). Because each divisor \( d \) gives a solution \( s \) which is either less than or equal to \( \sqrt{m} \) or greater than or equal to \( \sqrt{m} \).
+
+But in our case, \( s \) must be at least \( \lceil \sqrt{m + 1} \rceil \). So, perhaps half of the number of divisors contribute to \( s \) in the upper half, and the other half in the lower half.
+
+But this is speculative.
+
+Alternatively, perhaps the number of \( b \)-eautiful numbers is equal to the number of divisors of \( m \) that are less than or equal to \( \sqrt{m} \). Because each divisor \( d \) less than or equal to \( \sqrt{m} \) would give a solution \( s \) greater than or equal to \( 2d \), but I'm not sure.
+
+Wait, perhaps this is getting too abstract. Let me try with specific values.
+
+Take \( b = 13 \), so \( m = 12 \). The divisors of 12 are 1, 2, 3, 4, 6, 12.
+
+For each divisor \( d \), we can compute the corresponding \( s \):
+
+- \( d = 1 \): \( e = 12 \). Solve \( s \equiv 0 \mod 1 \) (always true), and \( s \equiv 1 \mod 12 \). So, \( s = 1 + 12k \). The smallest \( s \geq \lceil \sqrt{13} \rceil = 4 \) is \( s = 13 \), but \( s \leq 12 \), so no solution here.
+
+Wait, that can't be right because in the example, \( s = 9 \) is a solution.
+
+Wait, perhaps I need to think differently.
+
+Alternatively, for each divisor \( d \) of \( m \), we can compute \( s \) as follows:
+
+\( s \equiv 0 \mod d \)
+\( s \equiv 1 \mod (m / d) \)
+
+So, \( s \) is the smallest solution to these congruences.
+
+For \( m = 12 \), let's take each divisor \( d \):
+
+1. \( d = 1 \):
+   - \( s \equiv 0 \mod 1 \) (always true)
+   - \( s \equiv 1 \mod 12 \)
+   - The smallest solution is \( s = 1 \), but \( s \) must be \( \geq 4 \). So, no solution.
+
+2. \( d = 2 \):
+   - \( s \equiv 0 \mod 2 \)
+   - \( s \equiv 1 \mod 6 \)
+   - Solve these congruences:
+     - \( s = 2k \)
+     - \( 2k \equiv 1 \mod 6 \)
+     - \( 2k \equiv 1 \mod 6 \) implies \( k \equiv 4 \mod 6 \)
+     - So, \( k = 4 + 6t \)
+     - Thus, \( s = 2(4 + 6t) = 8 + 12t \)
+     - The smallest \( s \geq 4 \) is \( s = 8 \), which is within \( 4 \leq s \leq 12 \). So, \( s = 8 \) is a solution.
+
+3. \( d = 3 \):
+   - \( s \equiv 0 \mod 3 \)
+   - \( s \equiv 1 \mod 4 \)
+   - Solve:
+     - \( s = 3k \)
+     - \( 3k \equiv 1 \mod 4 \)
+     - \( 3k \equiv 1 \mod 4 \) implies \( k \equiv 3 \mod 4 \)
+     - \( k = 3 + 4t \)
+     - \( s = 3(3 + 4t) = 9 + 12t \)
+     - The smallest \( s \geq 4 \) is \( s = 9 \), which is within the range.
+
+4. \( d = 4 \):
+   - \( s \equiv 0 \mod 4 \)
+   - \( s \equiv 1 \mod 3 \)
+   - Solve:
+     - \( s = 4k \)
+     - \( 4k \equiv 1 \mod 3 \)
+     - \( 4k \equiv k \equiv 1 \mod 3 \)
+     - \( k = 1 + 3t \)
+     - \( s = 4(1 + 3t) = 4 + 12t \)
+     - The smallest \( s \geq 4 \) is \( s = 4 \). So, \( s = 4 \) is a solution.
+
+5. \( d = 6 \):
+   - \( s \equiv 0 \mod 6 \)
+   - \( s \equiv 1 \mod 2 \)
+   - Solve:
+     - \( s = 6k \)
+     - \( 6k \equiv 0 \mod 2 \), but also \( s \equiv 1 \mod 2 \). Contradiction. So, no solution.
+
+6. \( d = 12 \):
+   - \( s \equiv 0 \mod 12 \)
+   - \( s \equiv 1 \mod 1 \)
+   - Always true. So, \( s = 12 \) is a solution.
+
+So, for \( m = 12 \), the solutions \( s \) are 4, 8, 9, 12. Each of these gives a valid \( b \)-eautiful number.
+
+Indeed, in the example, \( s = 9 \) is one of them, and \( s = 12 \) gives \( n = 11 \times 12 + 1 = 133 \), which is \( 11^2 \), but wait, \( 11^2 = 121 \), not 133. Hmm, that doesn't make sense. Wait, no, \( a = \frac{12 \times 11}{12} = 11 \), \( c = \frac{12(13 - 12)}{12} = 1 \). So, \( n = 11 \times 13 + 1 = 143 \). Wait, no, \( n = ab + c = 11 \times 12 + 1 = 133 \). But 133 is not a square. Wait, \( s = 12 \), so \( n = ab + c = 11 \times 12 + 1 = 133 \), which is not a square. Wait, that contradicts the earlier statement that \( n = s^2 \). Hmm, no, wait, \( n = s^2 \) would be \( 144 \), but in this case, \( n = 133 \), which is not a square. Wait, no, that can't be. Wait, hold on.
+
+Wait, \( n = ab + c = 11 \times 12 + 1 = 133 \). But \( s = a + c = 11 + 1 = 12 \). So, \( s = 12 \), \( \sqrt{n} = 12 \), so \( n = 144 \). But \( 133 \neq 144 \). So, this is a contradiction. Wait, what's wrong here?
+
+Wait, no, in this case, \( n \) is supposed to be \( s^2 \). So, if \( s = 12 \), \( n = 144 \). But \( n = ab + c = 11 \times 12 + 1 = 133 \). That's a problem because \( 133 \neq 144 \). Therefore, my earlier assumption was wrong.
+
+Wait, in the problem statement, the example is \( 81_{13} = 63_{13} \), which is 81. So, \( a = 6 \), \( c = 3 \), \( s = 9 \), which is \( \sqrt{81} \). So, \( n = ab + c = 6 \times 13 + 3 = 81 \), which is indeed \( s^2 \). So, in this case, \( s = 9 \), which is \( a + c = 6 + 3 = 9 \), and \( n = s^2 = 81 \).
+
+But when \( s = 12 \), \( n = 12^2 = 144 \), but \( n = ab + c = 11 \times 12 + 1 = 133 \), which is not equal to 144. So, that suggests that \( s = 12 \) is not a valid solution, but according to the calculation above, \( s = 12 \) is a solution.
+
+Wait, that must mean that my earlier calculation is wrong. Let me check.
+
+Given \( d = 12 \), \( m = 12 \), so \( e = 1 \). So, \( s \equiv 0 \mod 12 \), \( s \equiv 1 \mod 1 \). The second condition is automatically satisfied because any integer is congruent to 1 modulo 1. So, \( s = 12 \) is a solution, but plugging back into \( n = ab + c \), we get \( n = 11 \times 12 + 1 = 133 \), which is not \( 12^2 = 144 \). Therefore, something is wrong here.
+
+Wait, perhaps my equation is incorrect. Because \( n = ab + c = a b + c \), \( a + c = s \), and \( s^2 = n \). So, \( s^2 = a b + c \). But \( a = \frac{s(s - 1)}{b - 1} \). So, substituting, \( s^2 = \frac{s(s - 1)}{b - 1} \times b + c \). But \( c = s - a = s - \frac{s(s - 1)}{b - 1} \). Therefore, \( s^2 = \frac{s(s - 1) b}{b - 1} + s - \frac{s(s - 1)}{b - 1} \).
+
+Simplify:
+
+\( s^2 = \frac{s(s - 1)(b - 1)}{b - 1} + s - \frac{s(s - 1)}{b - 1} \)
+\( s^2 = s(s - 1) + s - \frac{s(s - 1)}{b - 1} \)
+\( s^2 = s^2 - s + s - \frac{s(s - 1)}{b - 1} \)
+\( s^2 = s^2 - \frac{s(s - 1)}{b - 1} \)
+\( 0 = - \frac{s(s - 1)}{b - 1} \)
+\( 0 = - s(s - 1) \)
+
+Which implies \( s = 0 \) or \( s = 1 \), which can't be since \( s \geq 2 \). So, that suggests that my equations are contradictory, which is a problem.
+
+Wait, so I must have made a mistake in the manipulation.
+
+Wait, no, let's go back. The original equations are \( n = ab + c \) and \( n = s^2 \). Also, \( a + c = s \). So, substituting, \( s^2 = ab + c \). But \( c = s - a \), so \( s^2 = a b + s - a \). Thus, \( s^2 - s = a(b - 1) \). So, \( a = \frac{s^2 - s}{b - 1} \). So, \( \frac{s(s - 1)}{b - 1} \) must be integer.
+
+So, \( b - 1 \) must divide \( s(s - 1) \), which is correct. But when I substitute back into \( n = ab + c \), I get \( n = s^2 \), so it's consistent. But in the example, \( s = 9 \), \( b = 13 \), so \( a = \frac{9 \times 8}{12} = 6 \), \( c = 3 \). Then, \( n = 6 \times 13 + 3 = 81 = 9^2 \). That works.
+
+But when \( s = 12 \), \( a = \frac{12 \times 11}{12} = 11 \), \( c = 1 \), then \( n = 11 \times 13 + 1 = 143 \), which is not \( 12^2 = 144 \). Therefore, \( s = 12 \) is not a solution because it doesn't satisfy \( n = s^2 \). Therefore, my earlier reasoning was flawed.
+
+So, that suggests that even though \( s = 12 \) satisfies \( m \) divides \( s(s - 1) \), it doesn't satisfy \( n = s^2 \). Wait, but according to the equation \( s^2 = ab + c = ab + (s - a) \), which simplifies to \( s^2 = a(b - 1) + s \). Therefore, \( a = \frac{s^2 - s}{b - 1} \). So, \( a \) must be an integer, so \( b - 1 \) must divide \( s(s - 1) \). So, when \( s = 12 \), \( a = 11 \), which is integer, but \( n = 11 \times 13 + 1 = 143 \neq 12^2 \). So, this is a contradiction.
+
+Wait, so perhaps \( s = 12 \) is not a valid solution because the equation leads to a non-square \( n \). But according to \( n = s^2 \), it should be. So, this is conflicting.
+
+Wait, so perhaps the error is in assuming \( n = ab + c = s^2 \). But according to the problem statement, \( n \) must be the square of \( s \). So, if \( n = ab + c = s^2 \), and \( a + c = s \), then \( s^2 = a b + c \), \( a + c = s \). So, substituting \( c = s - a \), we get \( s^2 = a b + s - a \), so \( s^2 - s = a (b - 1) \), which leads to \( a = \frac{s^2 - s}{b - 1} \). So, that's correct.
+
+Therefore, as long as \( a \) is integer, \( n = s^2 \). So, in the case where \( s = 12 \), \( a = 11 \), which is integer, but \( n = 11 \times 13 + 1 = 143 \neq 144 \). So, that's impossible. Therefore, perhaps there's a mistake in the problem statement? Or perhaps I misapplied the equations.
+
+Wait, no, the problem statement says that \( n \) is a \( b \)-eautiful number if it has exactly two digits when expressed in base \( b \), and these two digits sum to \( \sqrt{n} \). So, if \( n = ab + c \), then \( a + c = \sqrt{n} \). So, in that case, \( n \) must equal \( (a + c)^2 \). So, \( n = (a + c)^2 \), and \( n = ab + c \). Therefore, \( (a + c)^2 = ab + c \). So, that's the equation we need to satisfy.
+
+So, expanding \( (a + c)^2 = ab + c \):
+
+\( a^2 + 2 a c + c^2 = ab + c \)
+
+Bring all terms to one side:
+
+\( a^2 + 2 a c + c^2 - a b - c = 0 \)
+
+Which is:
+
+\( a^2 + (2 c - b) a + c^2 - c = 0 \)
+
+This is a quadratic in \( a \), but perhaps we can express \( a \) in terms of \( c \) and \( b \):
+
+\( a = \frac{-(2c - b) \pm \sqrt{(2c - b)^2 - 4(c^2 - c)}}{2} \)
+
+Simplify the discriminant:
+
+\( D = (2c - b)^2 - 4(c^2 - c) \)
+\( D = 4c^2 - 4b c + b^2 - 4c^2 + 4c \)
+\( D = -4b c + b^2 + 4c \)
+\( D = b^2 - 4b c + 4c \)
+
+Hmm, for \( a \) to be integer, \( D \) must be a perfect square. Let me denote \( D = k^2 \), so:
+
+\( b^2 - 4b c + 4c = k^2 \)
+
+This is a quadratic in \( c \):
+
+\( -4b c + 4c + b^2 - k^2 = 0 \)
+\( c(-4b + 4) + (b^2 - k^2) = 0 \)
+\( c = \frac{k^2 - b^2}{-4b + 4} \)
+
+But \( c \) must be an integer between \( 0 \) and \( b - 1 \). So, this seems complicated.
+
+Wait, perhaps it's better to consider that \( a \) and \( c \) must satisfy \( a + c = s \), \( a b + c = s^2 \). Therefore, \( a b + c = s^2 \), \( a + c = s \). So, subtracting, \( a (b - 1) = s^2 - s \). Therefore, \( a = \frac{s^2 - s}{b - 1} \). So, \( b - 1 \) must divide \( s(s - 1) \).
+
+But in the case of \( s = 12 \) and \( b = 13 \), \( a = \frac{12 \times 11}{12} = 11 \), which is integer, but \( n = 11 \times 13 + 1 = 143 \neq 12^2 \). Therefore, that's a problem.
+
+Wait, but according to the initial substitution, \( s^2 = a b + c \). So, if \( s = 12 \), \( a = 11 \), \( c = 1 \), then \( 12^2 = 11 \times 13 + 1 \), which is \( 144 = 143 + 1 = 144 \). Wait, that is correct. I must have miscalculated earlier.
+
+So, \( 11 \times 13 = 143 \), then \( 143 + 1 = 144 \). So, \( n = 144 = 12^2 \). So, that is correct. Therefore, \( s = 12 \) is a valid solution.
+
+So, \( s = 12 \) gives \( n = 144 \), which is 12 squared. So, in that case, \( a = 11 \), \( c = 1 \). So, that works.
+
+Therefore, my earlier calculation was correct, and I was just confused because I thought \( n = 143 \), but actually, \( n = 144 \). So, \( s = 12 \) is indeed a valid solution.
+
+Therefore, for \( b = 13 \), \( s \) can be 4, 8, 9, 12, as in the earlier calculation. So, four solutions.
+
+So, to recap, for each base \( b \), we need to count the number of integers \( s \) in \( [\lceil \sqrt{b} \rceil, b - 1] \) such that \( b - 1 \) divides \( s(s - 1) \).
+
+Therefore, the number of \( b \)-eautiful numbers is equal to the number of integers \( s \) in that range where \( b - 1 \) divides \( s(s - 1) \).
+
+So, to find the least \( b \) where this number exceeds 10, I need to find the smallest \( b \) such that the number of \( s \) in \( [\lceil \sqrt{b} \rceil, b - 1] \) with \( (b - 1) \) dividing \( s(s - 1) \) is greater than 10.
+
+Given that, perhaps the next step is to find the number of \( s \) for each \( b \), incrementally increasing \( b \), until the count exceeds 10.
+
+So, let me start from \( b = 2 \) upwards, compute the number of \( b \)-eautiful numbers, and check when it exceeds 10.
+
+Starting with \( b = 2 \):
+
+- \( m = 1 \). The range for \( s \) is \( [\lceil \sqrt{2} \rceil, 1] \). \( \sqrt{2} \approx 1.414 \), so \( s \) must be 2, but the upper limit is 1. So, no solutions. Number of \( b \)-eautiful numbers: 0.
+
+\( b = 3 \):
+
+- \( m = 2 \). Range for \( s \) is \( [\lceil \sqrt{3} \rceil, 2] = [2, 2] \).
+- Check if \( 2 \) divides \( s(s - 1) = 2 \times 1 = 2 \). Yes, 2 divides 2. So, \( s = 2 \) is a solution.
+- So, number of \( b \)-eautiful numbers: 1.
+
+\( b = 4 \):
+
+- \( m = 3 \). Range for \( s \) is \( [2, 3] \).
+- Check \( s = 2 \): \( 2 \times 1 = 2 \). Does 3 divide 2? No.
+- Check \( s = 3 \): \( 3 \times 2 = 6 \). Does 3 divide 6? Yes. So, \( s = 3 \) is a solution.
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 5 \):
+
+- \( m = 4 \). Range for \( s \) is \( [3, 4] \).
+- Check \( s = 3 \): \( 3 \times 2 = 6 \). 4 divides 6? No.
+- Check \( s = 4 \): \( 4 \times 3 = 12 \). 4 divides 12? Yes. So, \( s = 4 \) is a solution.
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 6 \):
+
+- \( m = 5 \). Range for \( s \) is \( [3, 5] \).
+- Check each \( s \):
+  - \( s = 3 \): \( 3 \times 2 = 6 \). 5 divides 6? No.
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 5 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 5 divides 20? Yes. So, \( s = 5 \) is a solution.
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 7 \):
+
+- \( m = 6 \). Range for \( s \) is \( [3, 6] \).
+- Check each \( s \):
+  - \( s = 3 \): \( 3 \times 2 = 6 \). 6 divides 6? Yes. So, \( s = 3 \).
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 6 divides 12? Yes. So, \( s = 4 \).
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 6 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 6 divides 30? Yes. So, \( s = 6 \).
+- Therefore, solutions: 3, 4, 6. Number of \( b \)-eautiful numbers: 3.
+
+\( b = 8 \):
+
+- \( m = 7 \). Range for \( s \) is \( [3, 7] \).
+- Check each \( s \):
+  - \( s = 3 \): \( 3 \times 2 = 6 \). 7 divides 6? No.
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 7 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 7 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 7 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 7 divides 42? Yes. So, \( s = 7 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 9 \):
+
+- \( m = 8 \). Range for \( s \) is \( [3, 8] \).
+- Check each \( s \):
+  - \( s = 3 \): \( 3 \times 2 = 6 \). 8 divides 6? No.
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 8 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 8 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 8 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 8 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 8 divides 56? Yes. So, \( s = 8 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 10 \):
+
+- \( m = 9 \). Range for \( s \) is \( [4, 9] \).
+- Check each \( s \):
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 9 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 9 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 9 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 9 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 9 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 9 divides 72? Yes. So, \( s = 9 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 11 \):
+
+- \( m = 10 \). Range for \( s \) is \( [4, 10] \).
+- Check each \( s \):
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 10 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 10 divides 20? Yes. So, \( s = 5 \).
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 10 divides 30? Yes. So, \( s = 6 \).
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 10 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 10 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 10 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 10 divides 90? Yes. So, \( s = 10 \).
+- Solutions: 5, 6, 10. Number of \( b \)-eautiful numbers: 3.
+
+\( b = 12 \):
+
+- \( m = 11 \). Range for \( s \) is \( [4, 11] \).
+- Check each \( s \):
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 11 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 11 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 11 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 11 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 11 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 11 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 11 divides 90? No.
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 11 divides 110? Yes. So, \( s = 11 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 13 \):
+
+- \( m = 12 \). Range for \( s \) is \( [4, 12] \).
+- Check each \( s \):
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 12 divides 12? Yes. So, \( s = 4 \).
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 12 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 12 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 12 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 12 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 12 divides 72? Yes. So, \( s = 9 \).
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 12 divides 90? No.
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 12 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 12 divides 132? Yes. So, \( s = 12 \).
+- Solutions: 4, 9, 12. Number of \( b \)-eautiful numbers: 3.
+
+\( b = 14 \):
+
+- \( m = 13 \). Range for \( s \) is \( [4, 13] \).
+- Check each \( s \):
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 13 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 13 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 13 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 13 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 13 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 13 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 13 divides 90? No.
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 13 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 13 divides 132? No.
+  - \( s = 13 \): \( 13 \times 12 = 156 \). 13 divides 156? Yes. So, \( s = 13 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 14 \) gives 1 solution.
+
+\( b = 15 \):
+
+- \( m = 14 \). Range for \( s \) is \( [4, 14] \).
+- Check each \( s \):
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 14 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 14 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 14 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 14 divides 42? Yes. So, \( s = 7 \).
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 14 divides 56? Yes. So, \( s = 8 \).
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 14 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 14 divides 90? No.
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 14 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 14 divides 132? No.
+  - \( s = 13 \): \( 13 \times 12 = 156 \). 14 divides 156? No.
+  - \( s = 14 \): \( 14 \times 13 = 182 \). 14 divides 182? Yes. So, \( s = 14 \).
+- Solutions: 7, 8, 14. Number of \( b \)-eautiful numbers: 3.
+
+\( b = 16 \):
+
+- \( m = 15 \). Range for \( s \) is \( [4, 15] \).
+- Check each \( s \):
+  - \( s = 4 \): \( 4 \times 3 = 12 \). 15 divides 12? No.
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 15 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 15 divides 30? Yes. So, \( s = 6 \).
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 15 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 15 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 15 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 15 divides 90? Yes. So, \( s = 10 \).
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 15 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 15 divides 132? No.
+  - \( s = 13 \): \( 13 \times 12 = 156 \). 15 divides 156? No.
+  - \( s = 14 \): \( 14 \times 13 = 182 \). 15 divides 182? No.
+  - \( s = 15 \): \( 15 \times 14 = 210 \). 15 divides 210? Yes. So, \( s = 15 \).
+- Solutions: 6, 10, 15. Number of \( b \)-eautiful numbers: 3.
+
+\( b = 17 \):
+
+- \( m = 16 \). Range for \( s \) is \( [5, 16] \) since \( \sqrt{17} \approx 4.123 \), so \( s \) starts at 5? Wait, no, the range is \( [\lceil \sqrt{17} \rceil, 16] \). So, \( \lceil \sqrt{17} \rceil = 5 \). So, \( s \) ranges from 5 to 16.
+- Check each \( s \):
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 16 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 16 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 16 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 16 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 16 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 16 divides 90? No.
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 16 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 16 divides 132? No.
+  - \( s = 13 \): \( 13 \times 12 = 156 \). 16 divides 156? No.
+  - \( s = 14 \): \( 14 \times 13 = 182 \). 16 divides 182? No.
+  - \( s = 15 \): \( 15 \times 14 = 210 \). 16 divides 210? No.
+  - \( s = 16 \): \( 16 \times 15 = 240 \). 16 divides 240? Yes. So, \( s = 16 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 18 \):
+
+- \( m = 17 \). Range for \( s \) is \( [\lceil \sqrt{18} \rceil, 17] = [5, 17] \).
+- Check each \( s \):
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 17 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 17 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 17 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 17 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 17 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 17 divides 90? No.
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 17 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 17 divides 132? No.
+  - \( s = 13 \): \( 13 \times 12 = 156 \). 17 divides 156? No.
+  - \( s = 14 \): \( 14 \times 13 = 182 \). 17 divides 182? No.
+  - \( s = 15 \): \( 15 \times 14 = 210 \). 17 divides 210? No.
+  - \( s = 16 \): \( 16 \times 15 = 240 \). 17 divides 240? No.
+  - \( s = 17 \): \( 17 \times 16 = 272 \). 17 divides 272? Yes, since 17 × 16 = 272. So, \( s = 17 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+\( b = 19 \):
+
+- \( m = 18 \). Range for \( s \) is \( [\lceil \sqrt{19} \rceil, 18] = [5, 18] \).
+- Check each \( s \):
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 18 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 18 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 18 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 18 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 18 divides 72? Yes. So, \( s = 9 \).
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 18 divides 90? Yes. So, \( s = 10 \).
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 18 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 18 divides 132? No.
+  - \( s = 13 \): \( 13 \times 12 = 156 \). 18 divides 156? No.
+  - \( s = 14 \): \( 14 \times 13 = 182 \). 18 divides 182? No.
+  - \( s = 15 \): \( 15 \times 14 = 210 \). 18 divides 210? No.
+  - \( s = 16 \): \( 16 \times 15 = 240 \). 18 divides 240? No.
+  - \( s = 17 \): \( 17 \times 16 = 272 \). 18 divides 272? No.
+  - \( s = 18 \): \( 18 \times 17 = 306 \). 18 divides 306? Yes. So, \( s = 18 \).
+- Solutions: 9, 10, 18. Number of \( b \)-eautiful numbers: 3.
+
+\( b = 20 \):
+
+- \( m = 19 \). Range for \( s \) is \( [\lceil \sqrt{20} \rceil, 19] = [5, 19] \).
+- Check each \( s \):
+  - \( s = 5 \): \( 5 \times 4 = 20 \). 19 divides 20? No.
+  - \( s = 6 \): \( 6 \times 5 = 30 \). 19 divides 30? No.
+  - \( s = 7 \): \( 7 \times 6 = 42 \). 19 divides 42? No.
+  - \( s = 8 \): \( 8 \times 7 = 56 \). 19 divides 56? No.
+  - \( s = 9 \): \( 9 \times 8 = 72 \). 19 divides 72? No.
+  - \( s = 10 \): \( 10 \times 9 = 90 \). 19 divides 90? No.
+  - \( s = 11 \): \( 11 \times 10 = 110 \). 19 divides 110? No.
+  - \( s = 12 \): \( 12 \times 11 = 132 \). 19 divides 132? No.
+  - \( s = 13 \): \( 13 \times 12 = 156 \). 19 divides 156? No.
+  - \( s = 14 \): \( 14 \times 13 = 182 \). 19 divides 182? No.
+  - \( s = 15 \): \( 15 \times 14 = 210 \). 19 divides 210? No.
+  - \( s = 16 \): \( 16 \times 15 = 240 \). 19 divides 240? No.
+  - \( s = 17 \): \( 17 \times 16 = 272 \). 19 divides 272? No.
+  - \( s = 18 \): \( 18 \times 17 = 306 \). 19 divides 306? No.
+  - \( s = 19 \): \( 19 \times 18 = 342 \). 19 divides 342? Yes. So, \( s = 19 \).
+- Number of \( b \)-eautiful numbers: 1.
+
+At this point, each increment of \( b \) is yielding at most 3 solutions. To get to 10 solutions, we might have to go higher. But this is tedious.
+
+Alternatively, perhaps I can reason that the number of \( b \)-eautiful numbers is equal to the number of divisors of \( m \) in the range \( [\lceil \sqrt{b} \rceil, b - 1] \). So, if \( m \) is highly composite, maybe with many divisors in that range, the count increases.
+
+Wait, so \( m = b - 1 \). So, if \( b - 1 \) has many divisors, then the number of \( s \) is equal to the number of divisors in \( [\lceil \sqrt{b} \rceil, b - 1] \).
+
+Therefore, if \( b - 1 \) is a highly composite number with many divisors in that range, the count increases.
+
+Looking back, when \( b = 13 \), \( m = 12 \), which is highly composite. 12 has divisors 1, 2, 3, 4, 6, 12. In the range \( [4, 12] \), the divisors are 4, 6, 12. So, three divisors, which gave 3 solutions.
+
+Wait, but earlier, for \( b = 13 \), we had 3 solutions, but with \( m = 12 \).
+
+Similarly, for \( b = 25 \), \( m = 24 \), which is highly composite. Let me consider \( b = 25 \):
+
+- \( m = 24 \). Range for \( s \) is \( [5, 24] \).
+- The number of divisors of 24 in that range: 5, 6, 8, 12, 24.
+  - 5: 24 ÷ 5 = 4.8, not integer.
+  - 6: 24 ÷ 6 = 4. So, \( s = 6 \).
+  - 8: 24 ÷ 8 = 3. So, \( s = 8 \).
+  - 12: 24 ÷ 12 = 2. So, \( s = 12 \).
+  - 24: 24 ÷ 24 = 1. So, \( s = 24 \).
+- So, solutions: 6, 8, 12, 24. Number of \( b \)-eautiful numbers: 4.
+
+Wait, but \( m = 24 \), so \( s \) can be 6, 8, 12, 24.
+
+But wait, \( s = 24 \) is allowed since \( s \leq b - 1 = 24 \). So, 4 solutions.
+
+But 24 has more divisors, but only some of them fall into the required range.
+
+Wait, \( m = 24 \), \( s \in [5, 24] \). So, the divisors of 24 in this range are 6, 8, 12, 24. So, 4 solutions.
+
+Thus, \( b = 25 \) has 4 \( b \)-eautiful numbers.
+
+Wait, let me check \( b = 16 \):
+
+- \( m = 15 \). Range for \( s \) is \( [4, 15] \).
+- Divisors of 15 in that range: 5, 15.
+  - \( s = 5 \): \( 15 ÷ 5 = 3 \). So, \( s = 5 \).
+  - \( s = 15 \): \( 15 ÷ 15 = 1 \). So, \( s = 15 \).
+- Number of \( b \)-eautiful numbers: 2.
+
+Wait, so maybe going to higher \( b \), the number of \( b \)-eautiful numbers increases.
+
+Alternatively, maybe \( b = 60 \), since 60 is highly composite.
+
+But this is inefficient.
+
+Alternatively, let's think about the number of \( b \)-eautiful numbers.
+
+Since each solution \( s \) corresponds to a divisor \( d \) of \( m = b - 1 \) such that \( d \geq \sqrt{m + 1} \). So, in other words, the number of \( b \)-eautiful numbers is equal to the number of divisors of \( m \) in the upper half of the divisor range \( [\sqrt{m}, m] \).
+
+Now, if \( m \) is a highly composite number, it will have a large number of divisors, so the number of \( b \)-eautiful numbers will be large.
+
+Therefore, I can think to find the smallest \( m \) such that \( m \) has at least 10 divisors in the upper half of its divisor range \( [\sqrt{m}, m] \).
+
+Wait, but \( m = b - 1 \), so \( b = m + 1 \).
+
+So, the problem reduces to finding the smallest \( m \) such that the number of divisors \( d \) of \( m \) with \( d \geq \sqrt{m + 1} \) is at least 10.
+
+Therefore, the problem is to find the minimal \( m \) such that \( d(m, [\sqrt{m + 1}, m]) \geq 10 \), where \( d(m, [a, b]) \) is the number of divisors of \( m \) in the interval \( [a, b] \).
+
+Thus, \( m \) must be such that it has at least 10 divisors in the range \( [\sqrt{m + 1}, m] \).
+
+So, the minimal such \( m \) would correspond to the minimal \( b = m + 1 \) where \( m \) is highly composite.
+
+Looking up highly composite numbers, we can see that 360 is a highly composite number with many divisors.
+
+Wait, let's check \( m = 360 \):
+
+- \( m = 360 \). \( \sqrt{360 + 1} = \sqrt{361} = 19 \).
+- The number of divisors of 360 in the range \( [19, 360] \).
+- 360 has divisors: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360.
+- Divisors \( \geq 19 \): 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360.
+- That's 12 divisors. So, number of \( b \)-eautiful numbers: 12.
+- So, \( b = 361 \) would have 12 \( b \)-eautiful numbers.
+
+But is 360 the minimal \( m \) with at least 10 divisors in \( [\sqrt{m + 1}, m] \)?
+
+Wait, let me check \( m = 240 \):
+
+- \( m = 240 \). \( \sqrt{240 + 1} = \sqrt{241} \approx 15.52 \).
+- Divisors of 240 in \( [16, 240] \).
+- Divisors of 240: 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 16, 20, 24, 30, 40, 48, 60, 80, 120, 240.
+- Divisors \( \geq 16 \): 16, 20, 24, 30, 40, 48, 60, 80, 120, 240. So, 10 divisors.
+- Thus, \( m = 240 \) has 10 divisors in that range. Therefore, \( b = 241 \) would have 10 \( b \)-eautiful numbers.
+
+But is 240 the minimal such \( m \)?
+
+Wait, let's check \( m = 180 \):
+
+- \( m = 180 \). \( \sqrt{180 + 1} = \sqrt{181} \approx 13.45 \).
+- Divisors of 180 in \( [14, 180] \).
+- Divisors of 180: 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180.
+- Divisors \( \geq 14 \): 15, 18, 20, 30, 36, 45, 60, 90, 180. That's 9 divisors.
+- So, 9, which is less than 10.
+
+\( m = 192 \):
+
+- \( m = 192 \). \( \sqrt{192 + 1} = \sqrt{193} \approx 13.89 \).
+- Divisors of 192 in \( [14, 192] \).
+- Divisors of 192: 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 192.
+- Divisors \( \geq 14 \): 16, 24, 32, 48, 64, 96, 192. 7 divisors.
+
+Not enough.
+
+\( m = 210 \):
+
+- \( m = 210 \). \( \sqrt{210 + 1} = \sqrt{211} \approx 14.52 \).
+- Divisors of 210 in \( [15, 210] \).
+- Divisors of 210: 1, 2, 3, 5, 6, 7, 10, 14, 15, 21, 30, 35, 42, 70, 105, 210.
+- Divisors \( \geq 15 \): 15, 21, 30, 35, 42, 70, 105, 210. 8 divisors.
+
+Still less.
+
+\( m = 240 \) has 10 divisors, which is the first \( m \) where the number of divisors in that range is at least 10. So, \( b = 241 \) will have 10 \( b \)-eautiful numbers.
+
+But wait, earlier when \( m = 240 \), the number of \( b \)-eautiful numbers is 10, but \( m = 240 \) is \( b - 1 = 240 \), so \( b = 241 \).
+
+But is 241 the minimal \( b \)? Let's check if a smaller \( m \) could have 10 divisors in that range.
+
+Wait, \( m = 240 \) is 240, but what about \( m = 180 \) has 9, \( m = 210 \) has 8, \( m = 224 \):
+
+- \( m = 224 \). \( \sqrt{224 + 1} = \sqrt{225} = 15 \).
+- Divisors of 224 in \( [15, 224] \).
+- Divisors of 224: 1, 2, 4, 7, 8, 14, 16, 28, 32, 56, 112, 224.
+- Divisors \( \geq 15 \): 16, 28, 32, 56, 112, 224. 6 divisors.
+
+Not enough.
+
+\( m = 240 \) is 240, which is the first with 10 divisors.
+
+Wait, but perhaps \( m = 360 \), but 360 is bigger. So, 240 is smaller.
+
+Wait, but let me check the exact count for \( m = 240 \):
+
+Divisors of 240: 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 16, 20, 24, 30, 40, 48, 60, 80, 120, 240.
+
+Divisors \( \geq 16 \): 16, 20, 24, 30, 40, 48, 60, 80, 120, 240. That is 10 divisors. So, 10.
+
+Therefore, \( m = 240 \) is the smallest \( m \) where the number of divisors in \( [\sqrt{m + 1}, m] \) is 10.
+
+Therefore, the corresponding \( b = m + 1 = 241 \).
+
+But wait, \( m = 120 \):
+
+- \( m = 120 \). \( \sqrt{120 + 1} = \sqrt{121} = 11 \).
+- Divisors of 120 in \( [11, 120] \).
+- Divisors of 120: 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 24, 30, 40, 60, 120.
+- Divisors \( \geq 11 \): 12, 15, 20, 24, 30, 40, 60, 120. That's 8.
+
+Still less.
+
+\( m = 180 \): 8.
+
+\( m = 240 \): 10.
+
+So, 240 is the minimal \( m \). Therefore, \( b = 241 \).
+
+But wait, before finalizing, let me check \( m = 360 \):
+
+Wait, 240 is smaller than 360, so 240 is the minimal.
+
+But wait, let me check \( m = 126 \):
+
+- \( m = 126 \). \( \sqrt{126 + 1} = \sqrt{127} \approx 11.27 \).
+- Divisors of 126: 1, 2, 3, 6, 7, 9, 14, 18, 21, 42, 63, 126.
+- Divisors \( \geq 12 \): 14, 18, 21, 42, 63, 126. 6 divisors.
+
+Nope.
+
+Wait, what about \( m = 210 \):
+
+- \( m = 210 \). \( \sqrt{211} \approx 14.52 \).
+- Divisors of 210: 1, 2, 3, 5, 6, 7, 10, 14, 15, 21, 30, 35, 42, 70, 105, 210.
+- Divisors \( \geq 15 \): 15, 21, 30, 35, 42, 70, 105, 210. 8 divisors.
+
+Still less.
+
+So, it seems \( m = 240 \) is indeed the minimal \( m \) with 10 divisors in the upper half, which gives \( b = 241 \).
+
+But I should check \( m = 180 \) again. Wait, \( m = 180 \) had 9 divisors. So, 240 is the first with 10.
+
+But let me check \( m = 210 \):
+
+Wait, 210 is 2 × 3 × 5 × 7. So, divisors: 1, 2, 3, 5, 6, 7, 10, 14, 15, 21, 30, 35, 42, 70, 105, 210.
+
+Divisors ≥ sqrt(210 + 1) ≈14.52: 15, 21, 30, 35, 42, 70, 105, 210. So, 8 divisors. So, 210 is not enough.
+
+Wait, so perhaps \( m = 240 \) is the minimal.
+
+So, with \( b = 241 \), \( m = 240 \), which has 10 divisors in the upper half, so 10 \( b \)-eautiful numbers.
+
+But the question is, is 241 the minimal \( b \) with 10 \( b \)-eautiful numbers?
+
+Wait, perhaps there is a smaller \( m \) with more than 10 divisors in the range. Let me check \( m = 360 \) is too big, but 240 is 240, which is 240.
+
+Wait, what about \( m = 360 \):
+
+- \( m = 360 \). \( \sqrt{361} = 19 \).
+- Divisors: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360.
+- Divisors \( \geq 19 \): 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360. 12 divisors.
+
+So, 12, which is more than 10. So, \( b = 361 \) would have 12 \( b \)-eautiful numbers. But since 241 is smaller, it is better.
+
+Wait, but is 240 the minimal \( m \) where \( m \) has 10 divisors in the upper half? Let me check \( m = 240 \) and smaller.
+
+Wait, \( m = 180 \) had 9, \( m = 210 \) had 8, \( m = 240 \) had 10. So, 240 is the first with 10.
+
+Hence, the minimal \( b \) is 241.
+
+But wait, I'm not sure. Maybe \( m = 360 \) is the first with 12, but 240 is earlier with 10.
+
+Alternatively, perhaps \( m = 120 \) is too low, \( m = 180 \) is 9, \( m = 240 \) is 10. So, 240 is the minimal.
+
+Therefore, \( b = 241 \) is the minimal \( b \) with 10 \( b \)-eautiful numbers.
+
+Wait, but let me confirm with \( m = 180 \), \( b = 181 \):
+
+- \( m = 180 \). \( \sqrt{181} \approx 13.45 \).
+- Divisors of 180 ≥14: 15, 18, 20, 30, 36, 45, 60, 90, 180. That's 9.
+- So, 9.
+
+\( m = 240 \): 10.
+
+Therefore, \( m = 240 \), \( b = 241 \) is the minimal \( b \) with 10 \( b \)-eautiful numbers.
+
+But wait, the problem says to find the least integer \( b > 2 \) such that \( b \) has at least 10 \( b \)-eautiful numbers.
+
+So, is 241 the answer? It seems so.
+
+Wait, but wait, I think I might have made a mistake.
+
+Wait, in our analysis, for each \( m \), the number of \( b \)-eautiful numbers is equal to the number of divisors \( s \) of \( m \) in \( [\sqrt{m + 1}, m] \). So, if \( m = 240 \), \( b = 241 \), we have 10 such \( s \).
+
+But, is there a smaller \( m \) with 10 divisors in that range?
+
+Wait, \( m = 240 \) is the minimal \( m \) such that \( d(m, [\sqrt{m + 1}, m]) \geq 10 \).
+
+But perhaps, \( m = 360 \) is also such, but it's larger. So, 240 is the minimal.
+
+Therefore, the minimal \( b = 241 \).
+
+But let me check an earlier step. When \( m = 240 \), \( b = 241 \), but perhaps \( b = 121 \) for \( m = 120 \).
+
+Wait, \( m = 120 \), \( b = 121 \):
+
+- \( m = 120 \). \( \sqrt{121} = 11 \).
+- Divisors of 120 ≥11: 12, 15, 20, 24, 30, 40, 60, 120. 8 divisors.
+
+So, 8.
+
+Wait, 8 is less than 10.
+
+What about \( m = 180 \):
+
+- \( m = 180 \). \( \sqrt{181} \approx 13.45 \).
+- Divisors ≥14: 15, 18, 20, 30, 36, 45, 60, 90, 180. 9.
+
+Nope.
+
+\( m = 240 \):
+
+- \( \sqrt{241} \approx 15.52 \).
+- Divisors ≥16: 16, 20, 24, 30, 40, 48, 60, 80, 120, 240. 10.
+
+So, 10.
+
+Thus, 240 is the minimal \( m \) with 10 divisors in the upper range, thus \( b = 241 \).
+
+But, wait, I feel like 241 is the minimal \( b \), but in the problem statement, the user says "the least integer \( b > 2 \)".
+
+Wait, perhaps my logic is wrong because in the case of \( b = 121 \), \( m = 120 \), but 120's number of divisors in the upper range is 8, which is less than 10.
+
+Wait, perhaps I made a miscalculation earlier.
+
+Wait, to check if 241 is indeed the minimal \( b \), let me check \( b = 121 \) up to \( b = 240 \) to see if any of them have 10 \( b \)-eautiful numbers.
+
+Wait, take \( b = 121 \), \( m = 120 \), which had 8.
+
+\( b = 144 \), \( m = 143 \):
+
+- \( m = 143 \). \( \sqrt{144} = 12 \).
+- Divisors of 143: 1, 11, 13, 143.
+- Divisors ≥12: 13, 143. 2.
+
+Nope.
+
+\( b = 169 \), \( m = 168 \):
+
+- \( m = 168 \). \( \sqrt{169} = 13 \).
+- Divisors of 168 ≥13: 14, 21, 24, 28, 42, 56, 84, 168. 8.
+
+Nope.
+
+\( b = 196 \), \( m = 195 \):
+
+- \( m = 195 \). \( \sqrt{196} = 14 \).
+- Divisors of 195 ≥14: 15, 21, 35, 63, 91, 195. 6.
+
+Nope.
+
+\( b = 225 \), \( m = 224 \):
+
+- \( m = 224 \). \( \sqrt{225} = 15 \).
+- Divisors of 224 ≥15: 16, 20, 28, 32, 56, 112, 224. 7.
+
+Nope.
+
+\( b = 256 \), \( m = 255 \):
+
+- \( m = 255 \). \( \sqrt{256} = 16 \).
+- Divisors of 255 ≥16: 17, 51, 85, 255. 4.
+
+Nope.
+
+\( b = 289 \), \( m = 288 \):
+
+- \( m = 288 \). \( \sqrt{289} = 17 \).
+- Divisors of 288 ≥17: 18, 24, 32, 36, 48, 72, 96, 144, 288. 9.
+
+Close, but still 9.
+
+\( b = 324 \), \( m = 323 \):
+
+- \( m = 323 \). \( \sqrt{324} = 18 \).
+- Divisors of 323: 1, 17, 19, 323.
+- Divisors ≥18: 19, 323. 2.
+
+Nope.
+
+\( b = 361 \), \( m = 360 \):
+
+- \( m = 360 \). \( \sqrt{361} = 19 \).
+- Divisors of 360 ≥19: 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360. 12.
+
+So, 12.
+
+So, between \( b = 361 \) and \( b = 241 \), 241 is the first with 10 \( b \)-eautiful numbers.
+
+Wait, but \( b = 241 \), \( m = 240 \), so the \( b \)-eautiful numbers are 24, 32, 40, 48, 60, 80, 96, 120, 160, 192, 240. But wait, 11 numbers. Wait, no.
+
+Wait, hold on, in \( m = 240 \), the divisors \( s \) are 16, 20, 24, 30, 40, 48, 60, 80, 120, 240. So, 10 divisors.
+
+Wait, 16, 20, 24, 30, 40, 48, 60, 80, 120, 240. So, 10 numbers.
+
+Therefore, \( b = 241 \) has 10 \( b \)-eautiful numbers.
+
+But is 241 the minimal \( b \)?
+
+Because when \( m = 240 \), which makes \( b = 241 \), which is the first \( m \) where we get 10.
+
+So, unless there is a smaller \( m \) with 10 divisors in the upper range, which I don't think exists, 241 is the answer.
+
+Wait, but let me check \( m = 180 \):
+
+- \( m = 180 \). \( \sqrt{181} \approx 13.45 \).
+- Divisors of 180 ≥14: 15, 18, 20, 30, 36, 45, 60, 90, 180. 9.
+
+So, 9.
+
+\( m = 240 \) is the first with 10.
+
+Therefore, 241 is the minimal \( b \).
+
+Wait, but wait, the problem says "the least integer \( b > 2 \) such that there are at least 10 \( b \)-eautiful numbers in base \( b \)."
+
+So, \( b = 241 \) is the minimal \( b \) such that \( m = 240 \) has 10 \( b \)-eautiful numbers.
+
+But is 241 the minimal \( b \)?
+
+Wait, if \( m = 240 \) is the minimal \( m \) with 10 \( b \)-eautiful numbers, then yes, \( b = 241 \) is the minimal \( b \).
+
+But 241 seems quite high. Maybe I made a miscalculation.
+
+Wait, let me see.
+
+Wait, perhaps I can check smaller \( b \)'s.
+
+For example, \( b = 120 \), \( m = 119 \). \( m = 119 \) has divisors 1, 7, 17, 119. Divisors ≥10.95: 17, 119. So, 2.
+
+\( b = 121 \), \( m = 120 \). 8.
+
+\( b = 122 \), \( m = 121 \). Divisors: 1, 11, 121. So, 2.
+
+\( b = 123 \), \( m = 122 \). Divisors: 1, 2, 61, 122. 2.
+
+\( b = 124 \), \( m = 123 \). Divisors: 1, 3, 41, 123. 2.
+
+\( b = 125 \), \( m = 124 \). Divisors: 1, 2, 4, 31, 62, 124. So, 4.
+
+\( b = 126 \), \( m = 125 \). Divisors: 1, 5, 25, 125. 2.
+
+\( b = 127 \), \( m = 126 \). Divisors of 126 in [11.5, 126]:
+
+126 has divisors: 1, 2, 3, 6, 7, 9, 14, 18, 21, 42, 63, 126.
+
+Divisors ≥11.5: 14, 18, 21, 42, 63, 126. 6.
+
+\( b = 128 \), \( m = 127 \). Prime, so 2.
+
+\( b = 129 \), \( m = 128 \). Divisors: 1, 2, 4, 8, 16, 32, 64, 128. Divisors ≥11.5: 16, 32, 64, 128. 4.
+
+\( b = 130 \), \( m = 129 \). Divisors: 1, 3, 43, 129. 2.
+
+\( b = 131 \), \( m = 130 \). Divisors: 1, 2, 5, 10, 13, 26, 65, 130. Divisors ≥11.5: 13, 26, 65, 130. 4.
+
+\( b = 132 \), \( m = 131 \). Prime, so 2.
+
+\( b = 133 \), \( m = 132 \). Divisors: 1, 2, 3, 4, 6, 11, 12, 22, 33, 44, 66, 132. Divisors ≥11.5: 11, 12, 22, 33, 44, 66, 132. 7.
+
+So, 7.
+
+\( b = 134 \), \( m = 133 \). Prime, 2.
+
+\( b = 135 \), \( m = 134 \). Divisors: 1, 2, 67, 134. Divisors ≥11.7: 67, 134. 2.
+
+\( b = 136 \), \( m = 135 \). Divisors of 135: 1, 3, 5, 9, 15, 27, 45, 135. Divisors ≥11.7: 15, 27, 45, 135. 4.
+
+\( b = 137 \), \( m = 136 \). Divisors: 1, 2, 4, 8, 17, 34, 68, 136. Divisors ≥11.8: 17, 34, 68, 136. 4.
+
+\( b = 138 \), \( m = 137 \). Prime, 2.
+
+\( b = 139 \), \( m = 138 \). Divisors: 1, 2, 3, 6, 23, 46, 69, 138. Divisors ≥11.9: 23, 46, 69, 138. 4.
+
+\( b = 140 \), \( m = 139 \). Prime, 2.
+
+\( b = 141 \), \( m = 140 \). Divisors: 1, 2, 4, 5, 7, 10, 14, 20, 28, 35, 70, 140. Divisors ≥11.95: 14, 20, 28, 35, 70, 140. 6.
+
+\( b = 142 \), \( m = 141 \). Divisors: 1, 3, 47, 141. Divisors ≥12.05: 47, 141. 2.
+
+\( b = 143 \), \( m = 142 \). Divisors: 1, 2, 71, 142. Divisors ≥12.05: 71, 142. 2.
+
+\( b = 144 \), \( m = 143 \). Divisors: 1, 11, 13, 143. Divisors ≥12.05: 11 is 11 <12.05, so 13, 143. 2.
+
+\( b = 145 \), \( m = 144 \). Divisors of 144: 1, 2, 3, 4, 6, 8, 9, 12, 16, 18, 24, 36, 48, 72, 144.
+
+Divisors ≥12.08: 16, 18, 24, 36, 48, 72, 144. 7.
+
+\( b = 146 \), \( m = 145 \). Prime, 2.
+
+\( b = 147 \), \( m = 146 \). Divisors: 1, 2, 73, 146. Divisors ≥12.1: 73, 146. 2.
+
+\( b = 148 \), \( m = 147 \). Divisors: 1, 3, 49, 147. Divisors ≥12.2: 49, 147. 2.
+
+\( b = 149 \), \( m = 148 \). Divisors: 1, 2, 4, 37, 74, 148. Divisors ≥12.45: 37, 74, 148. 3.
+
+\( b = 150 \), \( m = 149 \). Prime, 2.
+
+\( b = 151 \), \( m = 150 \). Divisors of 150: 1, 2, 3, 5, 6, 10, 15, 25, 30, 50, 75, 150.
+
+Divisors ≥12.2: 15, 25, 30, 50, 75, 150. 6.
+
+\( b = 152 \), \( m = 151 \). Prime, 2.
+
+\( b = 153 \), \( m = 152 \). Divisors: 1, 2, 4, 19, 38, 76, 152. Divisors ≥12.3: 19, 38, 76, 152. 4.
+
+\( b = 154 \), \( m = 153 \). Divisors: 1, 3, 9, 17, 51, 153. Divisors ≥12.7: 17, 51, 153. 3.
+
+\( b = 155 \), \( m = 154 \). Divisors: 1, 2, 7, 11, 14, 22, 77, 154. Divisors ≥12.7: 14, 22, 77, 154. 4.
+
+\( b = 156 \), \( m = 155 \). Divisors: 1, 5, 31, 155. Divisors ≥12.8: 31, 155. 2.
+
+\( b = 157 \), \( m = 156 \). Divisors of 156: 1, 2, 3, 4, 6, 12, 13, 26, 39, 52, 78, 156.
+
+Divisors ≥13: 13, 26, 39, 52, 78, 156. 6.
+
+\( b = 158 \), \( m = 157 \). Prime, 2.
+
+\( b = 159 \), \( m = 158 \). Divisors: 1, 2, 79, 158. Divisors ≥13.9: 79, 158. 2.
+
+\( b = 160 \), \( m = 159 \). Divisors: 1, 3, 53, 159. Divisors ≥13.0: 53, 159. 2.
+
+\( b = 161 \), \( m = 160 \). Divisors: 1, 2, 4, 5, 7, 8, 10, 16, 20, 32, 40, 80, 160.
+
+Divisors ≥13: 16, 20, 32, 40, 80, 160. 6.
+
+\( b = 162 \), \( m = 161 \). Divisors: 1, 7, 23, 161. Divisors ≥13.1: 23, 161. 2.
+
+\( b = 163 \), \( m = 162 \). Divisors: 1, 2, 3, 6, 9, 18, 27, 54, 81, 162. Divisors ≥13.15: 27, 54, 81, 162. 4.
+
+\( b = 164 \), \( m = 163 \). Prime, 2.
+
+\( b = 165 \), \( m = 164 \). Divisors: 1, 2, 4, 41, 82, 164. Divisors ≥13.2: 41, 82, 164. 3.
+
+\( b = 166 \), \( m = 165 \). Divisors: 1, 3, 5, 11, 15, 33, 55, 165. Divisors ≥13.3: 15, 33, 55, 165. 4.
+
+\( b = 167 \), \( m = 166 \). Divisors: 1, 2, 83, 166. Divisors ≥13.4: 83, 166. 2.
+
+\( b = 168 \), \( m = 167 \). Prime, 2.
+
+\( b = 169 \), \( m = 168 \). Divisors: 1, 2, 3, 4, 6, 7, 8, 12, 14, 21, 24, 28, 42, 56, 84, 168.
+
+Divisors ≥13.45: 14, 21, 24, 28, 42, 56, 84, 168. 8.
+
+\( b = 170 \), \( m = 169 \). Divisors: 1, 13, 169. Divisors ≥13.5: 13, 169. 2.
+
+\( b = 171 \), \( m = 170 \). Divisors: 1, 2, 5, 10, 17, 34, 85, 170. Divisors ≥13.5: 17, 34, 85, 170. 4.
+
+\( b = 172 \), \( m = 171 \). Divisors: 1, 3, 9, 19, 57, 171. Divisors ≥13.6: 19, 57, 171. 3.
+
+\( b = 173 \), \( m = 172 \). Divisors: 1, 2, 43, 86, 172. Divisors ≥13.65: 43, 86, 172. 3.
+
+\( b = 174 \), \( m = 173 \). Prime, 2.
+
+\( b = 175 \), \( m = 174 \). Divisors: 1, 2, 3, 6, 9, 18, 29, 58, 87, 174. Divisors ≥13.75: 18, 29, 58, 87, 174. 5.
+
+\( b = 176 \), \( m = 175 \). Divisors: 1, 5, 7, 11, 25, 35, 55, 77, 175. Divisors ≥13.8: 25, 35, 55, 77, 175. 5.
+
+\( b = 177 \), \( m = 176 \). Divisors: 1, 2, 4, 11, 16, 22, 44, 88, 176. Divisors ≥13.9: 16, 22, 44, 88, 176. 5.
+
+\( b = 178 \), \( m = 177 \). Divisors: 1, 2, 3, 6, 29, 58, 87, 174, 261, 522. Divisors ≥14: 29, 58, 87, 174, 261, 522. 6.
+
+\( b = 179 \), \( m = 178 \). Prime, 2.
+
+\( b = 180 \), \( m = 179 \). Prime, 2.
+
+\( b = 181 \), \( m = 180 \). Divisors: 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180. Divisors ≥14.5: 15, 18, 20, 30, 36, 45, 60, 90, 180. 9.
+
+\( b = 182 \), \( m = 181 \). Prime, 2.
+
+\( b = 183 \), \( m = 182 \). Divisors: 1, 3, 61, 182. Divisors ≥14.5: 61, 182. 2.
+
+\( b = 184 \), \( m = 183 \). Divisors: 1, 2, 4, 8, 23, 46, 92, 184. Divisors ≥14.5: 23, 46, 92, 184. 4.
+
+\( b = 185 \), \( m = 184 \). Divisors: 1, 5, 37, 185. Divisors ≥14.5: 37, 185. 2.
+
+\( b = 186 \), \( m = 185 \). Divisors: 1, 2, 5, 6, 10, 19, 30, 38, 95, 190. Divisors ≥14.5: 19, 30, 38, 95, 190. 5.
+
+\( b = 187 \), \( m = 186 \). Divisors: 1, 2, 3, 6, 31, 62, 93, 186. Divisors ≥14.5: 31, 62, 93, 186. 4.
+
+\( b = 188 \), \( m = 187 \). Divisors: 1, 2, 4, 8, 23, 46, 92, 184, 211, 422, 844, 1688. Divisors ≥14.9: 23, 46, 92, 184, 211, 422, 844, 1688. 8.
+
+\( b = 189 \), \( m = 188 \). Divisors: 1, 2, 4, 7, 9, 14, 18, 21, 28, 36, 49, 63, 98, 126, 189. Divisors ≥15.45: 18, 21, 28, 36, 49, 63, 98, 126, 189. 9.
+
+\( b = 190 \), \( m = 189 \). Divisors: 1, 3, 5, 7, 9, 15, 21, 27, 35, 45, 63, 105, 189. Divisors ≥15.5: 21, 27, 35, 45, 63, 105, 189. 7.
+
+\( b = 191 \), \( m = 190 \). Divisors: 1, 2, 5, 10, 19, 38, 95, 190. Divisors ≥15.5: 19, 38, 95, 190. 4.
+
+\( b = 192 \), \( m = 191 \). Prime, 2.
+
+\( b = 193 \), \( m = 192 \). Divisors: 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 192. Divisors ≥15.5: 16, 24, 32, 48, 64, 96, 192. 7.
+
+\( b = 194 \), \( m = 193 \). Prime, 2.
+
+\( b = 
